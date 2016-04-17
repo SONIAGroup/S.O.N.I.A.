@@ -87,7 +87,6 @@ rule "Resaludar"
      retract(notif);
 end
 
-
 rule "Regla de solicitar nombre"
  when
  	
@@ -128,13 +127,11 @@ rule "Regla de obtencion del nombre"
    	retract(notif);
 end
 
-
 rule "Regla de solicitud del identificador del grupo"
  when
  	fc:FocoUsuario(fcuser:usuario , foco == null)
  	obj:IdentificarUsuario(state == Objetivo.PENDING ,objectReferenceId == fcuser )
  	not( exists (ObtenerIDGrupo(objectReferenceId == fcuser)))
- 	cu:UsuarioContexto(usuario == fcuser)
  then
 
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
@@ -143,29 +140,25 @@ rule "Regla de solicitud del identificador del grupo"
 	insert(ob);
 	fc.setFoco(ob);
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  	if(cu.getNombre() == null){
-  	   tarea.ejecutar(fcuser, conversacion.msg("peticionIDGrupo"));	
-  	}else{
-  	   tarea.ejecutar(fcuser, cu.getNombre()+ ", " + conversacion.msg("solicitarIDGrupo"));
-  	}
+  	tarea.ejecutar(fcuser, conversacion.msg("peticionIDGrupo"));	
   
-   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   update(obj);
-   update(fc);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    update(obj);
+    update(fc);
 end
 
 rule "Regla de obtencion del identificador del grupo"
  when
  	obj:ObtenerIDGrupo(user:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoUsuario(usuario == user, foco == obj )
-    notif:Notificacion(identNotificador == user, tipoNotificacion == tipoNotif.dni, msgg:mensajeNotificacion )
+    notif:Notificacion(identNotificador == user, tipoNotificacion == tipoNotif.idgrupo, msgg:mensajeNotificacion )
     cu:UsuarioContexto(usuario == user)
  then
  	obj.setSolved();
- 	cu.setDNI(msgg);
+ 	cu.setIdGrupo(msgg);
  	cu.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(SolicitarIDGrupo.class);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarIDGrupo.class);
     tarea.ejecutar(user,cu);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	

@@ -36,9 +36,9 @@ public class UsuarioIdentificado extends TareaSincrona {
 			// interfaces
 			ItfPersistenciaUsuarios persistencia = (ItfPersistenciaUsuarios) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoPersistenciaUsuario);
-			UsuarioContexto ncu = persistencia.obtenerContextoUsuarioDNI(cu
-					.getDNI());
-			persistencia.insertarUsuario(cu.getDNI(),cu);
+			UsuarioContexto ncu = persistencia.obtenerContextoUsuarioIdGrupo(cu
+					.getIdGrupo());
+			persistencia.insertarUsuario(cu.getIdGrupo(),cu);
 		
 
 		} catch (Exception e) {

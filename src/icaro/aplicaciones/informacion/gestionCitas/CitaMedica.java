@@ -27,7 +27,7 @@ public class CitaMedica implements Serializable {
 	public CitaMedica(String usuario, String nombreMedico, String fecha) {
 		this.usuario = usuario;
 		this.nombrePaciente = PersistenciaUsuariosImp.obtenerContextoUsuario(usuario).getNombre();
-		this.dniPaciente = PersistenciaUsuariosImp.obtenerContextoUsuario(usuario).getDNI();
+		this.dniPaciente = PersistenciaUsuariosImp.obtenerContextoUsuario(usuario).getIdGrupo();
 		this.nombreMedico = nombreMedico;
 		this.fecha = fecha;
 	}

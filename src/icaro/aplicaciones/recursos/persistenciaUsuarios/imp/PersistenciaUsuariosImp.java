@@ -28,9 +28,9 @@ public class PersistenciaUsuariosImp implements Serializable {
 
 	}
 	
-	public static UsuarioContexto obtenerContextoUsuarioDNI(String dni) {
+	public static UsuarioContexto obtenerContextoUsuarioIdGrupo(String id) {
 		for(UsuarioContexto valores : tablaChatNombre.values()){
-			if(valores.getDNI().equals(dni)){
+			if(valores.getIdGrupo().equals(id)){
 				return valores;
 			}
 		}

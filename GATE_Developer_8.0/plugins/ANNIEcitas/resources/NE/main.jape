@@ -18,6 +18,7 @@ Phases:
 saludo
 peticionCita
 identificacionDNI
+identificacionGrupo
 identificacionFecha
 identificacionMedicoIndeterminado
 numberletter 

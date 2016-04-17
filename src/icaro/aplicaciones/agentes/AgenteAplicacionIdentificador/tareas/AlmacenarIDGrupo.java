@@ -20,7 +20,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
  *
  * @author Francisco J Garijo
  */
-public class SolicitarIDGrupo extends TareaSincrona {
+public class AlmacenarIDGrupo extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
 
 	@Override
@@ -40,8 +40,8 @@ public class SolicitarIDGrupo extends TareaSincrona {
 
 			ItfPersistenciaUsuarios persistencia = (ItfPersistenciaUsuarios) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoPersistenciaUsuario);
-			UsuarioContexto ncu = persistencia.obtenerContextoUsuarioDNI(cu
-					.getDNI());
+			UsuarioContexto ncu = persistencia.obtenerContextoUsuarioIdGrupo(cu
+					.getIdGrupo());
 			if (ncu != null) {
 				cu.setNombre(ncu.getNombre());
 				

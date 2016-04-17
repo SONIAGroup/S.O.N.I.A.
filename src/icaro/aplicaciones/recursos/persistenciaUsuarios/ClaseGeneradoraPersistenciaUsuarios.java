@@ -32,9 +32,9 @@ public class ClaseGeneradoraPersistenciaUsuarios extends ImplRecursoSimple
 	}
 	
 	@Override
-	public UsuarioContexto obtenerContextoUsuarioDNI(String dni)
+	public UsuarioContexto obtenerContextoUsuarioIdGrupo(String id)
 			throws Exception {
-		return PersistenciaUsuariosImp.obtenerContextoUsuario(dni);
+		return PersistenciaUsuariosImp.obtenerContextoUsuario(id);
 	}
 
 }

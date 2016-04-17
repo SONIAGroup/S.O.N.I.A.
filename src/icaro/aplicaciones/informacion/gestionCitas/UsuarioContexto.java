@@ -8,7 +8,7 @@ public class UsuarioContexto implements Serializable {
 
 	public String usuario;
 	public String nombre;
-	public String DNI;
+	public String idGrupo;
 	public boolean medico;
 	public long tiempo;
 
@@ -36,12 +36,12 @@ public class UsuarioContexto implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getDNI() {
-		return DNI;
+	public String getIdGrupo() {
+		return idGrupo;
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
+	public void setIdGrupo(String id) {
+		idGrupo = id;
 	}
 
 	public boolean isMedico() {

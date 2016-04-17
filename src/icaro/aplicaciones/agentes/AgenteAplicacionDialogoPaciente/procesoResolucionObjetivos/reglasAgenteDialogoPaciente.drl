@@ -97,7 +97,7 @@ end
 
 rule "Notificar semantica incorrecta: pidiendo datos"
  when
- 	notif:NotificacionPaciente(identInterlc:identNotificador, tipoNotificacion == tipoNotif.dni
+ 	notif:NotificacionPaciente(identInterlc:identNotificador, tipoNotificacion == tipoNotif.idgrupo
  	|| tipoNotificacion == tipoNotifPaciente.si || tipoNotificacion == tipoNotifPaciente.no );
  	obj:CrearCita(state == Objetivo.PENDING, objectReferenceId == identInterlc)
 	fu:FocoUsuario(usuario == identInterlc, foco == obj)
@@ -239,7 +239,7 @@ end
 
 rule "Notificar semantica incorrecta: confirmando"
  when
- 	notif:NotificacionPaciente(identInterlc:identNotificador, tipoNotificacion == tipoNotif.dni
+ 	notif:NotificacionPaciente(identInterlc:identNotificador, tipoNotificacion == tipoNotif.idgrupo
  	|| tipoNotificacion == tipoNotifPaciente.nombre || tipoNotificacion == tipoNotifPaciente.fecha );
  	obj:CrearCita(state == Objetivo.SOLVING, objectReferenceId == identInterlc)
 	fu:FocoUsuario(usuario == identInterlc, foco == obj)
@@ -281,7 +281,7 @@ rule "Establecer cita"
     tareadist2.ejecutar(identInterlc,null,"RESET"); 
  	
  	fu.setFoco(null);
- 	cm.dniPaciente = cu.DNI;
+ 	cm.dniPaciente = cu.idGrupo;
  	cm.nombrePaciente = cu.nombre;
  	
  	// AQUI LLAMAREMOS AL RECURSO DE CALENDARIO Y ALMACENAMOS TODO
@@ -468,7 +468,6 @@ rule "Regla de solicitud del identificador del grupo"
  	fc:FocoUsuario(fcuser:usuario , foco == null)
  	obj:IdentificarUsuario(state == Objetivo.PENDING ,objectReferenceId == fcuser )
  	not( exists (ObtenerIDGrupo(objectReferenceId == fcuser)))
- 	cu:UsuarioContexto(usuario == fcuser)
  then
 
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
@@ -477,29 +476,25 @@ rule "Regla de solicitud del identificador del grupo"
 	insert(ob);
 	fc.setFoco(ob);
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  	if(cu.getNombre() == null){
-  	   tarea.ejecutar(fcuser, conversacion.msg("peticionIDGrupo"));	
-  	}else{
-  	   tarea.ejecutar(fcuser, cu.getNombre()+ ", " + conversacion.msg("solicitarIDGrupo"));
-  	}
+  	tarea.ejecutar(fcuser, conversacion.msg("peticionIDGrupo"));
   
-   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   update(obj);
-   update(fc);
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    update(obj);
+    update(fc);
 end
 
 rule "Regla de obtencion del identificador del grupo"
  when
  	obj:ObtenerIDGrupo(user:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoUsuario(usuario == user, foco == obj )
-    notif:NotificacionPaciente(identNotificador == user, tipoNotificacion == tipoNotif.dni, msgg:mensajeNotificacion )
+    notif:NotificacionPaciente(identNotificador == user, tipoNotificacion == tipoNotif.idgrupo, msgg:mensajeNotificacion )
     cu:UsuarioContexto(usuario == user)
  then
  	obj.setSolved();
- 	cu.setDNI(msgg);
+ 	cu.setIdGrupo(msgg);
  	cu.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(SolicitarIDGrupo.class);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarIDGrupo.class);
     tarea.ejecutar(user,cu);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	

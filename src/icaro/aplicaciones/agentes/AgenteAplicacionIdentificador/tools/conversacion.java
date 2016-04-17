@@ -58,7 +58,7 @@ public class conversacion {
 		inactividad.add("Que sola estoy! Que sola!! Decidme algo ;(");
 		inactividad.add("Contestadme ya pesaos!!");
 		inactividad.add("Soy una chica muy ocupada, no puedo estar esperandoos eternamente!!");
-		inactividad.add("Como no me contesteis ya os apago el PC! Que a parte de organizar quedadas tambien soy una chica hacker :P");
+		inactividad.add("Como no me contesteis ya mismo os apago el PC! Que a parte de organizar quedadas tambien soy una chica hacker :P");
 		
 		List<String> usuarioRegistrado = new ArrayList<String>();
 		usuarioRegistrado.add("Andaaa pero si ya os tenia registrados, tengo memoria pez disculpadme :(");
