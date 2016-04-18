@@ -11,17 +11,21 @@ import java.io.Serializable;
 public class Grupo implements Serializable {
 
 
-	private static final long serialVersionUID = -5021477443477477720L;
+	private static final long serialVersionUID = -7723600137719912487L;
+	public String grupo;
 	private String id;
 	private int numIntegrantes;
 	private Sexo sexo;
 	private double edad;
+	private long tiempo;
 	
 	public Grupo() {
+		this.grupo 			= null;
 		this.id 			= null;
 		this.numIntegrantes = 0;
 		this.sexo 			= null;
 		this.edad 			= 0;
+		tiempo = System.currentTimeMillis();
 	}
 	
 	public Grupo(String id, int numIntegrantes, Sexo sexo, double edad) {
@@ -30,8 +34,10 @@ public class Grupo implements Serializable {
 		this.numIntegrantes = numIntegrantes;
 		this.sexo = sexo;
 		this.edad = edad;
+		tiempo = System.currentTimeMillis();
 	}
 
+	
 	public String getId() {
 		return id;
 	}
@@ -56,12 +62,21 @@ public class Grupo implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public double getEdad() {
-		return edad;
+	public String getEdad() {
+		return "" + edad;
 	}
 
-	public void setEdad(double edad) {
-		this.edad = edad;
+	public void setEdad(String edad) {
+		this.edad = Float.parseFloat(edad);
+	}
+	
+	public void actividad() {
+		tiempo = System.currentTimeMillis();
+	}
+	
+	public boolean inactividad(int i) {
+		long tim = ((System.currentTimeMillis() - tiempo) / 1000) / 60;
+		return tim >= i;
 	}
 
 	@Override

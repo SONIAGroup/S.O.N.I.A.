@@ -50,9 +50,18 @@ public class conversacion {
 		obtencionNombre.add("Muchas gracias, ");
 		obtencionNombre.add("Esta todo listo, ");
 		
-		List<String> obtencionIDGrupo = new ArrayList<String>();
-		obtencionIDGrupo.add("Genial! Me acordare a partir de ahora de vosotros cuando volvais por aqui ;)");
-		obtencionIDGrupo.add("Vaya identificador de grupo mas feo teneis no? Jajjaj es broma!");
+		List<String> confirmarIDGrupo = new ArrayList<String>();
+		confirmarIDGrupo.add("Genial! Me acordare a partir de ahora de vosotros cuando volvais por aqui ;)");
+		confirmarIDGrupo.add("Vaya identificador de grupo mas feo teneis no? Jajjaj es broma!");
+		
+		List<String> confirmarEdad = new ArrayList<String>();
+		confirmarEdad.add("ok edad");
+		
+		List<String> confirmarNumIntegrantes = new ArrayList<String>();
+		confirmarNumIntegrantes.add("ok num integr");
+		
+		List<String> confirmarSexo = new ArrayList<String>();
+		confirmarSexo.add("ok sexo");
 		
 		List<String> inactividad = new ArrayList<String>();
 		inactividad.add("Que sola estoy! Que sola!! Decidme algo ;(");
@@ -60,15 +69,15 @@ public class conversacion {
 		inactividad.add("Soy una chica muy ocupada, no puedo estar esperandoos eternamente!!");
 		inactividad.add("Como no me contesteis ya mismo os apago el PC! Que a parte de organizar quedadas tambien soy una chica hacker :P");
 		
-		List<String> usuarioRegistrado = new ArrayList<String>();
-		usuarioRegistrado.add("Andaaa pero si ya os tenia registrados, tengo memoria pez disculpadme :(");
-		usuarioRegistrado.add("Ya os tengo localizados! Me alegro que hayais vuelto! Aunque no os he echado de menos ;)");
-		usuarioRegistrado.add("Anda que bien! Si ya os tengo registrados de otra vez. Me alegro de veros!");
+		List<String> grupoRegistrado = new ArrayList<String>();
+		grupoRegistrado.add("Andaaa pero si ya os tenia registrados, tengo memoria pez disculpadme :(");
+		grupoRegistrado.add("Ya os tengo localizados! Me alegro que hayais vuelto! Aunque no os he echado de menos ;)");
+		grupoRegistrado.add("Anda que bien! Si ya os tengo registrados de otra vez. Me alegro de veros!");
 		
-		List<String> usuarionoRegistrado = new ArrayList<String>();
-		usuarionoRegistrado.add("Me encanta que entren a utilizarme grupos nuevos! Necesito saber mas sobre vosotros, veamos...");
-		usuarionoRegistrado.add("Encantada de conoceros! Al ser la primera vez que hablo con vosotros necesito saber algunas cosas. A ver...");
-		usuarionoRegistrado.add("Encantada de conoceros! Tengo que preguntaros algunas cosas, no es que sea cotilla, es que lo necesito para encontraros grupos afines ;)");
+		List<String> grupoNoRegistrado = new ArrayList<String>();
+		grupoNoRegistrado.add("Me encanta que entren a utilizarme grupos nuevos! Necesito saber mas sobre vosotros, veamos...");
+		grupoNoRegistrado.add("Encantada de conoceros! Al ser la primera vez que hablo con vosotros necesito saber algunas cosas. A ver...");
+		grupoNoRegistrado.add("Encantada de conoceros! Tengo que preguntaros algunas cosas, no es que sea cotilla, es que lo necesito para encontraros grupos afines ;)");
 		
 		List<String> resaludar = new ArrayList<String>();
 		resaludar.add("Jajaja si ya nos hemos saludado antes!");
@@ -108,6 +117,15 @@ public class conversacion {
 		peticionIDGrupoImperativo.add("Vengaaa, dadme vuestro identificador de grupo o inventaros uno!");
 		peticionIDGrupoImperativo.add("Que pesaos!! Quereis darme ya vuestro identificador de grupo?");
 		
+		List<String> peticionEdadImperativo = new ArrayList<String>(); 
+		peticionEdadImperativo.add("dame tu edad ya!!");
+		
+		List<String> peticionNumIntegrantesImperativo = new ArrayList<String>(); 
+		peticionNumIntegrantesImperativo.add("dame tu num integ ya!!");
+		
+		List<String> peticionSexoImperativo = new ArrayList<String>(); 
+		peticionSexoImperativo.add("dame tu sex ya!!");
+		
 		List<String> fechaAnterior = new ArrayList<String>(); 
 		fechaAnterior.add("Disculpe, la fecha en la que quiere la cita es anterior a la fecha actual, introduzca una fecha válida");
 		fechaAnterior.add("Parece que ya ha pasado el día deseado para la cita");
@@ -128,10 +146,13 @@ public class conversacion {
 		conversacion.put("saludoInicialDescortes", saludoInicialDescortes);
 		conversacion.put("solicitarNombre", solicitarNombre);
 		conversacion.put("obtencionNombre", obtencionNombre);
-		conversacion.put("obtencionIDGrupo", obtencionIDGrupo);
+		conversacion.put("confirmarIDGrupo", confirmarIDGrupo);
+		conversacion.put("confirmarEdad", confirmarEdad);
+		conversacion.put("confirmarNumIntegrantes", confirmarNumIntegrantes);
+		conversacion.put("confirmarSexo", confirmarSexo);
 		conversacion.put("inactividad", inactividad);
-		conversacion.put("usuarioRegistrado", usuarioRegistrado);
-		conversacion.put("usuarionoRegistrado", usuarionoRegistrado);
+		conversacion.put("grupoRegistrado", grupoRegistrado);
+		conversacion.put("grupoNoRegistrado", grupoNoRegistrado);
 		conversacion.put("resaludar", resaludar);
 		conversacion.put("sincontexto", sincontexto);
 		conversacion.put("distribucion", distribucion);
@@ -140,6 +161,9 @@ public class conversacion {
 		conversacion.put("peticionIDGrupo", peticionIDGrupo);
 		conversacion.put("solicitarNombreImperativo", solicitarNombreImperativo);
 		conversacion.put("peticionIDGrupoImperativo", peticionIDGrupoImperativo);
+		conversacion.put("peticionEdadImperativo", peticionEdadImperativo);
+		conversacion.put("peticionNumIntegrantesImperativo", peticionNumIntegrantesImperativo);
+		conversacion.put("peticionSexoImperativo", peticionSexoImperativo);
 		conversacion.put("solicitarAccionImperativo", solicitarAccionImperativo);
 		conversacion.put("semanticoErroneo", semanticoErroneo);
 		conversacion.put("fechaAnterior", fechaAnterior);

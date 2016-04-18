@@ -494,7 +494,7 @@ rule "Regla de obtencion del identificador del grupo"
  	cu.setIdGrupo(msgg);
  	cu.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarIDGrupo.class);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ObtenerGrupoDesdePersistencia.class);
     tarea.ejecutar(user,cu);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
