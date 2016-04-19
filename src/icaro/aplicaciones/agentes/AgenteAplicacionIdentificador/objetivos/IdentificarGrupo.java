@@ -18,7 +18,7 @@ public class IdentificarGrupo extends Objetivo {
 
 	/** Crea una nueva instancia de DarAcceso */
 	public IdentificarGrupo() {
-		super.setgoalId("ObtenerIDGrupo");
+		super.setgoalId("IdentificarGrupo");
 	}
 
 }

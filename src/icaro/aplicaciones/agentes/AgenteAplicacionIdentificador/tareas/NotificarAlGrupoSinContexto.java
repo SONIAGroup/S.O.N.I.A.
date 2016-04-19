@@ -31,7 +31,7 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
 			
-			if(foGrupo.intentos < 3){
+			if(foGrupo.intentos < 1){
 				mensajeAenviar = conversacion.msg("sincontexto");
 				foGrupo.intentos = foGrupo.intentos+1;
 			}else{

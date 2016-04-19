@@ -17,6 +17,8 @@ MultiPhase:	TestTheGrammars
 Phases:
 saludo
 peticionCita
+identificacionEdad
+identificacionNumIntegrantes
 identificacionDNI
 identificacionGrupo
 identificacionFecha

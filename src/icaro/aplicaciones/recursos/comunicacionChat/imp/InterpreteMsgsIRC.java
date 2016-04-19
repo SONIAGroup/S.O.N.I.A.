@@ -455,6 +455,8 @@ public class InterpreteMsgsIRC {
 		HashSet anotacionesBusquedaPrueba = new HashSet();
 		anotacionesBusquedaPrueba.add("saludo");
 		anotacionesBusquedaPrueba.add("dni");
+		anotacionesBusquedaPrueba.add("edad");
+		anotacionesBusquedaPrueba.add("numintegrantes");
 		anotacionesBusquedaPrueba.add("idgrupo");
 		anotacionesBusquedaPrueba.add("InicioPeticion");
 		anotacionesBusquedaPrueba.add("Lookup");
@@ -1538,6 +1540,20 @@ public class InterpreteMsgsIRC {
 
 			} else if (anotType.equalsIgnoreCase("idgrupo")&& !anotaciones_leidas.contains("idgrupo")) {
 				anotaciones_leidas.add("idgrupo");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+
+			} else if (anotType.equalsIgnoreCase("edad")&& !anotaciones_leidas.contains("edad")) {
+				anotaciones_leidas.add("edad");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+
+			} else if (anotType.equalsIgnoreCase("numintegrantes")&& !anotaciones_leidas.contains("numintegrantes")) {
+				anotaciones_leidas.add("numintegrantes");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(

@@ -15,7 +15,7 @@ public class conversacion {
 		conversacion = new HashMap<String, List<String>>();
 		
 		List<String> saludoInicial = new ArrayList<String>();
-		saludoInicial.add("Hola, soy SONIA! Una chica bot creada para organizar quedadas entre grupos de amigos que no se conocen.");
+		saludoInicial.add("Hola! Soy SONIA, una chica bot creada para organizar quedadas entre grupos de amigos que no se conocen.");
 		saludoInicial.add("Buenas tardes! Estais preparados para quedar con un magnifico grupo de amigos y pasarlo genial?");
 		
 		List<String> solicitarNuevamenteIDGrupo = new ArrayList<String>();
@@ -24,11 +24,11 @@ public class conversacion {
 		solicitarNuevamenteIDGrupo.add("Decidme ahora si que si vuestro identificador de grupo, pleasee.");
 		
 		
-		List<String> saludoInicialDescortes = new ArrayList<String>();
-		saludoInicialDescortes.add("Me gusta que me saluden antes jeje ;)");
-		saludoInicialDescortes.add("En primer lugar hola. Soy una chica educada, no como tu que ni saludas. Jajja es broma! Soy una maquina pero tengo sentido del humor :)");
-		saludoInicialDescortes.add("Se te ha olvidado el hola xD");
-		saludoInicialDescortes.add("Te parece bonito no saludarme tan siquiera? :P");
+		List<String> saludoInicialNoSaludo = new ArrayList<String>();
+		saludoInicialNoSaludo.add("Me gusta que me saluden antes jeje ;)");
+		saludoInicialNoSaludo.add("En primer lugar hola. Soy una chica educada, no como tu que ni saludas. Jajja es broma! Soy una maquina pero tengo sentido del humor :)");
+		saludoInicialNoSaludo.add("Se te ha olvidado el hola xD");
+		saludoInicialNoSaludo.add("Te parece bonito no saludarme tan siquiera? :P");
 		
 		List<String> solicitarNombre = new ArrayList<String>();
 		solicitarNombre.add("Msg SolicitarNombre");
@@ -79,14 +79,15 @@ public class conversacion {
 		grupoNoRegistrado.add("Encantada de conoceros! Al ser la primera vez que hablo con vosotros necesito saber algunas cosas. A ver...");
 		grupoNoRegistrado.add("Encantada de conoceros! Tengo que preguntaros algunas cosas, no es que sea cotilla, es que lo necesito para encontraros grupos afines ;)");
 		
-		List<String> resaludar = new ArrayList<String>();
-		resaludar.add("Jajaja si ya nos hemos saludado antes!");
-		resaludar.add("Ya nos hemos saludado antes! Recuerda que soy una maquina, me acuerdo de todo :)");
+		List<String> volverASaludar = new ArrayList<String>();
+		volverASaludar.add("Jajaja si ya nos hemos saludado antes!");
+		volverASaludar.add("Ya nos hemos saludado antes! Recuerda que soy una maquina, me acuerdo de todo jajja :)");
 		
 		
 		List<String> sincontexto = new ArrayList<String>(); 
 		sincontexto.add("Disculpa que sea tan cortita, pero no te estoy entendiendo ;(");
 		sincontexto.add("No me estaras vacilando no? Es que no entiendo de que me estas hablando :(");
+		sincontexto.add("Lo siento pero no te entiendo, mis creadores solo me han enseñado a organizar quedadas entre grupos ;(");
 		sincontexto.add("Sabes que mi nombre viene de Sistema Organizador de eNcuentros basado en Inteligencia Artificial?? Te digo esto porque no te estoy entendiendo, asi que por decir yo algo jeje.");
 		
 		List<String> distribucion = new ArrayList<String>(); 
@@ -112,13 +113,30 @@ public class conversacion {
 		peticionIDGrupo.add("Cual es vuestro identificador de grupo? Si no sabeis de que hablo inventaros un nick que os identifique como grupo!");
 		peticionIDGrupo.add("Decidme please vuestro identificador de grupo. Si no teneis ninguno es buen momento para pensar uno ;)");
 		
+		List<String> peticionEdad = new ArrayList<String>(); 
+		peticionEdad.add("Cual es la edad media aproximada de vuestro grupo?");
+		peticionEdad.add("Me podeis decir cual es vuestra edad media aproximada?");
+		peticionEdad.add("Aproximadamente cual es la edad media que teneis?");
+		
+		List<String> peticionNumIntegrantes = new ArrayList<String>(); 
+		peticionNumIntegrantes.add("De cuantas personas esta constituido vuestro grupo?");
+		peticionNumIntegrantes.add("Cuantos sois en el grupo?");
+		peticionNumIntegrantes.add("Cuantas personas sois en vuestro grupo?");
+		
+		List<String> peticionSexo = new ArrayList<String>(); 
+		peticionSexo.add("Lo primero que necesito es vuestro identificador de grupo. Si no teneis ninguno no os preocupeis, inventaroslo ahora mismo!");
+		peticionSexo.add("Cual es vuestro identificador de grupo? Si no sabeis de que hablo inventaros un nick que os identifique como grupo!");
+		peticionSexo.add("Decidme please vuestro identificador de grupo. Si no teneis ninguno es buen momento para pensar uno ;)");
+		
 		List<String> peticionIDGrupoImperativo = new ArrayList<String>(); 
 		peticionIDGrupoImperativo.add("Si no me decis vuestro identificador de grupo no puedo seguir :(");
 		peticionIDGrupoImperativo.add("Vengaaa, dadme vuestro identificador de grupo o inventaros uno!");
 		peticionIDGrupoImperativo.add("Que pesaos!! Quereis darme ya vuestro identificador de grupo?");
 		
 		List<String> peticionEdadImperativo = new ArrayList<String>(); 
-		peticionEdadImperativo.add("dame tu edad ya!!");
+		peticionEdadImperativo.add("Si no me decis la edad media de vuestro grupo no puedo seguir :(");
+		peticionEdadImperativo.add("Vengaaaaaaa, decidme vuestra edad media!");
+		peticionEdadImperativo.add("Que pesaos sois!! Quereis decirme ya cual es la edad media de vuestro grupo?");
 		
 		List<String> peticionNumIntegrantesImperativo = new ArrayList<String>(); 
 		peticionNumIntegrantesImperativo.add("dame tu num integ ya!!");
@@ -143,7 +161,7 @@ public class conversacion {
 		
 		conversacion.put("solicitarAccion", solicitarAccion);
 		conversacion.put("saludoInicial", saludoInicial);
-		conversacion.put("saludoInicialDescortes", saludoInicialDescortes);
+		conversacion.put("saludoInicialNoSaludo", saludoInicialNoSaludo);
 		conversacion.put("solicitarNombre", solicitarNombre);
 		conversacion.put("obtencionNombre", obtencionNombre);
 		conversacion.put("confirmarIDGrupo", confirmarIDGrupo);
@@ -153,12 +171,15 @@ public class conversacion {
 		conversacion.put("inactividad", inactividad);
 		conversacion.put("grupoRegistrado", grupoRegistrado);
 		conversacion.put("grupoNoRegistrado", grupoNoRegistrado);
-		conversacion.put("resaludar", resaludar);
+		conversacion.put("volverASaludar", volverASaludar);
 		conversacion.put("sincontexto", sincontexto);
 		conversacion.put("distribucion", distribucion);
 		conversacion.put("objetivoLogrado", objetivoLogrado);
 		conversacion.put("despedida", despedida);
 		conversacion.put("peticionIDGrupo", peticionIDGrupo);
+		conversacion.put("peticionEdad", peticionEdad);
+		conversacion.put("peticionNumIntegrantes", peticionNumIntegrantes);
+		conversacion.put("peticionSexo", peticionSexo);
 		conversacion.put("solicitarNombreImperativo", solicitarNombreImperativo);
 		conversacion.put("peticionIDGrupoImperativo", peticionIDGrupoImperativo);
 		conversacion.put("peticionEdadImperativo", peticionEdadImperativo);
@@ -172,7 +193,7 @@ public class conversacion {
 	
 	
 	public static String msg(String tipo){
-		String result = null;
+		/*String result = null;
 		randomGenerator = new Random(new Date().getTime());
 		if(conversacion.get(tipo) != null && conversacion.get(tipo).size() > 0){
 	        int index = randomGenerator.nextInt(conversacion.get(tipo).size());
@@ -180,7 +201,13 @@ public class conversacion {
 			return item;
 		}
 				
-		return result;
+		return result;*/
+		String msg = null;
+		if(conversacion.get(tipo) != null && conversacion.get(tipo).size() > 0){
+			int index = (int)(System.currentTimeMillis() % conversacion.get(tipo).size());
+			msg = conversacion.get(tipo).get(index);
+		}
+		return msg;
 	}
 	
 
