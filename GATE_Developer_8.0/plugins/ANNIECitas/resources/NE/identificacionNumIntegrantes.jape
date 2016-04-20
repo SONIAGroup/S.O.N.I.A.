@@ -19,7 +19,7 @@ Options: control = brill
 Rule: identificacionNumIntegrantes
 Priority: 100
 (
- {Token.string =~ "[0-9]{1}", Token.length==1}
+	{Token.string =~ "[0-9]{1}", Token.length==1}
 ):identificacionNumIntegrantes
 -->
 :identificacionNumIntegrantes{

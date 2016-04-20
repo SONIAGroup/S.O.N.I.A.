@@ -6,6 +6,8 @@ import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
 import icaro.infraestructura.entidadesBasicas.comunicacion.*
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.*;
 
+import icaro.aplicaciones.informacion.gestionCitas.*;
+
 import icaro.aplicaciones.informacion.gestionQuedadas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.*;
@@ -198,14 +200,15 @@ rule "Regla de obtencion del identificador del grupo"
  	gr.setId(msgg);
  	gr.actividad();
  	fc.setFoco(null);
+ 	notif.eliminarNotificacion();
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ObtenerGrupoDesdePersistencia.class);
     tarea.ejecutar(group,gr);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
    	update(obj);
    	update(fc);
-   	update(gr)
-   	retract(notif);
+   	update(gr);
+   	update(notif);
 end
 
 rule "Notificar desconocimiento"

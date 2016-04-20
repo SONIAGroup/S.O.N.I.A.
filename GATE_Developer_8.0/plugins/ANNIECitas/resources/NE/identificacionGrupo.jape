@@ -18,8 +18,8 @@ Options: control = brill
 Rule: identificacionGrupo
 Priority: 100
 (
+ {Token.string =~ "@"}
  {Token.string =~ "[a-z]+"}
- {Token.string =~ "[0-9]{1}", Token.length==1}
 ):identificacionGrupo
 -->
 :identificacionGrupo{
