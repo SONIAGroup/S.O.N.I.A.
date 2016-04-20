@@ -120,8 +120,10 @@ rule "Regla de obtencion de la edad del grupo"
  	gr.setEdad(msgg);
  	gr.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(SolicitarEdad.class);
-    tarea.ejecutar(group,conversacion.msg("peticionEdad"),msgg);
+    TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(ConfirmarEdad.class);
+    tarea1.ejecutar(group, msgg);
+    TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea2.ejecutar(group,conversacion.msg("ultimaPreguntaIdentificacion"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
    	update(ob);
@@ -159,8 +161,8 @@ rule "Regla de obtencion del número de integrantes del grupo"
  	gr.setNumIntegrantes(Integer.parseInt(msgg));
  	gr.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(SolicitarEdad.class);
-    tarea.ejecutar(group,conversacion.msg("peticionNumIntegrantes"),msgg);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConfirmarNumIntegrantes.class);
+    tarea.ejecutar(group, msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
    	update(ob);

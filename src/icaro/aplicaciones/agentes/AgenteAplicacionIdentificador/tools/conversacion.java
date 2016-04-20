@@ -44,22 +44,6 @@ public class conversacion {
 		solicitarAccionImperativo.add("Por favor sea concreto, digame que quiere");
 		solicitarAccionImperativo.add("Le recuerdo que solo puedo ayudarlo con asuntos de citas medicas");
 		
-		List<String> obtencionNombre = new ArrayList<String>();
-		obtencionNombre.add("Perfecto, te llamare de ahora en adelante ");
-		obtencionNombre.add("De acuerdo ");
-		obtencionNombre.add("Muchas gracias, ");
-		obtencionNombre.add("Esta todo listo, ");
-		
-		List<String> confirmarIDGrupo = new ArrayList<String>();
-		confirmarIDGrupo.add("Genial! Me acordare a partir de ahora de vosotros cuando volvais por aqui ;)");
-		confirmarIDGrupo.add("Vaya identificador de grupo mas feo teneis no? Jajjaj es broma!");
-		
-		List<String> confirmarEdad = new ArrayList<String>();
-		confirmarEdad.add("ok edad");
-		
-		List<String> confirmarNumIntegrantes = new ArrayList<String>();
-		confirmarNumIntegrantes.add("ok num integr");
-		
 		List<String> confirmarSexo = new ArrayList<String>();
 		confirmarSexo.add("ok sexo");
 		
@@ -83,6 +67,10 @@ public class conversacion {
 		volverASaludar.add("Jajaja si ya nos hemos saludado antes!");
 		volverASaludar.add("Ya nos hemos saludado antes! Recuerda que soy una maquina, me acuerdo de todo jajja :)");
 		
+		List<String> ultimaPreguntaIdentificacion = new ArrayList<String>();
+		ultimaPreguntaIdentificacion.add("Y la ultima pregunta para terminar de identificaros...");
+		ultimaPreguntaIdentificacion.add("Vale, solo me queda ya una pregunta por haceros...");
+		ultimaPreguntaIdentificacion.add("Bueno pues ya casi he terminado de identificaros. Solo me queda por haceros una pregunta...");
 		
 		List<String> sincontexto = new ArrayList<String>(); 
 		sincontexto.add("Disculpa que sea tan cortita, pero no te estoy entendiendo ;(");
@@ -124,9 +112,9 @@ public class conversacion {
 		peticionNumIntegrantes.add("Cuantas personas sois en vuestro grupo?");
 		
 		List<String> peticionSexo = new ArrayList<String>(); 
-		peticionSexo.add("Lo primero que necesito es vuestro identificador de grupo. Si no teneis ninguno no os preocupeis, inventaroslo ahora mismo!");
-		peticionSexo.add("Cual es vuestro identificador de grupo? Si no sabeis de que hablo inventaros un nick que os identifique como grupo!");
-		peticionSexo.add("Decidme please vuestro identificador de grupo. Si no teneis ninguno es buen momento para pensar uno ;)");
+		peticionSexo.add("Vuestro grupo es de hombres, de mujeres o mixto?");
+		peticionSexo.add("Que sois en vuestro grupo, hombres, mujeres, o sois un grupo mixto?");
+		peticionSexo.add("Sois todos hombres, mujeres, o vuestro grupo es mixto?");
 		
 		List<String> peticionIDGrupoImperativo = new ArrayList<String>(); 
 		peticionIDGrupoImperativo.add("Si no me decis vuestro identificador de grupo no puedo seguir :(");
@@ -163,15 +151,12 @@ public class conversacion {
 		conversacion.put("saludoInicial", saludoInicial);
 		conversacion.put("saludoInicialNoSaludo", saludoInicialNoSaludo);
 		conversacion.put("solicitarNombre", solicitarNombre);
-		conversacion.put("obtencionNombre", obtencionNombre);
-		conversacion.put("confirmarIDGrupo", confirmarIDGrupo);
-		conversacion.put("confirmarEdad", confirmarEdad);
-		conversacion.put("confirmarNumIntegrantes", confirmarNumIntegrantes);
 		conversacion.put("confirmarSexo", confirmarSexo);
 		conversacion.put("inactividad", inactividad);
 		conversacion.put("grupoRegistrado", grupoRegistrado);
 		conversacion.put("grupoNoRegistrado", grupoNoRegistrado);
 		conversacion.put("volverASaludar", volverASaludar);
+		conversacion.put("ultimaPreguntaIdentificacion", ultimaPreguntaIdentificacion);
 		conversacion.put("sincontexto", sincontexto);
 		conversacion.put("distribucion", distribucion);
 		conversacion.put("objetivoLogrado", objetivoLogrado);
