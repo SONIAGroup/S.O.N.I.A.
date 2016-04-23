@@ -54,12 +54,24 @@ public class Grupo implements Serializable {
 		this.numIntegrantes = numIntegrantes;
 	}
 
-	public Sexo getSexo() {
-		return sexo;
+	public String getSexo() {
+		String sexo_str = null;
+		if (sexo == Sexo.masculino)
+			sexo_str = "hombres";
+		else if (sexo == Sexo.masculino)
+			sexo_str = "mujeres";
+		else if (sexo == Sexo.masculino)
+			sexo_str = "mixto";
+		return sexo_str;
 	}
 
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
+	public void setSexo(String sexo) {
+		if(sexo.indexOf("hombre") >= 0)
+			this.sexo = Sexo.masculino;
+		else if(sexo.indexOf("mujer") >= 0)
+			this.sexo = Sexo.femenino;
+		else if(sexo.indexOf("mixto") >= 0)
+			this.sexo = Sexo.mixto;
 	}
 
 	public String getEdad() {

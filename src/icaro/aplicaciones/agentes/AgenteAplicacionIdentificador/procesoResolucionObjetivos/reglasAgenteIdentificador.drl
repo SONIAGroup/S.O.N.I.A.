@@ -90,6 +90,45 @@ rule "Respuesta ante resaludo del grupo"
      retract(notif);
 end
 
+rule "Regla de solicitar sexo del grupo"
+ when
+ 	
+ 	fc:FocoGrupo(fcgroup:grupo , foco == null)
+ 	obj:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
+ 	not( exists (ObtenerSexo(objectReferenceId == fcgroup)))
+ then
+  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+  	Objetivo ob = new ObtenerSexo();
+  	ob.setobjectReferenceId(fcgroup);
+  	fc.setFoco(ob);
+  	
+  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(fcgroup,conversacion.msg("peticionSexo"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(fc);
+   	insert(ob);
+end
+
+rule "Regla de obtencion del sexo del grupo"
+ when
+	ob:ObtenerSexo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
+    gr:Grupo(grupo == group)
+ then
+ 	ob.setSolved();
+ 	gr.setSexo(msgg);
+ 	gr.actividad();
+ 	fc.setFoco(null);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group,conversacion.msg("prePersistenciaGrupo"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
+   	update(ob);
+   	update(fc);
+   	retract(notif);
+end
+
 rule "Regla de solicitar edad del grupo"
  when
  	
@@ -202,7 +241,6 @@ rule "Regla de obtencion del identificador del grupo"
  	gr.setId(msgg);
  	gr.actividad();
  	fc.setFoco(null);
- 	notif.eliminarNotificacion();
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ObtenerGrupoDesdePersistencia.class);
     tarea.ejecutar(group,gr);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -210,7 +248,7 @@ rule "Regla de obtencion del identificador del grupo"
    	update(obj);
    	update(fc);
    	update(gr);
-   	update(notif);
+   	retract(notif);
 end
 
 rule "Notificar desconocimiento"
@@ -228,30 +266,35 @@ rule "Notificar desconocimiento"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
-rule "Finalizar la identificacion"
+rule "Finalizar la identificación del grupo"
  when
- 	ObtenerIDGrupo(user:objectReferenceId, state == Objetivo.SOLVED);
- 	ObtenerNombre(objectReferenceId == user, state == Objetivo.SOLVED)
- 	obj:IdentificarUsuario(state == Objetivo.PENDING ,objectReferenceId == user )
- 	cu:UsuarioContexto(usuario == user)
- 	fc:FocoUsuario(usuario == user)
+ 	ObtenerIDGrupo(group:objectReferenceId, state == Objetivo.SOLVED);
+ 	ObtenerNumIntegrantes(objectReferenceId == group, state == Objetivo.SOLVED)
+ 	ObtenerEdad(objectReferenceId == group, state == Objetivo.SOLVED)
+ 	ObtenerSexo(objectReferenceId == group, state == Objetivo.SOLVED)
+ 	ob:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == group )
+ 	gr:Grupo(grupo == group)
+ 	fc:FocoGrupo(grupo == group)
  then
- 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(UsuarioIdentificado.class);
- 	tarea.ejecutar(user, cu);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(GrupoIdentificado.class);
+ 	tarea.ejecutar(group, gr);
  	fc.setFoco(null);
- 	//TODO GUARDAR EN LA PERSISTENCIA USUARIO PARA PODER USARLA LUEGO 
- 	Tarea tarea2 = gestorTareas.crearTarea(NotificarUsuarioIdentificado.class);
-    tarea2.ejecutar(cu);
-    insertarUsuario(user,cu);
+ 	
+ 	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
+ 	
+ 	//Tarea tarea2 = gestorTareas.crearTarea(NotificarUsuarioIdentificado.class);
+    //tarea2.ejecutar(cu);
+    //insertarUsuario(user,cu);
 
-	NotificacionObjetivo f = new NotificacionObjetivo();
-	f.setTipoNotificacion(tipoNotif.objetivo);
-	f.setAgente("INIT");
-	f.identNotificador = user;
-	insert(f);
+	//NotificacionObjetivo f = new NotificacionObjetivo();
+	//f.setTipoNotificacion(tipoNotif.objetivo);
+	//f.setAgente("INIT");
+	//f.identNotificador = user;
+	//insert(f);
 
- 	obj.setSolved();
- 	update(obj);
+ 	ob.setSolved();
+ 	update(ob);
  	update(fc);
 end
 

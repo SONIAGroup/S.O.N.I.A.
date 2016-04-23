@@ -71,14 +71,6 @@ public class Notificacion {
 	public Object getcontexto() {
 		return contexto;
 	}
-	
-	public void eliminarNotificacion() {
-		identNotificador = null;
-		mensajeNotificacion = null;
-		contexto = null;
-		identObjectRefNotificacion = null;
-		tipoNotificacion = null;
-	}
 
 	@Override
 	public String toString() {

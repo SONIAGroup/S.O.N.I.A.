@@ -41,8 +41,13 @@ public class conversacion {
 		solicitarAccionImperativo.add("Por favor sea concreto, digame que quiere");
 		solicitarAccionImperativo.add("Le recuerdo que solo puedo ayudarlo con asuntos de citas medicas");
 		
-		List<String> confirmarSexo = new ArrayList<String>();
-		confirmarSexo.add("ok sexo");
+		List<String> prePersistenciaGrupo = new ArrayList<String>();
+		prePersistenciaGrupo.add("Perfecto! Dejadme un segundo que apunte vuestros datos y enseguida estoy con vosotros.");
+		prePersistenciaGrupo.add("Genial! Ya tengo todo lo que necesito, dadme un segundo para que lo apunte.");
+		prePersistenciaGrupo.add("Bien! Voy a apuntar vuestros datos y ahora os sigo contando.");
+		
+		List<String> persistenciaGrupoCompletada = new ArrayList<String>();
+		persistenciaGrupoCompletada.add("Listo! La proxima vez que entreis me acordare de vosotros ;)");
 		
 		List<String> inactividad = new ArrayList<String>();
 		inactividad.add("Que sola estoy! Que sola!! Decidme algo ;(");
@@ -124,10 +129,13 @@ public class conversacion {
 		peticionEdadImperativo.add("Que pesaos sois!! Quereis decirme ya cual es la edad media de vuestro grupo?");
 		
 		List<String> peticionNumIntegrantesImperativo = new ArrayList<String>(); 
-		peticionNumIntegrantesImperativo.add("dame tu num integ ya!!");
+		peticionNumIntegrantesImperativo.add("Decidme cuantos sois en el grupo ya! Que sois unos pesaos!");
+		peticionNumIntegrantesImperativo.add("En serio, necesito saber cuantos sois en el grupo.");
+		peticionNumIntegrantesImperativo.add("No os vayais por las ramas, decidme cuantos sois en el grupo ya!");
 		
 		List<String> peticionSexoImperativo = new ArrayList<String>(); 
-		peticionSexoImperativo.add("dame tu sex ya!!");
+		peticionSexoImperativo.add("Quereis decirme ya si sois hombres, mujeres o si sois un grupo mixto?");
+		peticionSexoImperativo.add("Dejaos de tonterias y decirme si sois hombres, mujeres o un grupo mixto.");
 		
 		List<String> fechaAnterior = new ArrayList<String>(); 
 		fechaAnterior.add("Disculpe, la fecha en la que quiere la cita es anterior a la fecha actual, introduzca una fecha válida");
@@ -148,7 +156,8 @@ public class conversacion {
 		conversacion.put("saludoInicial", saludoInicial);
 		conversacion.put("saludoInicialNoSaludo", saludoInicialNoSaludo);
 		conversacion.put("solicitarNombre", solicitarNombre);
-		conversacion.put("confirmarSexo", confirmarSexo);
+		conversacion.put("prePersistenciaGrupo", prePersistenciaGrupo);
+		conversacion.put("persistenciaGrupoCompletada", persistenciaGrupoCompletada);
 		conversacion.put("inactividad", inactividad);
 		conversacion.put("grupoRegistrado", grupoRegistrado);
 		conversacion.put("grupoNoRegistrado", grupoNoRegistrado);

@@ -456,6 +456,7 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("saludo");
 		anotacionesBusquedaPrueba.add("dni");
 		anotacionesBusquedaPrueba.add("edad");
+		anotacionesBusquedaPrueba.add("sexo");
 		anotacionesBusquedaPrueba.add("numintegrantes");
 		anotacionesBusquedaPrueba.add("idgrupo");
 		anotacionesBusquedaPrueba.add("InicioPeticion");
@@ -1547,6 +1548,13 @@ public class InterpreteMsgsIRC {
 
 			} else if (anotType.equalsIgnoreCase("edad")&& !anotaciones_leidas.contains("edad")) {
 				anotaciones_leidas.add("edad");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+
+			} else if (anotType.equalsIgnoreCase("sexo")&& !anotaciones_leidas.contains("sexo")) {
+				anotaciones_leidas.add("sexo");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(

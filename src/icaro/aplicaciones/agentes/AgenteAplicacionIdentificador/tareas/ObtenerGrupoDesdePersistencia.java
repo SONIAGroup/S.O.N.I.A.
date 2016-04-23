@@ -47,17 +47,17 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 				//cu.setNombre(ncu.getNombre());
 				//Objetivo f = new ObtenerNombre();
 				//f.setSolved();
-				gr.setEdad(ngr.getEdad());
-				Objetivo objetivoEdad = new ObtenerEdad();
-				objetivoEdad.setSolved();
-				objetivoEdad.setobjectReferenceId(gr.getId());
-				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoEdad);
-				
 				gr.setNumIntegrantes(ngr.getNumIntegrantes());
 				Objetivo objetivoNumIntegrantes = new ObtenerNumIntegrantes();
 				objetivoNumIntegrantes.setSolved();
 				objetivoNumIntegrantes.setobjectReferenceId(gr.getId());
 				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoNumIntegrantes);
+				
+				gr.setEdad(ngr.getEdad());
+				Objetivo objetivoEdad = new ObtenerEdad();
+				objetivoEdad.setSolved();
+				objetivoEdad.setobjectReferenceId(gr.getId());
+				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoEdad);
 				
 				gr.setSexo(ngr.getSexo());
 				Objetivo objetivoSexo = new ObtenerSexo();
