@@ -83,10 +83,10 @@ public class NotificarAlUsuarioSinContexto extends TareaSincrona {
 			}
 			
 			if (recComunicacionChat != null) {
-			
 				recComunicacionChat.comenzar(identAgenteOrdenante);
 				recComunicacionChat.enviarMensagePrivado(foUsuario.getUsuario(), mensajeAenviar);
-			} else {
+			} 
+			else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();
 				this.generarInformeConCausaTerminacion(
 						identDeEstaTarea,

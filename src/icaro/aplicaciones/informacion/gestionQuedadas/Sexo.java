@@ -1,5 +1,10 @@
 package icaro.aplicaciones.informacion.gestionQuedadas;
 
+/**
+ * 
+ * @author Mariano Hernández García
+ *
+ */
 public enum Sexo { masculino, femenino, mixto, sin_especificar;
 	
 	public String toString() {

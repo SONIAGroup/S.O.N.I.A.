@@ -3,9 +3,9 @@ package icaro.aplicaciones.informacion.gestionQuedadas;
 import java.io.Serializable;
 
 /**
- * Clase que representa a un grupo.
- * 
- * @author mariano
+ *  Clase que modela a un grupo
+ *  
+ * @author Mariano Hernández García
  *
  */
 public class Grupo implements Serializable {
