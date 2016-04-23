@@ -8,7 +8,7 @@ package icaro.aplicaciones.recursos.comunicacionChat.imp;
 import static icaro.aplicaciones.recursos.comunicacionChat.imp.util.ConexionIrc.VERSION;
 import gate.Annotation;
 import icaro.aplicaciones.informacion.gestionCitas.InfoConexionUsuario;
-import icaro.aplicaciones.informacion.gestionCitas.Notificacion;
+import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.recursos.comunicacionChat.ParserFecha;
 import icaro.aplicaciones.recursos.comunicacionChat.imp.util.ConexionIrc;

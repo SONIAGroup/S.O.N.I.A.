@@ -1,6 +1,6 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
-import icaro.aplicaciones.informacion.gestionCitas.Notificacion;
+import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionMedico;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionPaciente;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;

@@ -1,12 +1,15 @@
 package icaro.aplicaciones.informacion.gestionCitas;
 
+import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
+import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
+
 public class NotificacionPaciente {
 	public String identNotificador;
 	public String mensajeNotificacion;
 	public Object contexto;
 	public String identObjectRefNotificacion;
 	public String tipoNotificacion;
-	public UsuarioContexto usuario;
+	public Grupo grupo;
 
 	public NotificacionPaciente() {
 	}
@@ -17,15 +20,15 @@ public class NotificacionPaciente {
 		setcontexto(notif.getcontexto());
 		setidentObjectRefNotificacion(notif.getidentObjectRefNotificacion());
 		setTipoNotificacion(notif.getTipoNotificacion());
-		setUsuario(notif.getUsuario());
+		setGrupo(notif.getGrupo());
 	}
 
-	public UsuarioContexto getUsuario() {
-		return usuario;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setUsuario(UsuarioContexto usuario) {
-		this.usuario = usuario;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 	public String getidentObjectRefNotificacion() {

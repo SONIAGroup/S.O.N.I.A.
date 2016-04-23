@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
-import icaro.aplicaciones.informacion.gestionQuedadas.FocoUsuario;
+import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -22,7 +22,7 @@ public class NotificarAlUsuarioSinContexto extends TareaSincrona {
 
 		String identDeEstaTarea 	= this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		FocoUsuario foUsuario 		= (FocoUsuario) params[0];
+		FocoGrupo foGrupo 		= (FocoGrupo) params[0];
 		String mensajeAenviar 		= "";
 		
 		try {
@@ -30,17 +30,17 @@ public class NotificarAlUsuarioSinContexto extends TareaSincrona {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			
-			if( foUsuario.intentos < 3 ) {
+			if( foGrupo.intentos < 3 ) {
 				mensajeAenviar = ConversacionGrupo.msg("sinContexto");
-				foUsuario.intentos = foUsuario.intentos + 1;
+				foGrupo.intentos = foGrupo.intentos + 1;
 			}
 			else {
 				
-				Objetivo obj = foUsuario.getFoco();
+				Objetivo obj = foGrupo.getFoco();
 				
 				if ( obj == null ) {
 					mensajeAenviar = ConversacionGrupo.msg("");
-					foUsuario.intentos = 0;
+					foGrupo.intentos = 0;
 				}
 				else {
 					String objId = obj.getgoalId();
@@ -76,7 +76,7 @@ public class NotificarAlUsuarioSinContexto extends TareaSincrona {
 						break;
 					}
 					
-					foUsuario.intentos = 0;
+					foGrupo.intentos = 0;
 				}
 		
 				
@@ -84,7 +84,7 @@ public class NotificarAlUsuarioSinContexto extends TareaSincrona {
 			
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
-				recComunicacionChat.enviarMensagePrivado(foUsuario.getUsuario(), mensajeAenviar);
+				recComunicacionChat.enviarMensagePrivado(foGrupo.getGrupo(), mensajeAenviar);
 			} 
 			else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();

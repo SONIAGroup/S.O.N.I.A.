@@ -46,7 +46,7 @@ public class NotificacionObjetivo {
 		setcontexto(notif.getcontexto());
 		setidentObjectRefNotificacion(notif.getidentObjectRefNotificacion());
 		setTipoNotificacion(notif.getTipoNotificacion());
-		setUsuario(notif.getUsuario());
+		//setUsuario(notif.getUsuario());
 	}
 	
 	public NotificacionObjetivo(NotificacionMedico notif){
@@ -56,7 +56,7 @@ public class NotificacionObjetivo {
 		setcontexto(notif.getcontexto());
 		setidentObjectRefNotificacion(notif.getidentObjectRefNotificacion());
 		setTipoNotificacion(notif.getTipoNotificacion());
-		setUsuario(notif.getUsuario());
+		//setUsuario(notif.getUsuario());
 	}
 
 	public NotificacionObjetivo(String usuarioId) {

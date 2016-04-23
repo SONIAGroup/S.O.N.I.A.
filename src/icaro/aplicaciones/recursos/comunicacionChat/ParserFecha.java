@@ -2,7 +2,7 @@ package icaro.aplicaciones.recursos.comunicacionChat;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tools.tipoNotifPaciente;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.tipoNotif;
-import icaro.aplicaciones.informacion.gestionCitas.Notificacion;
+import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
 import icaro.aplicaciones.recursos.recursoCalendario.imp.RecursoCalendarioImp;
 

@@ -16,22 +16,22 @@ public class Notificacion {
 	public Object contexto;						// objeto de ayuda para realizar el analisis que no se utiliza aun.
 	public String identObjectRefNotificacion;	// no se usa aun
 	public String tipoNotificacion;				// anotaciones del gazetero de annie
-	public UsuarioContexto usuario;				// anotaciones del gazetero de annie
+	public Grupo grupo;				// anotaciones del gazetero de annie
 
-	public UsuarioContexto getUsuario() {
-		return usuario;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setUsuario(UsuarioContexto usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 	public Notificacion() {
 
 	}
 
-	public Notificacion(String usuarioId) {
-		identNotificador = usuarioId;
+	public Notificacion(String grupoId) {
+		identNotificador = grupoId;
 		tipoNotificacion = mensajeNotificacion = null;
 		contexto = null;
 	}
