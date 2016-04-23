@@ -2,9 +2,8 @@ package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools;
 
 
 /**
- * Tipos de mensajes de las notificaciones para las quedadas.
  * 
- * @author mariano
+ * @author Mariano Hernández García
  *
  */
 public class tiposNotificionQuedadas {
