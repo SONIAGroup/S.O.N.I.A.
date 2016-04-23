@@ -1,22 +1,17 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
-import icaro.aplicaciones.informacion.gestionCitas.FocoUsuario;
-import icaro.aplicaciones.informacion.gestionCitas.Notificacion;
-import icaro.aplicaciones.informacion.gestionCitas.NotificacionMedico;
-import icaro.aplicaciones.informacion.gestionCitas.NotificacionPaciente;
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;			// Cambiarlo por el VocabularioGestionQuedadas, añadiendo lo que necesites!!
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
-import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicacion;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  *
- * @author Francisco J Garijo
+ * @author Jorge Casas Hernán
  */
 public class NotificarAlGrupoSinContexto extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;

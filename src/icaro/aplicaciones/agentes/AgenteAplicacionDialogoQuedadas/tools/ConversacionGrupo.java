@@ -3,9 +3,6 @@ package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-
-import org.drools.lang.DRLExpressions.neg_operator_key_return;
 
 /**
  * Herramienta que abstrae la conversacion con un usuario (grupo de personas)
@@ -15,14 +12,18 @@ import org.drools.lang.DRLExpressions.neg_operator_key_return;
  */
 public class ConversacionGrupo {
 	
-	private static Random randomGenerator;
-	private static HashMap<String,List<String>> conversacion;
+	private static HashMap<String,List<String>> conversacionGrupo;
 	
 	static{
 		
-		conversacion    = new HashMap<String, List<String>>();
-		randomGenerator = new Random();
+		conversacionGrupo    = new HashMap<String, List<String>>();
 		
+	/* Sin contexto */
+		List<String> sinContexto = new ArrayList<String>();
+		sinContexto.add("Eing?? No entiendo lo que me estas diciendo. Repítemelo, anda.");
+		sinContexto.add("No estoy muy segura de estar entendiendote. ¿Podrías repetirmelo?");
+		sinContexto.add("¿Hablamos el mismo idioma xD?. Repítemelo con otras palabras");
+	/*///////////////////// */
 	
 	/* Obtener informacion del grupo con el que se quiere quedar*/
 		List<String> pedirInfoOtroGrupo_numPersonas = new ArrayList<String>();
@@ -107,48 +108,35 @@ public class ConversacionGrupo {
 		
 		
 	/* Agregamos los dialogos a la conversacion global */
-		conversacion.put("pedirInfoOtroGrupo_numPersonas", pedirInfoOtroGrupo_numPersonas);
-		conversacion.put("pedirInfoOtroGrupo_edad", pedirInfoOtroGrupo_edad);
-		conversacion.put("pedirInfoOtroGrupo_sexo", pedirInfoOtroGrupo_sexo);
-		conversacion.put("imperativoPedirInfoOtroGrupo", imperativoPedirInfoOtroGrupo);
-		conversacion.put("confirmacionInfoOtroGrupo", confirmacionInfoOtroGrupo);
-		conversacion.put("pedirQueHacer", pedirQueHacer);
-		conversacion.put("imperativoQueHacer", imperativoQueHacer);
-		conversacion.put("confirmacionQueHacer", confirmacionQueHacer);
-		conversacion.put("pedirDonde", pedirDonde);
-		conversacion.put("imperativoDonde", imperativoDonde);
-		conversacion.put("confirmacionDonde", confirmacionDonde);
-		conversacion.put("pedirFechayHora", pedirFechayHora);
-		conversacion.put("imperativopedirFechayHora", imperativopedirFechayHora);
-		conversacion.put("confirmarFechayHora", confirmarFechayHora);
-		conversacion.put("confirmarQuedada", confirmarQuedada);
-		conversacion.put("imperativoConfirmarQuedada", imperativoConfirmarQuedada);
+		conversacionGrupo.put("sinContexto", sinContexto);
+		conversacionGrupo.put("pedirInfoOtroGrupo_numPersonas", pedirInfoOtroGrupo_numPersonas);
+		conversacionGrupo.put("pedirInfoOtroGrupo_edad", pedirInfoOtroGrupo_edad);
+		conversacionGrupo.put("pedirInfoOtroGrupo_sexo", pedirInfoOtroGrupo_sexo);
+		conversacionGrupo.put("imperativoPedirInfoOtroGrupo", imperativoPedirInfoOtroGrupo);
+		conversacionGrupo.put("confirmacionInfoOtroGrupo", confirmacionInfoOtroGrupo);
+		conversacionGrupo.put("pedirQueHacer", pedirQueHacer);
+		conversacionGrupo.put("imperativoQueHacer", imperativoQueHacer);
+		conversacionGrupo.put("confirmacionQueHacer", confirmacionQueHacer);
+		conversacionGrupo.put("pedirDonde", pedirDonde);
+		conversacionGrupo.put("imperativoDonde", imperativoDonde);
+		conversacionGrupo.put("confirmacionDonde", confirmacionDonde);
+		conversacionGrupo.put("pedirFechayHora", pedirFechayHora);
+		conversacionGrupo.put("imperativopedirFechayHora", imperativopedirFechayHora);
+		conversacionGrupo.put("confirmarFechayHora", confirmarFechayHora);
+		conversacionGrupo.put("confirmarQuedada", confirmarQuedada);
+		conversacionGrupo.put("imperativoConfirmarQuedada", imperativoConfirmarQuedada);
 			
 	}
 	
 	
 	public static String msg(String tipo){
-		String result = null;
 		
-		if(conversacion.get(tipo) != null && conversacion.get(tipo).size() > 0){
-	        int index   = randomGenerator.nextInt(conversacion.get(tipo).size());
-	        String item = conversacion.get(tipo).get(index);		
-			return item;
+		String msg = null;
+		if(conversacionGrupo.get(tipo) != null && conversacionGrupo.get(tipo).size() > 0){
+			int index = (int)(System.currentTimeMillis() % conversacionGrupo.get(tipo).size());
+			msg = conversacionGrupo.get(tipo).get(index);
 		}
-				
-		return result;
+		return msg;
 	}
 	
-	
-	/*
-	// Creo que se puede borrar. Lo debieron hacer sobre la marcha
-	public static final String obtenerInfoCita1dameDatos = "Facilitame los datos de la cita (una fecha y un médico)";
-	public static final String obtenerInfoCita2fechaRegistrada = "Fecha registrada, ahora queda el médico";
-	public static final String obtenerInfoCita3medicoRegistrado = "Médico registrado, ahora queda la fecha";
-	public static final String obtenerInfoCita4todoCompletado = "Estupendo, la cita se ha realizado con éxito!";
-	public static final String obtenerInfoCita4cancelado = "Vale, no le hare la cita";
-	public static final String mostrarCitasPaciente = "Estas son sus citas: 1- Cita 1 2- Cita 2  3- Cita 3";
-	*/
-	
-
 }

@@ -1,14 +1,11 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class conversacion {
 	
-	private static Random randomGenerator;
 	private static HashMap<String,List<String>> conversacion;
 	
 	static{
