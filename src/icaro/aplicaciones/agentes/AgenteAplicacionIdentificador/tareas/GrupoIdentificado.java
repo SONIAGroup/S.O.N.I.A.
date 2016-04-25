@@ -26,15 +26,15 @@ public class GrupoIdentificado extends TareaSincrona {
 
 		String identDeEstaTarea = this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		String identInterlocutor = (String) params[0];
-		Grupo gr = (Grupo) params[1];
+		//String identInterlocutor = (String) params[0];
+		Grupo gr = (Grupo) params[0];
 		try {
 
 			// // Se busca la interfaz del recurso en el repositorio de
 			// interfaces
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
-			Grupo ngr = persistencia.obtenerGrupoById(gr.getId());
+			//Grupo ngr = persistencia.obtenerGrupo(gr.getId());
 			persistencia.insertarGrupo(gr.getId(), gr);
 		
 

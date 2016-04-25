@@ -24,6 +24,7 @@ public class VocabularioGestionQuedadas {
 	public static final String IdentRecursoComunicacionChat = "ComunicacionChat1";
 	public static final String IdentAgenteAplicacionDialogoCitas = "AgenteAplicacionDialogoCitas1";
 	public static final String IdentAgenteIdentificador = "AgenteAplicacionIdentificador1";
+	public static final String IdentAgenteAplicacionDialogoQuedadas = "AgenteAplicacionDialogoQuedadas";
 	public static final String IdentConexionAgte = "SONIA_Bot";
 	public static final String IdentRecursoPersistenciaChat = "PersistenciaChat1";
 	public static final String InfoUsuarioYaExiste = "infoUsuarioYaExistente";

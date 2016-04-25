@@ -5,11 +5,11 @@ import icaro.infraestructura.patronRecursoSimple.ItfUsoRecursoSimple;
 
 public interface ItfPersistenciaGrupos extends ItfUsoRecursoSimple {
 
-	void insertarGrupo(String nombreChat, Grupo gr)
+	void insertarGrupo(String idgrupo, Grupo gr)
 			throws Exception;
 
-	Grupo obtenerGrupo(String nombreChat) throws Exception;
+	Grupo obtenerGrupo(String idgrupo) throws Exception;
 	
-	Grupo obtenerGrupoById(String id) throws Exception;
+	//Grupo obtenerGrupoById(String id) throws Exception;
 
 }

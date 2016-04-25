@@ -272,23 +272,23 @@ end
 
 rule "Finalizar la identificación del grupo"
  when
- 	ObtenerIDGrupo(group:objectReferenceId, state == Objetivo.SOLVED);
+ 	ob:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ObtenerIDGrupo(objectReferenceId == group , state == Objetivo.SOLVED);
  	ObtenerNumIntegrantes(objectReferenceId == group, state == Objetivo.SOLVED)
  	ObtenerEdad(objectReferenceId == group, state == Objetivo.SOLVED)
  	ObtenerSexo(objectReferenceId == group, state == Objetivo.SOLVED)
- 	ob:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == group )
  	gr:Grupo(grupo == group)
  	fc:FocoGrupo(grupo == group)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(GrupoIdentificado.class);
- 	tarea.ejecutar(group, gr);
+ 	tarea.ejecutar(gr);
  	fc.setFoco(null);
  	
  	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
  	
- 	//Tarea tarea2 = gestorTareas.crearTarea(NotificarUsuarioIdentificado.class);
-    //tarea2.ejecutar(cu);
+ 	Tarea tarea3 = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
+    tarea3.ejecutar(gr);
     //insertarUsuario(user,cu);
 
 	//NotificacionObjetivo f = new NotificacionObjetivo();

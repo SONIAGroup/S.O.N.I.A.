@@ -18,17 +18,17 @@ public class ClaseGeneradoraPersistenciaGrupos extends ImplRecursoSimple impleme
 	}
 
 	@Override
-	public void insertarGrupo(String nombreChat, Grupo gr) throws Exception {
-		PersistenciaGruposImp.insertarGrupo(nombreChat, gr);
+	public void insertarGrupo(String idgrupo, Grupo gr) throws Exception {
+		PersistenciaGruposImp.insertarGrupo(idgrupo, gr);
 	}
 
 	@Override
-	public Grupo obtenerGrupo(String nombreChat) throws Exception {
-		return PersistenciaGruposImp.obtenerGrupo(nombreChat);
+	public Grupo obtenerGrupo(String idgrupo) throws Exception {
+		return PersistenciaGruposImp.obtenerGrupo(idgrupo);
 	}
 
-	@Override
+	/*@Override
 	public Grupo obtenerGrupoById(String id) throws Exception {
 		return PersistenciaGruposImp.obtenerGrupoById(id);
-	}
+	}*/
 }

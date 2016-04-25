@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package icaro.aplicaciones.informacion.gestionCitas;
+package icaro.aplicaciones.informacion.gestionQuedadas;
 
 /**
  *
- * @author FGarijo
+ * @author SONIAGroup
  */
 public class NotificacionIdentificado {
 
 	public String identNotificador;
-	// mensaje completo del usuario 
+	// mensaje completo del usuario (grupo)
 	public String mensajeNotificacion;
 	// objeto de ayuda para realizar el analisis que no se utiliza aun.
 	public Object contexto;
@@ -21,22 +21,22 @@ public class NotificacionIdentificado {
 	// anotaciones del gazetero de annie
 	public String tipoNotificacion;
 	// anotaciones del gazetero de annie
-	public UsuarioContexto usuario;
+	public Grupo grupo;
 
-	public UsuarioContexto getUsuario() {
-		return usuario;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setUsuario(UsuarioContexto usuario) {
-		this.usuario = usuario;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 	public NotificacionIdentificado() {
 
 	}
 
-	public NotificacionIdentificado(String usuarioId) {
-		identNotificador = usuarioId;
+	public NotificacionIdentificado(Grupo gr) {
+		grupo = gr;
 		tipoNotificacion = mensajeNotificacion = null;
 		contexto = null;
 	}

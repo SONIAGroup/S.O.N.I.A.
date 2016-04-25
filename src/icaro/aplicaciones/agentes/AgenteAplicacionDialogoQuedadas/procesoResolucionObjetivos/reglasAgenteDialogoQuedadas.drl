@@ -22,19 +22,17 @@ global String agentId;
 
 
 // Lo primero de todo es obtener el grupo que se ha identificado
-// MAL
 rule "Regla recibir grupo identificado"
  when
- 	notif:NotificacionIdentificado(group:identNotificador)
+ 	notif:NotificacionIdentificado(gr:grupo)
  then
  	Objetivo id = new IdentificarGrupo();
- 	id.setobjectReferenceId(group);
+ 	id.setobjectReferenceId(gr.getId());
  	id.setSolved();
- 	UsuarioContexto cu = obtenerContextoUsuario(group);
- 	insert(cu);
+ 	insert(gr);
     retract(notif);
     insert(id);
- 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," DEBUG: EJECUTO LA REGLA: " + drools.getRule().getName() + " " + gr.toString());
 end
 
 
