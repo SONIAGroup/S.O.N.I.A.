@@ -286,9 +286,7 @@ rule "Finalizar la identificación del grupo"
  	
  	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
- 	
- 	Tarea tarea3 = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
-    tarea3.ejecutar(gr);
+  	
     //insertarUsuario(user,cu);
 
 	//NotificacionObjetivo f = new NotificacionObjetivo();
@@ -297,9 +295,21 @@ rule "Finalizar la identificación del grupo"
 	//f.identNotificador = user;
 	//insert(f);
 
- 	ob.setSolved();
+ 	ob.setSolving();
  	update(ob);
  	update(fc);
+end
+
+rule "Notificar a agentes de la finalización de la identificación del grupo"
+ when 
+ 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.SOLVING)
+    gr:Grupo(grupo == group)
+ then
+ 	Tarea tarea = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
+    tarea.ejecutar(gr);
+    obj.setSolved();
+	update(obj);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Contexto incorrecto Luego de identificar"
