@@ -5,6 +5,7 @@
 
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.IdentificarGrupo;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerEdad;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerNumIntegrantes;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerSexo;
@@ -34,6 +35,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 		String identAgenteOrdenante = this.getIdentAgente();
 		String identInterlocutor    = (String) params[0];
 		Grupo gr 					= (Grupo) params[1];
+		IdentificarGrupo objetivoGeneral = (IdentificarGrupo) params[2];
 		
 		try {
 
@@ -41,30 +43,23 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
+			
+			System.out.println(" NOTA " + gr.toString());
+			
 			Grupo ngr = persistencia.obtenerGrupoById(gr.getId());
 			
 			if (ngr != null) {
 				//cu.setNombre(ncu.getNombre());
 				//Objetivo f = new ObtenerNombre();
 				//f.setSolved();
+				
 				gr.setNumIntegrantes(ngr.getNumIntegrantes());
-				Objetivo objetivoNumIntegrantes = new ObtenerNumIntegrantes();
-				objetivoNumIntegrantes.setSolved();
-				objetivoNumIntegrantes.setobjectReferenceId(gr.getId());
-				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoNumIntegrantes);
-				
 				gr.setEdad(ngr.getEdad());
-				Objetivo objetivoEdad = new ObtenerEdad();
-				objetivoEdad.setSolved();
-				objetivoEdad.setobjectReferenceId(gr.getId());
-				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoEdad);
-				
 				gr.setSexo(ngr.getSexo());
-				Objetivo objetivoSexo = new ObtenerSexo();
-				objetivoSexo.setSolved();
-				objetivoSexo.setobjectReferenceId(gr.getId());
-				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoSexo);
 				
+				objetivoGeneral.setSolved();
+				objetivoGeneral.setobjectReferenceId(identInterlocutor);
+				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoGeneral);
 				this.getEnvioHechos().actualizarHecho(gr);
 
 				if (recComunicacionChat != null) {
@@ -72,6 +67,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 					String mensajeAenviar = conversacion.msg("grupoRegistrado");
 					recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				}
+				
 
 			} 
 			else {

@@ -20,6 +20,8 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
+// "grupo" es el nombre del usuario del chat.
+
 rule "Creacion de los objetivos iniciales"
 when 
 then 
@@ -92,18 +94,17 @@ end
 
 rule "Regla de solicitar sexo del grupo"
  when
- 	
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerSexo(objectReferenceId == fcgroup)))
+ 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(foco == null, grupo == group)
+ 	not( exists (ObtenerSexo(objectReferenceId == group)))
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
   	Objetivo ob = new ObtenerSexo();
-  	ob.setobjectReferenceId(fcgroup);
+  	ob.setobjectReferenceId(group);
   	fc.setFoco(ob);
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcgroup,conversacion.msg("peticionSexo"));
+    tarea.ejecutar(group,conversacion.msg("peticionSexo"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(fc);
    	insert(ob);
@@ -111,7 +112,8 @@ end
 
 rule "Regla de obtencion del sexo del grupo"
  when
-	ob:ObtenerSexo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerSexo(state == Objetivo.PENDING, objectReferenceId == group)
  	fc:FocoGrupo(grupo == group, foco == ob )
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
@@ -131,18 +133,17 @@ end
 
 rule "Regla de solicitar edad del grupo"
  when
- 	
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerEdad(objectReferenceId == fcgroup)))
+ 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(foco == null, grupo == group)
+ 	not( exists (ObtenerEdad(objectReferenceId == group)))
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
   	Objetivo ob = new ObtenerEdad();
-  	ob.setobjectReferenceId(fcgroup);
+  	ob.setobjectReferenceId(group);
   	fc.setFoco(ob);
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcgroup,conversacion.msg("peticionEdad"));
+    tarea.ejecutar(group,conversacion.msg("peticionEdad"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(fc);
    	insert(ob);
@@ -150,7 +151,8 @@ end
 
 rule "Regla de obtencion de la edad del grupo"
  when
-	ob:ObtenerEdad(group:objectReferenceId, state == Objetivo.PENDING)
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerEdad(state == Objetivo.PENDING, objectReferenceId == group)
  	fc:FocoGrupo(grupo == group, foco == ob )
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.edad, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
@@ -172,18 +174,17 @@ end
 
 rule "Regla de solicitar número de integrantes del grupo"
  when
- 	
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerNumIntegrantes(objectReferenceId == fcgroup)))
+ 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(foco == null, grupo == group)
+ 	not( exists (ObtenerNumIntegrantes(objectReferenceId == group)))
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
   	Objetivo ob = new ObtenerNumIntegrantes();
-  	ob.setobjectReferenceId(fcgroup);
+  	ob.setobjectReferenceId(group);
   	fc.setFoco(ob);
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcgroup,conversacion.msg("peticionNumIntegrantes"));
+    tarea.ejecutar(group,conversacion.msg("peticionNumIntegrantes"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(fc);
    	insert(ob);
@@ -191,7 +192,8 @@ end
 
 rule "Regla de obtencion del número de integrantes del grupo"
  when
-	ob:ObtenerNumIntegrantes(group:objectReferenceId, state == Objetivo.PENDING)
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerNumIntegrantes(state == Objetivo.PENDING, objectReferenceId == group)
  	fc:FocoGrupo(grupo == group, foco == ob )
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.numintegrantes, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
@@ -212,17 +214,17 @@ end
 
 rule "Regla de solicitud del identificador del grupo"
  when
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerIDGrupo(objectReferenceId == fcgroup)))
+ 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(foco == null, grupo == group)
+ 	not( exists (ObtenerIDGrupo(objectReferenceId == group)))
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
   	
   	Objetivo ob = new ObtenerIDGrupo();
-	ob.setobjectReferenceId(fcgroup);
+	ob.setobjectReferenceId(group);
 	fc.setFoco(ob);
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  	tarea.ejecutar(fcgroup, conversacion.msg("peticionIDGrupo"));	
+  	tarea.ejecutar(group, conversacion.msg("peticionIDGrupo"));	
   
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
     insert(ob);
@@ -232,21 +234,23 @@ end
 
 rule "Regla de obtencion del identificador del grupo"
  when
- 	obj:ObtenerIDGrupo(group:objectReferenceId, state == Objetivo.PENDING)
- 	fc:FocoGrupo(grupo == group, foco == obj )
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerIDGrupo(state == Objetivo.PENDING, objectReferenceId == group)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.idgrupo, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	obj.setSolved();
+ 	ob.setSolved();
  	gr.setId(msgg);
  	gr.actividad();
  	fc.setFoco(null);
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ObtenerGrupoDesdePersistencia.class);
-    tarea.ejecutar(group,gr);
+    tarea.ejecutar(group,gr,obGeneral);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(obj);
+   	update(ob);
    	update(fc);
+   	update(obGeneral);
    	update(gr);
    	retract(notif);
 end

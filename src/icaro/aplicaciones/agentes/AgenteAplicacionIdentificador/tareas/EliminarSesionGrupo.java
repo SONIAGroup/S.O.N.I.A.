@@ -38,20 +38,21 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 				}
 
 				if(g instanceof FocoGrupo ){
-					FocoGrupo ob = (FocoGrupo) g;
-					if(ob.getGrupo().equals(grupo)){
-						this.getEnvioHechos().eliminarHechoWithoutFireRules(ob);
+					FocoGrupo fc = (FocoGrupo) g;
+					if(fc.getGrupo().equals(grupo)){
+						this.getEnvioHechos().eliminarHechoWithoutFireRules(fc);
 					}
 				}
 				
 				if(g instanceof Grupo ){
-					Grupo ob = (Grupo) g;
-					if(ob.grupo.equals(grupo)){
-						this.getEnvioHechos().eliminarHechoWithoutFireRules(ob);
+					Grupo gr = (Grupo) g;
+					if(gr.grupo.equals(grupo)){
+						this.getEnvioHechos().eliminarHechoWithoutFireRules(gr);
 					}
 				}
 			
 			}
+			/*
 			Notificacion notif = new Notificacion(grupo);
 			notif.tipoNotificacion = tipoNotif.session;
 
@@ -60,7 +61,7 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 
 			this.informaraOtroAgente(new NotificacionPaciente(notif),
 					VocabularioGestionCitas.IdentAgenteAplicacionDialogoPaciente);
-
+			*/
 			
 			// this.getEnvioHechos().insertarHecho(new MemUsuario());
 			// this.getEnvioHechos().insertarHechoWithoutFireRules(new Focus());
