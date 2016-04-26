@@ -1,6 +1,6 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionDialogoMedico.tareas;
 
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.tipoNotif;
+import icaro.aplicaciones.informacion.gestionQuedadas.tipoNotif;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionMedico;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionObjetivo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;

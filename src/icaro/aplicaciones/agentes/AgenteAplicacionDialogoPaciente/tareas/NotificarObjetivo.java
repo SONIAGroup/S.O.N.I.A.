@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tools.tipoNotifPaciente;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.tipoNotif;
+import icaro.aplicaciones.informacion.gestionQuedadas.tipoNotif;
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionObjetivo;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionPaciente;

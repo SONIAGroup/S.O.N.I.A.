@@ -21,19 +21,52 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
-// Lo primero de todo es obtener el grupo que se ha identificado
-rule "Regla recibir grupo identificado"
+// Lo primero de todo es obtener el grupo que se ha identificado.
+// Después pedimos al usuario que diga con quien quiere quedar.
+// La idea es poner los subobjetivos en PENDING junto con el objetivo principal
+rule "Recibir grupo identificado y solicitar info de otro grupo"
  when
- 	notif:NotificacionIdentificado(gr:grupo)
+ 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo)
  then
- 	Objetivo id = new IdentificarGrupo();
- 	id.setobjectReferenceId(gr.getId());
- 	id.setSolved();
+ 	Objetivo id = new IdentificarOtroGrupo();
+ 	id.setobjectReferenceId(chat);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat,ConversacionGrupo.msg("pedirInfoOtroGrupo"));
+ 	Objetivo id1 = new ObtenerNumIntegrantesOtroGrupo();
+ 	id1.setobjectReferenceId(chat);
+ 	Objetivo id2 = new ObtenerEdadOtroGrupo();
+ 	id2.setobjectReferenceId(chat);
+ 	Objetivo id3 = new ObtenerSexoOtroGrupo();
+ 	id3.setobjectReferenceId(chat);
  	insert(gr);
     retract(notif);
     insert(id);
- 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," DEBUG: EJECUTO LA REGLA: " + drools.getRule().getName() + " " + gr.toString());
+    insert(id1);
+    insert(id2);
+    insert(id3);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
+
+/*
+rule "Obtener info de otro grupo"
+ when
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	notif:NotificacionQuedada(identNotificador == chat, 
+ 			tipoNotificacion == tipoNotif.numintegrantes || 
+ 			tipoNotificacion == tipoNotif.edad || 
+ 			tipoNotificacion == tipoNotif.sexo)
+ 	gr:Grupo(grupo == chat)
+ then
+ 	// Dejar en PENDING.
+ 	insert(gr);
+    retract(notif);
+    insert(id);
+    insert(id1);
+    insert(id2);
+    insert(id3);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+*/
 
 
 

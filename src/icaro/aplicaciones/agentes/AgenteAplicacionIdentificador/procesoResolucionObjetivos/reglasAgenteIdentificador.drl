@@ -280,8 +280,8 @@ rule "Finalizar la identificación del grupo"
  	gr:Grupo(grupo == group)
  	fc:FocoGrupo(grupo == group)
  then
- 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(GrupoIdentificado.class);
- 	tarea.ejecutar(gr);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarGrupoIdentificado.class);
+ 	tarea.ejecutar(group, gr);
  	fc.setFoco(null);
  	
  	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
@@ -306,10 +306,24 @@ rule "Notificar a agentes de la finalización de la identificación del grupo"
     gr:Grupo(grupo == group)
  then
  	Tarea tarea = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
-    tarea.ejecutar(gr);
+    tarea.ejecutar(group, gr);
     obj.setSolved();
 	update(obj);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Redireccionar mensaje a agente quedadas"
+ when
+    IdentificarGrupo(group:objectReferenceId, state == Objetivo.SOLVED)
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && tipoNotificacion != tipoNotif.despedida)
+    gr:Grupo(grupo == group)
+ then
+   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+	gr.actividad();
+  	Tarea tarea = gestorTareas.crearTarea(Distribuir.class);
+    tarea.ejecutar(notif, VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas);
+   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   retract(notif);
 end
 
 rule "Contexto incorrecto Luego de identificar"

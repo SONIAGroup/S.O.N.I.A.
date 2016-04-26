@@ -5,7 +5,7 @@
 
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.tipoNotif;
+import icaro.aplicaciones.informacion.gestionQuedadas.tipoNotif;
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionMedico;
 import icaro.aplicaciones.informacion.gestionCitas.NotificacionPaciente;

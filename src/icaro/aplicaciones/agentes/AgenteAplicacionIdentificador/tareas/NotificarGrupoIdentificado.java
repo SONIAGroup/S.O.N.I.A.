@@ -16,12 +16,13 @@ public class NotificarGrupoIdentificado extends TareaComunicacion {
 
 		this.getIdentTarea();
 		this.getIdentAgente();
-		Grupo gr = (Grupo) params[0];
+		String identInterlocutor    = (String) params[0];
+		Grupo gr = (Grupo) params[1];
 		try {
 
 			
 			
-			NotificacionIdentificado ngri = new NotificacionIdentificado(gr);
+			NotificacionIdentificado ngri = new NotificacionIdentificado(identInterlocutor, gr);
 			ngri.setTipoNotificacion("identificado");
 			
 			this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteIdentificador);

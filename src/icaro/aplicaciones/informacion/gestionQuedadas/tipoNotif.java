@@ -1,4 +1,4 @@
-package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools;
+package icaro.aplicaciones.informacion.gestionQuedadas;
 
 public class tipoNotif {
 	public static String saludo = "saludo";

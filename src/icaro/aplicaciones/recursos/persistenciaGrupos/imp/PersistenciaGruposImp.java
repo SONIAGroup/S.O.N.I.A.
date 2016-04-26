@@ -18,13 +18,13 @@ public class PersistenciaGruposImp implements Serializable {
 	 */
 	private static final long serialVersionUID = 3791013440695899189L;
 
-	public static void insertarGrupo(String id, Grupo grupo) {
-		tablaChatNombre.put(id, grupo);
+	public static void insertarGrupo(String chatName, Grupo grupo) {
+		tablaChatNombre.put(chatName, grupo);
 		IOUtils.write(GRUPOS_PATH, tablaChatNombre);
 	}
 
-	public static Grupo obtenerGrupo(String gr) {
-		return tablaChatNombre.get(gr);
+	public static Grupo obtenerGrupoByChatName(String chatName) {
+		return tablaChatNombre.get(chatName);
 
 	}
 	

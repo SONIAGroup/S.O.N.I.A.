@@ -1,27 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package icaro.aplicaciones.informacion.gestionQuedadas;
 
-/**
- *
- * @author SONIAGroup
- */
-public class NotificacionIdentificado {
+import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
+import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 
+public class NotificacionQuedada {
 	public String identNotificador;
-	// mensaje completo del usuario (grupo)
 	public String mensajeNotificacion;
-	// objeto de ayuda para realizar el analisis que no se utiliza aun.
 	public Object contexto;
-	// no se usa aun
 	public String identObjectRefNotificacion;
-	// anotaciones del gazetero de annie
 	public String tipoNotificacion;
-	// anotaciones del gazetero de annie
 	public Grupo grupo;
+
+	public NotificacionQuedada() {
+	}
+
+	public NotificacionQuedada(Notificacion notif) {
+		identNotificador = notif.getidentNotificador();
+		setMensajeNotificacion(notif.getMensajeNotificacion());
+		setcontexto(notif.getcontexto());
+		setidentObjectRefNotificacion(notif.getidentObjectRefNotificacion());
+		setTipoNotificacion(notif.getTipoNotificacion());
+		setGrupo(notif.getGrupo());
+	}
 
 	public Grupo getGrupo() {
 		return grupo;
@@ -29,17 +29,6 @@ public class NotificacionIdentificado {
 
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
-	}
-
-	public NotificacionIdentificado() {
-
-	}
-
-	public NotificacionIdentificado(String chatName, Grupo gr) {
-		identNotificador = chatName;
-		grupo = gr;
-		tipoNotificacion = mensajeNotificacion = null;
-		contexto = null;
 	}
 
 	public String getidentObjectRefNotificacion() {

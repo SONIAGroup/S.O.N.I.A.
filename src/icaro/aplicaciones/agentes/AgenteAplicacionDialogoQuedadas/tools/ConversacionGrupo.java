@@ -18,6 +18,12 @@ public class ConversacionGrupo {
 		
 		conversacionGrupo    = new HashMap<String, List<String>>();
 		
+		/* Sin contexto */
+		List<String> pedirInfoOtroGrupo = new ArrayList<String>();
+		pedirInfoOtroGrupo.add("Bueno, y con quien os apetece quedar?");
+		pedirInfoOtroGrupo.add("Describidme el grupo con el que os apeteceria quedar.");
+		pedirInfoOtroGrupo.add("Con que clase de grupo os apeteceria quedar? Describidmelo!");
+		
 	/* Sin contexto */
 		List<String> sinContexto = new ArrayList<String>();
 		sinContexto.add("Eing?? No entiendo lo que me estas diciendo. Repítemelo, anda.");
@@ -110,6 +116,7 @@ public class ConversacionGrupo {
 	/* Agregamos los dialogos a la conversacion global */
 		conversacionGrupo.put("sinContexto", sinContexto);
 		conversacionGrupo.put("pedirInfoOtroGrupo_numPersonas", pedirInfoOtroGrupo_numPersonas);
+		conversacionGrupo.put("pedirInfoOtroGrupo", pedirInfoOtroGrupo);
 		conversacionGrupo.put("pedirInfoOtroGrupo_edad", pedirInfoOtroGrupo_edad);
 		conversacionGrupo.put("pedirInfoOtroGrupo_sexo", pedirInfoOtroGrupo_sexo);
 		conversacionGrupo.put("imperativoPedirInfoOtroGrupo", imperativoPedirInfoOtroGrupo);

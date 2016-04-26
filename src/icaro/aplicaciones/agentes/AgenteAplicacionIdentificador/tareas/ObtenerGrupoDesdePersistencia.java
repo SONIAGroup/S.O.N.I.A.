@@ -44,7 +44,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
 			
-			Grupo ngr = persistencia.obtenerGrupo(gr.getId());
+			Grupo ngr = persistencia.obtenerGrupoByChatName(identInterlocutor);
 			
 			if (ngr != null) {
 				gr.setNumIntegrantes(ngr.getNumIntegrantes());

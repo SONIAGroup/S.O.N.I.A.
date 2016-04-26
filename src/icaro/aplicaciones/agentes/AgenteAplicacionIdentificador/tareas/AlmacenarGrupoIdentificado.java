@@ -18,7 +18,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
  *
  * @author SONIAGroup
  */
-public class GrupoIdentificado extends TareaSincrona {
+public class AlmacenarGrupoIdentificado extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
 
 	@Override
@@ -26,8 +26,8 @@ public class GrupoIdentificado extends TareaSincrona {
 
 		String identDeEstaTarea = this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		//String identInterlocutor = (String) params[0];
-		Grupo gr = (Grupo) params[0];
+		String identInterlocutor = (String) params[0];
+		Grupo gr = (Grupo) params[1];
 		try {
 
 			// // Se busca la interfaz del recurso en el repositorio de
@@ -35,7 +35,7 @@ public class GrupoIdentificado extends TareaSincrona {
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
 			//Grupo ngr = persistencia.obtenerGrupo(gr.getId());
-			persistencia.insertarGrupo(gr.getId(), gr);
+			persistencia.insertarGrupo(identInterlocutor, gr);
 		
 
 		} catch (Exception e) {

@@ -1,14 +1,13 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
-import icaro.aplicaciones.informacion.gestionCitas.NotificacionMedico;
-import icaro.aplicaciones.informacion.gestionCitas.NotificacionPaciente;
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionQuedadas.NotificacionQuedada;
+import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicacion;
 
 /**
  *
- * @author Francisco J Garijo
+ * @author SONIAGroup
  */
 public class Distribuir extends TareaComunicacion {
 
@@ -17,18 +16,14 @@ public class Distribuir extends TareaComunicacion {
 
 		this.getIdentTarea();
 		this.getIdentAgente();
-		Notificacion notif = (Notificacion) params[1];
-		String identidadPaciente = (String) params[2];
+		Notificacion notif = (Notificacion) params[0];
+		String idAgente = (String) params[1];
 		try {
-			if (identidadPaciente
-					.equals(VocabularioGestionCitas.IdentAgenteAplicacionDialogoMedico)) {
-				this.informaraOtroAgente(new NotificacionMedico(notif),
-						identidadPaciente);
-			} else if (identidadPaciente
-					.equals(VocabularioGestionCitas.IdentAgenteAplicacionDialogoPaciente)) {
-				this.informaraOtroAgente(new NotificacionPaciente(notif),
-						identidadPaciente);
-			}
+			if (idAgente.equals(VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas)) {
+				this.informaraOtroAgente(new NotificacionQuedada(notif), idAgente);
+			}// else if (idAgente.equals(VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoPaciente)) {
+			//	this.informaraOtroAgente(new NotificacionPaciente(notif), idAgente);
+			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
