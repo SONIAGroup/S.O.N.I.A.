@@ -36,8 +36,10 @@ rule "Recibir grupo identificado y solicitar info de otro grupo"
  	Objetivo id3 = new ObtenerSexoOtroGrupo();
  	id3.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
+ 	Quedada que = new Quedada(chat, gr);
  	insert(fc);
  	insert(gr);
+ 	insert(que);
     retract(notif);
     insert(id);
     insert(id1);
@@ -59,19 +61,22 @@ rule "Obtener info de otro grupo"
  			tipoNotificacion == tipoNotif.edad || 
  			tipoNotificacion == tipoNotif.sexo, 
  			msgg:mensajeNotificacion)
- 	gr:Grupo(grupo == chat) // Es posible que este no se use, lo que sí se usará es el objeto Quedada.
+ 	que:Quedada(id == chat)
  then
  	if (notif.tipoNotificacion.equals(tipoNotif.numintegrantes)){
+ 		que.setNumIntegrantes(Integer.parseInt(msgg));
  		ob1.setSolved();
  		update(ob1);
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO NUMINTEGRANTES!!!");
  	}
  	else if (notif.tipoNotificacion.equals(tipoNotif.edad)){
+ 		que.setEdad(Integer.parseInt(msgg));
  		ob2.setSolved();
  		update(ob2);
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO EDAD!!!");
  	}
- 	else if (notif.tipoNotificacion.equals(tipoNotif.sexo)){ // notif.tipoNotificacion == tipoNotif.sexo
+ 	else { // notif.tipoNotificacion == tipoNotif.sexo
+ 		que.setSexo(msgg);
  		ob3.setSolved();
  		update(ob3);
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO SEXO!!!");
@@ -84,19 +89,19 @@ rule "Obtener info de otro grupo"
  		ob.setSolving();
  	
  	update(ob);
- 	//insert(gr);
+ 	update(que);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Focalizar info restante de otro grupo"
+ timer( int: 1s )
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
  	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
  	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
- 	fc:FocoGrupo(foco == null, grupo == chat, intentos >= 1)
- 	gr:Grupo(grupo == chat) // Es posible que este no se use, lo que sí se usará es el objeto Quedada.
+ 	fc:FocoGrupo(foco == null, grupo == chat)
  then
  	if (ob1.getState() == Objetivo.PENDING)
  		fc.setFoco(ob1);
@@ -116,8 +121,9 @@ rule "Focalizar info restante de otro grupo"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
+/*
 rule "Aumentar intento obtencion subobjetivos identificar otro grupo"
- timer( int: 3s )
+ timer( float: 0.3s )
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
@@ -128,14 +134,14 @@ rule "Aumentar intento obtencion subobjetivos identificar otro grupo"
  	fc.intentos += 1;
  	update(fc);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
-end
-
+end1
+*/
 
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR EL NUMERO DE INTEGRANTES DEL OTRO GRUPO ***/
 
-rule "Regla solicitar numero integrantes del otro grupo"
+rule "Solicitar numero integrantes del otro grupo"
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.PENDING)
@@ -150,21 +156,22 @@ rule "Regla solicitar numero integrantes del otro grupo"
    	update(ob1);
 end
 
-rule "Regla recibir numero integrantes del otro grupo"
+rule "Obtener numero integrantes del otro grupo"
 when
 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob1)
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.numintegrantes, msgg:mensajeNotificacion )
+	que:Quedada(id == chat)
  then
  	ob1.setSolved();
- 	//gr.setNumIntegrantes(Integer.parseInt(msgg)); CAMBIAR POR OBJETO QUEDADA.
+ 	que.setNumIntegrantes(Integer.parseInt(msgg));
  	fc.setFoco(null);
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConfirmarNumIntegrantesOtroGrupo.class);
     tarea.ejecutar(chat, msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(ob1);
-   	//update(gr); CAMBIAR POR OBJETO QUEDADA.
+   	update(que);
    	update(fc);
    	retract(notif);
 end
@@ -172,85 +179,79 @@ end
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR LA EDAD DEL OTRO GRUPO ***/
-/*
-rule "Regla solicitar edad del otro grupo"
+
+rule "Solicitar edad del otro grupo"
  when
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarOtroGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerEdadOtroGrupo(objectReferenceId == fcgroup)))
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob2)
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
-  	Objetivo ob = new ObtenerEdadOtroGrupo();
-  	ob.setobjectReferenceId(fcgroup);
-  	fc.setFoco(ob);
+  	ob2.setSolving();
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcgroup,ConversacionGrupo.msg("pedirInfoOtroGrupo_edad"));
+    tarea.ejecutar(chat,ConversacionGrupo.msg("pedirInfoOtroGrupo_edad"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	update(ob2);
 end
 
-rule "Regla recibir edad del otro grupo"
+rule "Obtener edad del otro grupo"
  when
-	ob:ObtenerEdadOtroGrupo(group:objectReferenceId, state == Objetivo.PENDING)
- 	fc:FocoGrupo(grupo == group, foco == ob )
-    notif:Notificacion(identNotificador == group, tipoNotificacion == tiposNotificionQuedadas.edadOtroGrupo, msgg:mensajeNotificacion )
-    gr:Grupo(grupo == group)
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob2)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.edad, msgg:mensajeNotificacion )
+	que:Quedada(id == chat)
  then
- 	ob.setSolved();
- 	gr.setEdad(msgg);
- 	gr.actividad();
+ 	ob2.setSolved();
+ 	que.setEdad(Integer.parseInt(msgg));
  	fc.setFoco(null);
+ 	
     TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(ConfirmarEdadOtroGrupo.class);
-    tarea1.ejecutar(group, msgg);
+    tarea1.ejecutar(chat, msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
+   	update(ob2);
    	update(fc);
    	retract(notif);
 end
-*/
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR EL SEXO DEL OTRO GRUPO ***/
-/*
-rule "Regla solicitar sexo del otro grupo"
+
+rule "Solicitar sexo del otro grupo"
  when
- 	
- 	fc:FocoGrupo(fcgroup:grupo , foco == null)
- 	obj:IdentificarOtroGrupo(state == Objetivo.PENDING ,objectReferenceId == fcgroup )
- 	not( exists (ObtenerSexoOtroGrupo(objectReferenceId == fcgroup)))
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob3:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob3)
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
-  	Objetivo ob = new ObtenerSexoOtroGrupo();
-  	ob.setobjectReferenceId(fcgroup);
-  	fc.setFoco(ob);
+  	ob3.setSolving();
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcgroup,ConversacionGrupo.msg("pedirInfoOtroGrupo_sexo"));
+    tarea.ejecutar(chat,ConversacionGrupo.msg("pedirInfoOtroGrupo_sexo"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	update(ob3);
 end
 
-rule "Regla recibir sexo del otro grupo"
+rule "Obtener sexo del otro grupo"
  when
-	ob:ObtenerSexoOtroGrupo(group:objectReferenceId, state == Objetivo.PENDING)
- 	fc:FocoGrupo(grupo == group, foco == ob )
-    notif:Notificacion(identNotificador == group, tipoNotificacion == tiposNotificionQuedadas.sexoOtroGrupo, msgg:mensajeNotificacion )
-    gr:Grupo(grupo == group)
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob3)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
+	que:Quedada(id == chat)
  then
- 	ob.setSolved();
- 	gr.setSexo(msgg);
- 	gr.actividad();
+ 	ob3.setSolved();
+ 	que.setSexo(msgg);
  	fc.setFoco(null);
+ 	
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(group,ConversacionGrupo.msg("pedirInfoOtroGrupo_sexo"));
+    tarea.ejecutar(chat,"Okk.");
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
+   	update(ob3);
    	update(fc);
+   	update(que);
    	retract(notif);
 end
-*/

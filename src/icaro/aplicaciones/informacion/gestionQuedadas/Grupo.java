@@ -16,7 +16,7 @@ public class Grupo implements Serializable {
 	private String id;
 	private int numIntegrantes;
 	private Sexo sexo;
-	private double edad;
+	private int edad;
 	private long tiempo;
 	
 	public Grupo() {
@@ -28,7 +28,7 @@ public class Grupo implements Serializable {
 		tiempo = System.currentTimeMillis();
 	}
 	
-	public Grupo(String id, int numIntegrantes, Sexo sexo, double edad) {
+	public Grupo(String id, int numIntegrantes, Sexo sexo, int edad) {
 		super();
 		this.id = id;
 		this.numIntegrantes = numIntegrantes;
@@ -74,12 +74,12 @@ public class Grupo implements Serializable {
 			this.sexo = Sexo.mixto;
 	}
 
-	public String getEdad() {
-		return "" + edad;
+	public int getEdad() {
+		return edad;
 	}
 
-	public void setEdad(String edad) {
-		this.edad = Float.parseFloat(edad);
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 	
 	public void actividad() {
@@ -93,7 +93,7 @@ public class Grupo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "El grupo" + this.id + " esta formado por " + this.numIntegrantes + ", de una edad media de " + this.edad + " de sexo " + this.sexo; 
+		return "El grupo " + this.id + " esta formado por " + this.numIntegrantes + ", de una edad media de " + this.edad + " de sexo " + this.sexo; 
 	}
 	
 	

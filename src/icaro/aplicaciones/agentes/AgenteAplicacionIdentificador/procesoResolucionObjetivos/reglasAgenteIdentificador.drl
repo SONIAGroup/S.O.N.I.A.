@@ -158,7 +158,7 @@ rule "Regla de obtencion de la edad del grupo"
     gr:Grupo(grupo == group)
  then
  	ob.setSolved();
- 	gr.setEdad(msgg);
+ 	gr.setEdad(Integer.parseInt(msgg));
  	gr.actividad();
  	fc.setFoco(null);
     TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(ConfirmarEdad.class);

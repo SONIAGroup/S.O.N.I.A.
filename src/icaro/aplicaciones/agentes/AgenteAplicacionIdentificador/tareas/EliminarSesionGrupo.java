@@ -26,13 +26,13 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 	public void ejecutar(Object... params) {
 		String grupo = (String) params[0];
 		try {
-
 			for (Object g : this.getEnvioHechos().getItfMotorDeReglas()
 					.getStatefulKnowledgeSession().getObjects()) {
 
 				if (g instanceof Objetivo) {
 					Objetivo ob = (Objetivo) g;
 					if (ob.getobjectReferenceId().equals(grupo)) {
+						//this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().retract(this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().getFactHandle(ob));
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(ob);
 					}
 				}
@@ -40,6 +40,7 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 				if(g instanceof FocoGrupo ){
 					FocoGrupo fc = (FocoGrupo) g;
 					if(fc.getGrupo().equals(grupo)){
+						//this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().retract(this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().getFactHandle(fc));
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(fc);
 					}
 				}
@@ -47,6 +48,7 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 				if(g instanceof Grupo ){
 					Grupo gr = (Grupo) g;
 					if(gr.grupo.equals(grupo)){
+						//this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().retract(this.getEnvioHechos().getItfMotorDeReglas().getStatefulKnowledgeSession().getFactHandle(gr));
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(gr);
 					}
 				}
