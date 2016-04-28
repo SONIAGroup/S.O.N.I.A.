@@ -281,21 +281,13 @@ rule "Finalizar la identificación del grupo"
  	fc:FocoGrupo(grupo == group)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarGrupoIdentificado.class);
- 	tarea.ejecutar(group, gr);
+ 	tarea.ejecutar(gr);
  	fc.setFoco(null);
  	
  	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
-  	
-    //insertarUsuario(user,cu);
-
-	//NotificacionObjetivo f = new NotificacionObjetivo();
-	//f.setTipoNotificacion(tipoNotif.objetivo);
-	//f.setAgente("INIT");
-	//f.identNotificador = user;
-	//insert(f);
-
  	ob.setSolving();
+ 	
  	update(ob);
  	update(fc);
 end

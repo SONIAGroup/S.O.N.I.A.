@@ -1,8 +1,6 @@
 package icaro.aplicaciones.recursos.persistenciaGrupos;
 
 import java.rmi.RemoteException;
-
-import icaro.aplicaciones.informacion.gestionCitas.UsuarioContexto;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.recursos.persistenciaGrupos.ItfPersistenciaGrupos;
 import icaro.aplicaciones.recursos.persistenciaGrupos.imp.PersistenciaGruposImp;
@@ -18,17 +16,13 @@ public class ClaseGeneradoraPersistenciaGrupos extends ImplRecursoSimple impleme
 	}
 
 	@Override
-	public void insertarGrupo(String chatName, Grupo gr) throws Exception {
-		PersistenciaGruposImp.insertarGrupo(chatName, gr);
+	public void insertarGrupo(Grupo gr) throws Exception {
+		PersistenciaGruposImp.insertarGrupo(gr);
 	}
 
 	@Override
-	public Grupo obtenerGrupoByChatName(String chatName) throws Exception {
-		return PersistenciaGruposImp.obtenerGrupoByChatName(chatName);
+	public Grupo obtenerGrupo(String idGrupo) throws Exception {
+		return PersistenciaGruposImp.obtenerGrupo(idGrupo);
 	}
 
-	@Override
-	public Grupo obtenerGrupoById(String id) throws Exception {
-		return PersistenciaGruposImp.obtenerGrupoById(id);
-	}
 }

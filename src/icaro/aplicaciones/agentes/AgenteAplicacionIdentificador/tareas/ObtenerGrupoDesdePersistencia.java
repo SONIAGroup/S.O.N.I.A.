@@ -6,9 +6,6 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.IdentificarGrupo;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerEdad;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerNumIntegrantes;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerSexo;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
@@ -44,9 +41,10 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
 			
-			Grupo ngr = persistencia.obtenerGrupoById(gr.getId());
+			Grupo ngr = persistencia.obtenerGrupo(gr.getId());
 			
 			if (ngr != null) {
+				gr.grupo = identInterlocutor;
 				gr.setNumIntegrantes(ngr.getNumIntegrantes());
 				gr.setEdad(ngr.getEdad());
 				gr.setSexo(ngr.getSexo());

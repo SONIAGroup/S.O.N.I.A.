@@ -7,7 +7,6 @@ package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
-import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.aplicaciones.recursos.persistenciaGrupos.ItfPersistenciaGrupos;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
@@ -26,8 +25,7 @@ public class AlmacenarGrupoIdentificado extends TareaSincrona {
 
 		String identDeEstaTarea = this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		String identInterlocutor = (String) params[0];
-		Grupo gr = (Grupo) params[1];
+		Grupo gr = (Grupo) params[0];
 		try {
 
 			// // Se busca la interfaz del recurso en el repositorio de
@@ -35,7 +33,7 @@ public class AlmacenarGrupoIdentificado extends TareaSincrona {
 			ItfPersistenciaGrupos persistencia = (ItfPersistenciaGrupos) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaGrupos);
 			//Grupo ngr = persistencia.obtenerGrupo(gr.getId());
-			persistencia.insertarGrupo(identInterlocutor, gr);
+			persistencia.insertarGrupo(gr);
 		
 
 		} catch (Exception e) {
