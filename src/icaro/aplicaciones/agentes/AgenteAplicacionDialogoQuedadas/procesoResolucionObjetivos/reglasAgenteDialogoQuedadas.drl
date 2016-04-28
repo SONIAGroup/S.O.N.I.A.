@@ -61,7 +61,7 @@ rule "Obtener info de otro grupo"
  			tipoNotificacion == tipoNotif.edad || 
  			tipoNotificacion == tipoNotif.sexo, 
  			msgg:mensajeNotificacion)
- 	que:Quedada(id == chat)
+ 	que:Quedada(idChat == chat)
  then
  	if (notif.tipoNotificacion.equals(tipoNotif.numintegrantes)){
  		que.setNumIntegrantes(Integer.parseInt(msgg));
@@ -162,7 +162,7 @@ when
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob1)
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.numintegrantes, msgg:mensajeNotificacion )
-	que:Quedada(id == chat)
+	que:Quedada(idChat == chat)
  then
  	ob1.setSolved();
  	que.setNumIntegrantes(Integer.parseInt(msgg));
@@ -201,7 +201,7 @@ rule "Obtener edad del otro grupo"
  	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob2)
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.edad, msgg:mensajeNotificacion )
-	que:Quedada(id == chat)
+	que:Quedada(idChat == chat)
  then
  	ob2.setSolved();
  	que.setEdad(Integer.parseInt(msgg));
@@ -222,7 +222,7 @@ end
 rule "Solicitar sexo del otro grupo"
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
- 	ob3:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.PENDING)
+ 	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == ob3)
  then
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
@@ -240,7 +240,7 @@ rule "Obtener sexo del otro grupo"
  	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob3)
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
-	que:Quedada(id == chat)
+	que:Quedada(idChat == chat)
  then
  	ob3.setSolved();
  	que.setSexo(msgg);

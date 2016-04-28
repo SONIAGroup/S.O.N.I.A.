@@ -5,14 +5,14 @@ import java.io.Serializable;
 /**
  *  Clase que modela a un grupo
  *  
- * @author Mariano Hernández García
+ * @author Mariano Hernández García Y Jorge Casas Hernan
  *
  */
 public class Quedada implements Serializable {
 
 
 	private static final long serialVersionUID = -2159848484753598994L;
-	public String id;
+	public String idChat;			
 	private Grupo grupoEmisor;
 	private Grupo grupoQueAcepta;
 	private int numIntegrantes;
@@ -20,8 +20,8 @@ public class Quedada implements Serializable {
 	private int edad;
 	private long tiempo;
 	
-	public Quedada(String id, Grupo grupoEmisor) {
-		this.id = id;
+	public Quedada(String idChat, Grupo grupoEmisor) {
+		this.idChat = idChat;
 		this.grupoEmisor	= grupoEmisor;
 		this.grupoQueAcepta	= null;
 		this.numIntegrantes = 0;
