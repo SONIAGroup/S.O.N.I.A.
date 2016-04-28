@@ -454,7 +454,7 @@ public class InterpreteMsgsIRC {
 		// para el agente
 		HashSet anotacionesBusquedaPrueba = new HashSet();
 		anotacionesBusquedaPrueba.add("saludo");
-		anotacionesBusquedaPrueba.add("dni");
+		anotacionesBusquedaPrueba.add("queHacer");
 		anotacionesBusquedaPrueba.add("edad");
 		anotacionesBusquedaPrueba.add("sexo");
 		anotacionesBusquedaPrueba.add("numintegrantes");
@@ -1496,17 +1496,12 @@ public class InterpreteMsgsIRC {
 	private ArrayList interpretarAnotaciones(String interlocutor,
 			String contextoInterpretacion, HashSet anotacionesRelevantes) {
 		// recorremos las anotaciones obtenidas y las traducimos a objetos del
-		// modelo de informaciÃ³n
+		// modelo de informacion
 		ArrayList anotacionesInterpretadas = new ArrayList();
 		ArrayList<String> anotaciones_leidas = new ArrayList<String>();
-		// int i=0; 
+ 
 		Iterator annotTypesSal = anotacionesRelevantes.iterator();
-		/*
-		 * Esto es porque, cada vez que detecta la palabra "cita" crea DOS
-		 * anotaciones de tipo "InicipPeticion" lo que provoca que conteste dos
-		 * veces, es un fix rápido que debería ser corregido en el Annie
-		 * Transducer, cosa que no tengo muy claro cómo hacerlo...
-		 */
+
 		boolean tienePeticion = false;
 		while (annotTypesSal.hasNext()) {
 			Annotation annot = (Annotation) annotTypesSal.next();
@@ -1532,8 +1527,8 @@ public class InterpreteMsgsIRC {
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 
-			} else if (anotType.equalsIgnoreCase("dni")&& !anotaciones_leidas.contains("dni")) {
-				anotaciones_leidas.add("dni");
+			} else if (anotType.equalsIgnoreCase("queHacer")&& !anotaciones_leidas.contains("queHacer")) {
+				anotaciones_leidas.add("queHacer");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
@@ -1614,10 +1609,9 @@ public class InterpreteMsgsIRC {
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 			}
-			// fet = annot.getFeatures();
 
-			// string= (String) annot.getFeatures().get("string");
 		}
+		
 		return anotacionesInterpretadas;
 	}
 

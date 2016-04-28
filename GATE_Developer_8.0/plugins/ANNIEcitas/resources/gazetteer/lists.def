@@ -8,13 +8,14 @@ profesiones.lst:Persona:Profesion
 tipoLugar.lst:Lugar:Tipo
 tipoOrgEn.lst:Organizacion:Tipo:english
 lugaresEN.lst:Lugar
-misc.lst:Misc
+misc.lst:Misc
 tipoOrg.lst:Organizacion:Tipo
 tiempo.lst:Tiempo
 paises.lst:Lugar:Pais
 rumbosCardinales.lst:Lugar:RumboCardinal
 sexoGrupo.lst::sexo:spanish:sexo
 saludo.lst::saludo:spanish:saludo
+queHacer.lst::queHacer:spanish:queHacer
 cita.lst:Cita:Tipo
 especialistas.lst:especialista:doctor:spanish
 cuerpo.lst:cuerpo

@@ -3,11 +3,16 @@ package icaro.aplicaciones.informacion.gestionQuedadas;
 public class tipoNotif {
 	public static String saludo = "saludo";
 	public static String nombre = "nombre";
-	public static String dni = "dni";
+	//public static String dni = "dni";
 	public static String idgrupo = "idgrupo";
 	public static String edad = "edad";
 	public static String sexo = "sexo";
 	public static String numintegrantes = "numintegrantes";
+	
+	public static String queHacer = "queHacer";
+	public static String dondeHacer = "dondeHacer";
+	public static String cuandoHacer = "cuandoHacer";
+	
 	public static String despedida = "despedida";
 	public static String pordefinir = "definido";
 	public static String objetivo = "objetivo";

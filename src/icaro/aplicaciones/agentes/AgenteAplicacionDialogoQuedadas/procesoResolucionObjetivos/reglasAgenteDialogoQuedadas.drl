@@ -21,6 +21,41 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
+rule "Solicitar qué se quiere hacer en la quedada"
+ when
+	ob:ObtenerQueHacer(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == null)
+ then
+  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+  	fc.setFoco(ob);
+  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirQueHacer"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob);
+   	update(fc);
+end
+
+
+rule "Obtener qué se quiere hacer en la quedada"
+when
+	ob:ObtenerQueHacer(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.queHacer, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	ob.setSolved();
+ 	que.setQueHacer(msgg);
+ 	fc.setFoco(null);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob);
+   	update(que);
+   	update(fc);
+   	retract(notif);
+end
+
+
 rule "Recibir grupo identificado y solicitar info de otro grupo"
  when
  	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo)
@@ -56,7 +91,7 @@ rule "Obtener info de otro grupo"
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
  	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
  	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
- 	notif:NotificacionQuedada(identNotificador == chat, 
+ 	notif:NotificacionQuedada(identNotificador == chat,
  			tipoNotificacion == tipoNotif.numintegrantes || 
  			tipoNotificacion == tipoNotif.edad || 
  			tipoNotificacion == tipoNotif.sexo, 
@@ -85,7 +120,13 @@ rule "Obtener info de otro grupo"
  	if (ob1.getState() == Objetivo.SOLVED && ob2.getState() == Objetivo.SOLVED && ob3.getState() == Objetivo.SOLVED){
  		ob.setSolved();
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"OBJETIVO IDENTIFICAR OTRO GRUPO CONSEGUIDO!!!");
- 	}else
+ 		
+ 		Objetivo obQueHacer = new ObtenerQueHacer();
+ 		obQueHacer.setobjectReferenceId(chat);
+ 		insert(obQueHacer);
+ 		
+ 	}
+ 	else
  		ob.setSolving();
  	
  	update(ob);
@@ -109,14 +150,20 @@ rule "Focalizar info restante de otro grupo"
  		fc.setFoco(ob2);
  	else if (ob3.getState() == Objetivo.PENDING)
  		fc.setFoco(ob3);
- 	else
- 		fc.setFoco(null);
  	
  	if (ob1.getState() == Objetivo.SOLVED && ob2.getState() == Objetivo.SOLVED && ob3.getState() == Objetivo.SOLVED){
  		ob.setSolved();
  		update(ob);
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"OBJETIVO IDENTIFICAR OTRO GRUPO CONSEGUIDO!!!");
+ 		
+ 		fc.setFoco(null);
+ 		
+ 		Objetivo obQueHacer = new ObtenerQueHacer();
+ 		obQueHacer.setobjectReferenceId(chat);
+ 		insert(obQueHacer);
+ 		
  	}
+ 	
  	update(fc);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end

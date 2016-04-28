@@ -18,6 +18,9 @@ public class Quedada implements Serializable {
 	private int numIntegrantes;
 	private Sexo sexo;
 	private int edad;
+	private String queHacer;
+
+
 	private long tiempo;
 	
 	public Quedada(String idChat, Grupo grupoEmisor) {
@@ -92,7 +95,13 @@ public class Quedada implements Serializable {
 	}
 	
 	
-	
+	public String getQueHacer() {
+		return queHacer;
+	}
+
+	public void setQueHacer(String queHacer) {
+		this.queHacer = queHacer;
+	}
 	
 
 }

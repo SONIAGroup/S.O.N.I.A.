@@ -26,60 +26,60 @@ public class ConversacionGrupo {
 		
 	/* Sin contexto */
 		List<String> sinContexto = new ArrayList<String>();
-		sinContexto.add("Eing?? No entiendo lo que me estas diciendo. Repítemelo, anda.");
-		sinContexto.add("No estoy muy segura de estar entendiendote. ¿Podrías repetirmelo?");
-		sinContexto.add("¿Hablamos el mismo idioma xD?. Repítemelo con otras palabras");
+		sinContexto.add("Eing?? No entiendo lo que me estas diciendo. Repitemelo, anda.");
+		sinContexto.add("No estoy muy segura de estar entendiendote. Podrias repetirmelo?");
+		sinContexto.add("Hablamos el mismo idioma xD?. Repitemelo con otras palabras");
 	/*///////////////////// */
 	
 	/* Obtener informacion del grupo con el que se quiere quedar*/
 		List<String> pedirInfoOtroGrupo_numPersonas = new ArrayList<String>();
-		pedirInfoOtroGrupo_numPersonas.add("Necesito saber con cuántas personas quieres quedar");
-		pedirInfoOtroGrupo_numPersonas.add("¿Con cuántas personas te gustaría quedar?");
-		pedirInfoOtroGrupo_numPersonas.add("¿Quieres quedar con un número aproximado de personas o te da igual?");
+		pedirInfoOtroGrupo_numPersonas.add("Necesito saber con cuantas personas quieres quedar");
+		pedirInfoOtroGrupo_numPersonas.add("Con cuantas personas te gustaria quedar?");
+		pedirInfoOtroGrupo_numPersonas.add("Quieres quedar con un numero aproximado de personas o te da igual?");
 	
 		List<String> pedirInfoOtroGrupo_edad = new ArrayList<String>();
-		pedirInfoOtroGrupo_edad.add("¿Qué edad media te gustaría que tuvieran?");
-		pedirInfoOtroGrupo_edad.add("¿Qué edad, más o menos, quieren que tengan?");
+		pedirInfoOtroGrupo_edad.add("Que edad media te gustaria que tuvieran?");
+		pedirInfoOtroGrupo_edad.add("Que edad, mas o menos, quieren que tengan?");
 		
 		List<String> pedirInfoOtroGrupo_sexo = new ArrayList<String>();
-		pedirInfoOtroGrupo_sexo.add("¿Quieres quedar con chicos, chicas o te da igual?");
+		pedirInfoOtroGrupo_sexo.add("Quieres quedar con chicos, chicas o te da igual?");
 		
 		List<String> imperativoPedirInfoOtroGrupo = new ArrayList<String>();
 		imperativoPedirInfoOtroGrupo.add("Por favor, necesito que me digas los datos de la gente con la que quieres quedar");
-		imperativoPedirInfoOtroGrupo.add("Si no me dices con quién te gustaría quedar, no podré ayudarte :(");
+		imperativoPedirInfoOtroGrupo.add("Si no me dices con quien te gustaria quedar, no podre ayudarte :(");
 		
 		List<String> confirmacionInfoOtroGrupo = new ArrayList<String>();
-		confirmacionInfoOtroGrupo.add("Muchas gracias!! Ya tengo la información sobre el otro grupo");
+		confirmacionInfoOtroGrupo.add("Muchas gracias!! Ya tengo la informacion sobre el otro grupo");
 		confirmacionInfoOtroGrupo.add("Genial, pasemos ahora a determinar los datos de la quedada ;)");
 		confirmacionInfoOtroGrupo.add("Esto va sobre la marcha. Vamos a hablar de la quedada");
 	/*///////////////////// */
 		
 	/* Obtener que se quiere hacer*/
 		List<String> pedirQueHacer = new ArrayList<String>();
-		pedirQueHacer.add("¿Qué te apetece hacer?");
-		pedirQueHacer.add("¿Qué te gustaría hacer?");
-		pedirQueHacer.add("¿Cuál es el plan que se te ha ocurrido?");
-		pedirQueHacer.add("¿Sabes el plan que quieres hacer o te da igual?");
+		pedirQueHacer.add("Que te apetece hacer?");
+		pedirQueHacer.add("Que te gustaria hacer?");
+		pedirQueHacer.add("Cual es el plan que se te ha ocurrido?");
+		pedirQueHacer.add("Sabes el plan que quieres hacer o te da igual?");
 		
 		List<String> imperativoQueHacer = new ArrayList<String>();
-		imperativoQueHacer.add("Necesito saber qué quieres hacer...Si no lo sabes o te da igual, puedes decirme 'me da igual'");
-		imperativoQueHacer.add("No seas rollo. ¿Qué te apetece hacer?");
+		imperativoQueHacer.add("Necesito saber que quieres hacer...Si no lo sabes o te da igual, puedes decirme 'me da igual'");
+		imperativoQueHacer.add("No seas rollo. Que te apetece hacer?");
 		
 		List<String> confirmacionQueHacer = new ArrayList<String>();
 		confirmacionQueHacer.add("Bien!! Ya sabemos el plan");
-		confirmacionQueHacer.add("Suena interesante...¿Me puedo apuntar xD?");
-		confirmacionQueHacer.add("¡Qué divertido! Pasemos a lo siguiente");
+		confirmacionQueHacer.add("Suena interesante...Me puedo apuntar xD?");
+		confirmacionQueHacer.add("Que divertido! Pasemos a lo siguiente");
 	/*///////////////////// */
 		
 	/* Obtener donde se quiere hacer*/
 		List<String> pedirDonde = new ArrayList<String>();
-		pedirDonde.add("¿Dónde quieres hacer ese plan?");
-		pedirDonde.add("¿Dónde quieres quedar?");
+		pedirDonde.add("Donde quieres hacer ese plan?");
+		pedirDonde.add("Donde quieres quedar?");
 		pedirDonde.add("Ahora tienes que decirme el sitio");
 		
 		List<String> imperativoDonde = new ArrayList<String>();
-		imperativoDonde.add("Eres muy cansino..dime, ¿dónde quieres quedar?");
-		imperativoDonde.add("No tengo todo el día, ¿sabes el lugar o te da igual?");
+		imperativoDonde.add("Eres muy cansino..dime, donde quieres quedar?");
+		imperativoDonde.add("No tengo todo el dia, sabes el lugar o te da igual?");
 		
 		List<String> confirmacionDonde = new ArrayList<String>();
 		confirmacionDonde.add("Vale, ya tengo el lugar");
@@ -88,28 +88,28 @@ public class ConversacionGrupo {
 		
 	/* Obtener fecha y hora */	
 		List<String> pedirFechayHora = new ArrayList<String>();
-		pedirFechayHora.add("Ahora necesito saber el día y la hora a la que quieres quedar");
-		pedirFechayHora.add("Ya casi acabamos! ¿Qué día y a qué hora quieres quedar?");
-		pedirFechayHora.add("Por último sólo necesito saber la fecha (día y hora) a la que quieres quedar");
+		pedirFechayHora.add("Ahora necesito saber el dia y la hora a la que quieres quedar");
+		pedirFechayHora.add("Ya casi acabamos! Que dia y a que hora quieres quedar?");
+		pedirFechayHora.add("Por ultimo solo necesito saber la fecha (dia y hora) a la que quieres quedar");
 		
 		List<String> imperativopedirFechayHora = new ArrayList<String>();
-		imperativopedirFechayHora.add("No podré encontrar a otro grupo para quedar a menos que me digas la fecha y hora a la que desea quedar..");
+		imperativopedirFechayHora.add("No podre encontrar a otro grupo para quedar a menos que me digas la fecha y hora a la que desea quedar..");
 		imperativopedirFechayHora.add("Por favor, necesito saber la fecha y la hora a la que quieres quedar");
-		imperativopedirFechayHora.add("Yo también tengo vida...dime la fecha y la hora de la quedada, anda");
+		imperativopedirFechayHora.add("Yo tambien tengo vida...dime la fecha y la hora de la quedada, anda");
 		
 		List<String> confirmarFechayHora = new ArrayList<String>();
 		confirmarFechayHora.add("Perfecto!! Ya tenemos la fecha y la hora ;)");
-		confirmarFechayHora.add("Vale, esa fecha es válida");
+		confirmarFechayHora.add("Vale, esa fecha es valida");
 	/*///////////////////// */
 				
 	/* Confirmar quedada*/	
 		List<String> confirmarQuedada = new ArrayList<String>();
-		confirmarQuedada.add("Ya tengo todo!! Sólo falta que me confirmes la cita");
-		confirmarQuedada.add("Si me das el okay comenzaré a buscarte al otro grupo para que quedéis");
+		confirmarQuedada.add("Ya tengo todo!! Solo falta que me confirmes la cita");
+		confirmarQuedada.add("Si me das el okay comenzare a buscarte al otro grupo para que quedeis");
 		
 		List<String> imperativoConfirmarQuedada = new ArrayList<String>();
-		imperativoConfirmarQuedada.add("Ya estamos acabando. Dime, ¿confirmas esta quedada?");
-		imperativoConfirmarQuedada.add("Ánimo, esto ya es lo último...¿me confirmas la quedada?");
+		imperativoConfirmarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");
+		imperativoConfirmarQuedada.add("animo, esto ya es lo ultimo...me confirmas la quedada?");
 	/*///////////////////// */	
 		
 		
