@@ -217,7 +217,7 @@ rule "Obtener edad del otro grupo"
 end
 
 
-/*** REGLAS PARA SOLICITAR Y RECIBIR EL SEXO DEL OTRO GRUPO ***/
+/*** REGLAS PARA SOLICITAR Y RECIBIR EL SEXO DEL OTRO GRUPO. ***/
 
 rule "Solicitar sexo del otro grupo"
  when
