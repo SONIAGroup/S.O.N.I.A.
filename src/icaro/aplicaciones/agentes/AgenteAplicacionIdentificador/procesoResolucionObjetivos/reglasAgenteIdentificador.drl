@@ -33,11 +33,8 @@ end
 rule "Saludo Inicial"
 when
 then
-   // recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Se ejecuta la tarea : SolicitarDatosAcceso",InfoTraza.NivelTraza.debug));
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(SaludoInicial.class);
      tarea.ejecutar(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
-   // recursoTrazas.aceptaNuevaTraza(new InfoTraza(agentId,"Realizando el objetivo : "+obj.getgoalId()+"  Ejecutando la tarea : "+ tarea.getIdentTarea() ,InfoTraza.NivelTraza.debug));
-   // recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Saludo inicial cuando el grupo ha saludado"
