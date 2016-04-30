@@ -88,18 +88,28 @@ public class ConversacionGrupo {
 		
 	/* Obtener fecha y hora */	
 		List<String> pedirFechayHora = new ArrayList<String>();
-		pedirFechayHora.add("Ahora necesito saber el dia y la hora a la que quieres quedar");
-		pedirFechayHora.add("Ya casi acabamos! Que dia y a que hora quieres quedar?");
-		pedirFechayHora.add("Por ultimo solo necesito saber la fecha (dia y hora) a la que quieres quedar");
+		pedirFechayHora.add("Cuando quereis quedar con el otro grupo?");
+		pedirFechayHora.add("Cuando os gustaria quedar con el otro grupo?");
+		pedirFechayHora.add("Cuando quereis hacer la quedada con el otro grupo?");
 		
 		List<String> imperativopedirFechayHora = new ArrayList<String>();
-		imperativopedirFechayHora.add("No podre encontrar a otro grupo para quedar a menos que me digas la fecha y hora a la que desea quedar..");
-		imperativopedirFechayHora.add("Por favor, necesito saber la fecha y la hora a la que quieres quedar");
-		imperativopedirFechayHora.add("Yo tambien tengo vida...dime la fecha y la hora de la quedada, anda");
+		imperativopedirFechayHora.add("No podre encontrar a otro grupo para quedar a menos que me digais cuando quereis quedar..");
+		imperativopedirFechayHora.add("Por favor, necesito saber cuando quereis quedar");
+		imperativopedirFechayHora.add("Yo tambien tengo vida...dime cuando quereis quedar, anda");
 		
 		List<String> confirmarFechayHora = new ArrayList<String>();
 		confirmarFechayHora.add("Perfecto!! Ya tenemos la fecha y la hora ;)");
 		confirmarFechayHora.add("Vale, esa fecha es valida");
+		
+		List<String> pedirFecha = new ArrayList<String>();
+		pedirFecha.add("Que dia exacto quereis quedar?");
+		
+		List<String> fechaAnterior = new ArrayList<String>();
+		fechaAnterior.add("Jajaja estais locos, no podeis quedar en un dia que ya ha pasado! Decidme un dia a partir de hoy.");
+		fechaAnterior.add("A pesar de que estais hablando con un bot, la tecnologia no ha avanzado suficiente como para viajar en el tiempo jajaja. Decidme un dia a partir de hoy.");
+		
+		List<String> pedirHora = new ArrayList<String>();
+		pedirHora.add("A que hora exacta os gustaria quedar?");
 	/*///////////////////// */
 				
 	/* Confirmar quedada*/	
@@ -128,6 +138,9 @@ public class ConversacionGrupo {
 		conversacionGrupo.put("imperativoDonde", imperativoDonde);
 		conversacionGrupo.put("confirmacionDonde", confirmacionDonde);
 		conversacionGrupo.put("pedirFechayHora", pedirFechayHora);
+		conversacionGrupo.put("pedirHora", pedirHora);
+		conversacionGrupo.put("pedirFecha", pedirFecha);
+		conversacionGrupo.put("fechaAnterior", fechaAnterior);
 		conversacionGrupo.put("imperativopedirFechayHora", imperativopedirFechayHora);
 		conversacionGrupo.put("confirmarFechayHora", confirmarFechayHora);
 		conversacionGrupo.put("confirmarQuedada", confirmarQuedada);

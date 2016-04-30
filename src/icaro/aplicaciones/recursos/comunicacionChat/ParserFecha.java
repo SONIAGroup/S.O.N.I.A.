@@ -29,6 +29,7 @@ public final class ParserFecha {
 		private static final long serialVersionUID = 685284131402410709L;
 
 		{
+			put("hoy", 0);
 			put("pasado mañana", 2 * DIA);
 			put("mañana", DIA);
 			put("ayer", -DIA);
@@ -138,17 +139,16 @@ public final class ParserFecha {
 				calendar.set(Calendar.DAY_OF_WEEK, diaSemana);
 
 				Date msgDate = calendar.getTime();
+				
 				if (msgDate.before(date)) {
-					// enviar notificacion a usuario de que la fecha es anterior
-					// a la actual.
-					// poner anotacion de fecha anterior a la actual y que el
-					// agente espere esta
-					// notificacion para enviar mensaje al usuario.
-					notif.setTipoNotificacion(tipoNotif.fechaAnterior);
-				} else {
-					msg = RecursoCalendarioImp.slashFormatter.format(msgDate);
-					notif.setMensajeNotificacion(msg);
+					date = DateUtil.addDays(date, SEMANA);
+					calendar.setTime(date);
+					calendar.set(Calendar.DAY_OF_WEEK, diaSemana);
+					msgDate = calendar.getTime();
 				}
+				
+				msg = RecursoCalendarioImp.slashFormatter.format(msgDate);
+				notif.setMensajeNotificacion(msg);
 			}
 		}
 
@@ -188,13 +188,4 @@ public final class ParserFecha {
 		notif.setMensajeNotificacion(msg);
 		return notif;
 	}
-	/*
-	public static void main(String[] args) {
-		Notificacion notif = new Notificacion();
-		notif.setMensajeNotificacion("el 20");
-		parseaFechaNumero(notif);
-		
-	}
-	*/
-	
 }

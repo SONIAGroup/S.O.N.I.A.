@@ -1,9 +1,13 @@
 package icaro.aplicaciones.informacion.gestionQuedadas;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+
+import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
 
 /**
- *  Clase que modela a un grupo
+ *  Clase que modela una quedada
  *  
  * @author Mariano Hernández García Y Jorge Casas Hernan
  *
@@ -20,6 +24,7 @@ public class Quedada implements Serializable {
 	private int edad;
 	private String queHacer;
 	private String dondeHacer;
+	private Calendar fecha;
 
 
 	private long tiempo;
@@ -34,6 +39,7 @@ public class Quedada implements Serializable {
 		this.tiempo 		= System.currentTimeMillis();
 		this.queHacer 		= "";
 		this.dondeHacer 	= "";
+		this.fecha			= null;
 	}
 
 	public void setGrupoEmisor(Grupo grupoEmisor) {
@@ -113,6 +119,36 @@ public class Quedada implements Serializable {
 
 	public String getDondeHacer() {
 		return dondeHacer;
+	}
+	
+	public Calendar getFecha() {
+		return fecha;
+	}
+	
+	public void setFecha(Calendar fecha) {
+		if (this.fecha == null)
+			this.fecha = fecha;
+		else {
+			this.fecha.set(Calendar.DAY_OF_MONTH, fecha.get(Calendar.DAY_OF_MONTH));
+			this.fecha.set(Calendar.MONTH, fecha.get(Calendar.MONTH));
+			this.fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR));
+		}
+	}
+	
+	public void setHora(String hora) {
+		if (this.fecha == null)
+			this.fecha = DateUtil.toCalendar(new Date());
+		
+		String[] parts;
+		if(hora.indexOf(":") >= 0)
+			parts = hora.split(":");
+		else if(hora.indexOf(".") >= 0)
+			parts = hora.split(".");
+		else
+			parts = hora.split(" ");
+		
+		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
+		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[1]));
 	}
 	
 	

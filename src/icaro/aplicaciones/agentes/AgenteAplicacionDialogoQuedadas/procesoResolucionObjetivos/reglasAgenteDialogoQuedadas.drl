@@ -15,6 +15,8 @@ import icaro.aplicaciones.informacion.gestionQuedadas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.*;
+import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
+import java.util.Calendar;
 
 global ItfGestorTareas gestorTareas;
 global ItfUsoRecursoTrazas recursoTrazas;
@@ -159,7 +161,6 @@ rule "Obtener info de otro grupo"
  		Objetivo obQueHacer = new ObtenerQueHacer();
  		obQueHacer.setobjectReferenceId(chat);
  		insert(obQueHacer);
- 		
  	}
  	else
  		ob.setSolving();
@@ -202,24 +203,6 @@ rule "Focalizar info restante de otro grupo"
  	update(fc);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
-
-/*
-rule "Aumentar intento obtencion subobjetivos identificar otro grupo"
- timer( float: 0.3s )
- when
- 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
- 	ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
- 	ObtenerEdadOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
- 	ObtenerSexoOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
- 	fc:FocoGrupo(foco == null, grupo == chat)
- then
- 	fc.intentos += 1;
- 	update(fc);
- 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
-end1
-*/
-
-
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR EL NUMERO DE INTEGRANTES DEL OTRO GRUPO ***/
 rule "Solicitar numero integrantes del otro grupo"
@@ -332,5 +315,190 @@ rule "Obtener sexo del otro grupo"
    	update(ob3);
    	update(fc);
    	update(que);
+   	retract(notif);
+end
+
+rule "Solicitar fecha de la quedada (día y hora)"
+ when
+ 	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	not( exists (ObtenerDiaQuedada(objectReferenceId == chat)))
+ 	not( exists (ObtenerHoraQuedada(objectReferenceId == chat)))
+ 	fc:FocoGrupo(grupo == chat, foco == null)
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat,ConversacionGrupo.msg("pedirFechayHora"));
+    
+ 	Objetivo id1 = new ObtenerDiaQuedada();
+ 	id1.setobjectReferenceId(chat);
+ 	Objetivo id2 = new ObtenerHoraQuedada();
+ 	id2.setobjectReferenceId(chat);
+ 	
+    insert(id1);
+    insert(id2);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Obtener fecha de la quedada (día y hora)"
+ salience 40
+ when
+ 	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.PENDING || state == Objetivo.SOLVING)
+ 	ob1:ObtenerDiaQuedada(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	ob2:ObtenerHoraQuedada(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	fc:FocoGrupo(foco == null, grupo == chat)
+ 	notif:NotificacionQuedada(identNotificador == chat,
+ 			tipoNotificacion == tipoNotif.fecha || 
+ 			tipoNotificacion == tipoNotif.fechaAnterior || 
+ 			tipoNotificacion == tipoNotif.hora, 
+ 			msgg:mensajeNotificacion)
+ 	que:Quedada(idChat == chat)
+ then
+ 	if (notif.tipoNotificacion.equals(tipoNotif.fecha)){
+ 		Calendar fecha = DateUtil.toCalendar(DateUtil.parse(msgg));
+ 		que.setFecha(fecha);
+ 		ob1.setSolved();
+ 		update(ob1);
+ 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO DIA!!!");
+ 	}
+ 	else if (notif.tipoNotificacion.equals(tipoNotif.fechaAnterior)){
+ 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    	tarea.ejecutar(chat, ConversacionGrupo.msg("fechaAnterior"));
+    	fc.setFoco(ob1);
+    	ob1.setSolving();
+    	update(ob1);
+    	update(fc);
+ 	}
+ 	else { // notif.tipoNotificacion == tipoNotif.hora
+ 		que.setHora(msgg);
+ 		ob2.setSolved();
+ 		update(ob2);
+ 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADA HORA!!!");
+ 	}
+ 	
+ 	if (ob1.getState() == Objetivo.SOLVED && ob2.getState() == Objetivo.SOLVED){
+ 		ob.setSolved();
+ 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"OBJETIVO FECHA COMPLETA CONSEGUIDO!!!");
+ 		
+ 		// HABRA QUE PONER EL SIGUIENTE OBJETIVO.
+ 		//Objetivo obQueHacer = new ObtenerQueHacer();
+ 		//obQueHacer.setobjectReferenceId(chat);
+ 		//insert(obQueHacer);
+ 		
+ 	}
+ 	else
+ 		ob.setSolving();
+ 	
+ 	update(ob);
+ 	update(que);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Focalizar info restante de la fecha de la quedada"
+ timer( int: 1s )
+ when
+ 	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob1:ObtenerDiaQuedada(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	ob2:ObtenerHoraQuedada(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	fc:FocoGrupo(foco == null, grupo == chat)
+ then
+ 	if (ob1.getState() == Objetivo.PENDING)
+ 		fc.setFoco(ob1);
+ 	else if (ob2.getState() == Objetivo.PENDING)
+ 		fc.setFoco(ob2);
+ 	
+ 	if (ob1.getState() == Objetivo.SOLVED && ob2.getState() == Objetivo.SOLVED){
+ 		ob.setSolved();
+ 		update(ob);
+ 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"OBJETIVO FECHA COMPLETA CONSEGUIDO!!!");
+ 		
+ 		fc.setFoco(null);
+ 		
+ 		// HABRA QUE PONER EL SIGUIENTE OBJETIVO.
+ 		//Objetivo obQueHacer = new ObtenerQueHacer();
+ 		//obQueHacer.setobjectReferenceId(chat);
+ 		//insert(obQueHacer);
+ 		
+ 	}
+ 	
+ 	update(fc);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Solicitar día de la quedada"
+ when
+ 	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob1:ObtenerDiaQuedada(objectReferenceId == chat, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob1)
+ then
+  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+  	ob1.setSolving();
+  	
+  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirFecha"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob1);
+end
+
+rule "Obtener día de la quedada"
+when
+	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob1:ObtenerDiaQuedada(objectReferenceId == chat, state == Objetivo.SOLVING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob1)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.fecha, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	Calendar fecha = DateUtil.toCalendar(DateUtil.parse(msgg));
+ 	que.setFecha(fecha);
+ 	ob1.setSolved();
+ 	fc.setFoco(null);
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob1);
+   	update(que);
+   	update(fc);
+   	retract(notif);
+end
+
+rule "Obtención de un día anterior a hoy para hacer la quedada"
+when
+	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob1:ObtenerDiaQuedada(objectReferenceId == chat, state == Objetivo.SOLVING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob1)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.fechaAnterior, msgg:mensajeNotificacion )
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("fechaAnterior"));
+   	retract(notif);
+end
+
+rule "Solicitar hora de la quedada"
+ when
+ 	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob2:ObtenerHoraQuedada(objectReferenceId == chat, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob2)
+ then
+  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+  	ob2.setSolving();
+  	
+  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirHora"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob2);
+end
+
+rule "Obtener hora de la quedada"
+when
+	ob:ObtenerFechaQuedada(chat:objectReferenceId, state == Objetivo.SOLVING)
+ 	ob2:ObtenerHoraQuedada(objectReferenceId == chat, state == Objetivo.SOLVING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob2)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.hora, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	que.setHora(msgg);
+ 	ob2.setSolved();
+ 	fc.setFoco(null);
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob2);
+   	update(que);
+   	update(fc);
    	retract(notif);
 end

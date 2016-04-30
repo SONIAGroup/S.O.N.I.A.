@@ -12,13 +12,13 @@ public class tipoNotif {
 	
 	public static String queHacer = "queHacer";
 	public static String dondeHacer = "dondeHacer";
-	public static String cuandoHacer = "cuandoHacer";
+	public static String fecha = "fecha";
+	public static String fechaAnterior = "fechaAnterior";
+	public static String hora = "hora";
 	
 	public static String despedida = "despedida";
 	public static String pordefinir = "definido";
 	public static String objetivo = "objetivo";
 	public static String session = "session";
 	public static String anular = "inicioAnulacion";
-	public static String fechaAnterior = "fechaAnterior";
-	
 }
