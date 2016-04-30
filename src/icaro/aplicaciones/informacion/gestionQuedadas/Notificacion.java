@@ -16,7 +16,7 @@ public class Notificacion {
 	public Object contexto;						// objeto de ayuda para realizar el analisis que no se utiliza aun.
 	public String identObjectRefNotificacion;	// no se usa aun
 	public String tipoNotificacion;				// anotaciones del gazetero de annie
-	public Grupo grupo;				// anotaciones del gazetero de annie
+	public Grupo grupo;							// anotaciones del gazetero de annie
 
 	public Grupo getGrupo() {
 		return grupo;

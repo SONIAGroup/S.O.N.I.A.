@@ -21,6 +21,41 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
+/** REGLAS PARA SOLICITAR Y RECIBIR EL LUGAR DONDE SE HARÁ LA QUEDADA**/
+rule "Solicitar dónde se quiere hacer la quedada"
+ when
+	ob:ObtenerDonde(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == null)
+ then
+  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+  	fc.setFoco(ob);
+  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirDonde"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob);
+   	update(fc);
+end
+
+rule "Obtener dónde se quiere hacer la quedada"
+when
+	ob:ObtenerDonde(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.dondeHacer, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	ob.setSolved();
+ 	que.setDondeHacer(msgg);
+ 	fc.setFoco(null);
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	update(ob);
+   	update(que);
+   	update(fc);
+   	retract(notif);
+end
+
+/** REGLAS PARA SOLICITAR Y RECIBIR QUÉ SE QUIERE HACER **/
 rule "Solicitar qué se quiere hacer en la quedada"
  when
 	ob:ObtenerQueHacer(chat:objectReferenceId, state == Objetivo.PENDING)
@@ -85,7 +120,7 @@ end
 
 
 rule "Obtener info de otro grupo"
- salience 40
+ salience 40		// Creo que no le gustaba el salience...no se podría focalizar este objetivo¿?
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.PENDING || state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
@@ -187,7 +222,6 @@ end1
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR EL NUMERO DE INTEGRANTES DEL OTRO GRUPO ***/
-
 rule "Solicitar numero integrantes del otro grupo"
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
@@ -226,7 +260,6 @@ end
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR LA EDAD DEL OTRO GRUPO ***/
-
 rule "Solicitar edad del otro grupo"
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
@@ -265,7 +298,6 @@ end
 
 
 /*** REGLAS PARA SOLICITAR Y RECIBIR EL SEXO DEL OTRO GRUPO. ***/
-
 rule "Solicitar sexo del otro grupo"
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)

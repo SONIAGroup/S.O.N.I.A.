@@ -3,7 +3,7 @@ package icaro.aplicaciones.informacion.gestionQuedadas;
 public class tipoNotif {
 	public static String saludo = "saludo";
 	public static String nombre = "nombre";
-	//public static String dni = "dni";
+	
 	public static String idgrupo = "idgrupo";
 	public static String edad = "edad";
 	public static String sexo = "sexo";

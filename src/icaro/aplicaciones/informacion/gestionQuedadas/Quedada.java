@@ -19,18 +19,21 @@ public class Quedada implements Serializable {
 	private Sexo sexo;
 	private int edad;
 	private String queHacer;
+	private String dondeHacer;
 
 
 	private long tiempo;
 	
 	public Quedada(String idChat, Grupo grupoEmisor) {
-		this.idChat = idChat;
+		this.idChat 		= idChat;
 		this.grupoEmisor	= grupoEmisor;
 		this.grupoQueAcepta	= null;
 		this.numIntegrantes = 0;
 		this.sexo 			= null;
 		this.edad 			= 0;
-		tiempo = System.currentTimeMillis();
+		this.tiempo 		= System.currentTimeMillis();
+		this.queHacer 		= "";
+		this.dondeHacer 	= "";
 	}
 
 	public void setGrupoEmisor(Grupo grupoEmisor) {
@@ -58,6 +61,7 @@ public class Quedada implements Serializable {
 	}
 
 	public String getSexo() {
+		// Se puede utilizar sexo.toString() directamente
 		String sexo_str = null;
 		if (sexo == Sexo.masculino)
 			sexo_str = "hombres";
@@ -102,6 +106,16 @@ public class Quedada implements Serializable {
 	public void setQueHacer(String queHacer) {
 		this.queHacer = queHacer;
 	}
+	
+	public void setDondeHacer(String dondeHacer) {
+		this.dondeHacer = dondeHacer;
+	}
+
+	public String getDondeHacer() {
+		return dondeHacer;
+	}
+	
+	
 	
 
 }
