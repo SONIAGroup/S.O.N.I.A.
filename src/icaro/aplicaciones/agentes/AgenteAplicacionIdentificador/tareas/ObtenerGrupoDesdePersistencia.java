@@ -48,6 +48,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 				gr.setNumIntegrantes(ngr.getNumIntegrantes());
 				gr.setEdad(ngr.getEdad());
 				gr.setSexo(ngr.getSexo());
+				gr.setTelefono(ngr.getTelefono());
 				
 				objetivoGeneral.setSolving();
 				objetivoGeneral.setobjectReferenceId(identInterlocutor);

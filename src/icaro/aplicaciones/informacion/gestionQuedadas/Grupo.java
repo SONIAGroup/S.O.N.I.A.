@@ -15,8 +15,9 @@ public class Grupo implements Serializable {
 	public String grupo;
 	private String id;
 	private int numIntegrantes;
-	private Sexo sexo;
 	private int edad;
+	private Sexo sexo;
+	private String telefono;
 	private long tiempo;
 	
 	public Grupo() {
@@ -25,18 +26,9 @@ public class Grupo implements Serializable {
 		this.numIntegrantes = 0;
 		this.sexo 			= null;
 		this.edad 			= 0;
+		this.telefono		= null;
 		tiempo = System.currentTimeMillis();
 	}
-	
-	public Grupo(String id, int numIntegrantes, Sexo sexo, int edad) {
-		super();
-		this.id = id;
-		this.numIntegrantes = numIntegrantes;
-		this.sexo = sexo;
-		this.edad = edad;
-		tiempo = System.currentTimeMillis();
-	}
-
 	
 	public String getId() {
 		return id;
@@ -54,6 +46,14 @@ public class Grupo implements Serializable {
 		this.numIntegrantes = numIntegrantes;
 	}
 
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+	
 	public String getSexo() {
 		String sexo_str = null;
 		if (sexo == Sexo.masculino)
@@ -73,13 +73,13 @@ public class Grupo implements Serializable {
 		else if(sexo.indexOf("mixto") >= 0)
 			this.sexo = Sexo.mixto;
 	}
-
-	public int getEdad() {
-		return edad;
+	
+	public String getTelefono() {
+		return telefono;
 	}
 
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	public void actividad() {

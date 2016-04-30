@@ -10,7 +10,6 @@ import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.Identi
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.Inactividad;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.InactividadProlongada;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerIDGrupo;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.ObtenerNombre;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 

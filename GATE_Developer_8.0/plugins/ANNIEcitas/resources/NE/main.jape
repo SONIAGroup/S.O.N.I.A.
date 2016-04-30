@@ -19,6 +19,7 @@ saludo
 peticionCita
 identificacionEdad
 identificacionNumIntegrantes
+identificacionTelefono
 identificacionDNI
 identificacionGrupo
 identificacionFecha

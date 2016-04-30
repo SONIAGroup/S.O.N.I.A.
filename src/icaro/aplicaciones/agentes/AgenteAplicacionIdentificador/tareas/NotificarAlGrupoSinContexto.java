@@ -46,6 +46,10 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 					mensajeAenviar = conversacion.msg("peticionSexoImperativo");
 					foGrupo.intentos = 0;
 				}
+				else if(foGrupo.getFoco().getgoalId().equals("ObtenerTelefono")){
+					mensajeAenviar = conversacion.msg("peticionTelefonoImperativo");
+					foGrupo.intentos = 0;
+				}
 				else if(foGrupo.getFoco().getgoalId().equals("DistribuirMensaje")){
 					mensajeAenviar = conversacion.msg("solicitarAccionImperativo");
 					foGrupo.intentos = 0;

@@ -118,6 +118,11 @@ public class conversacion {
 		peticionSexo.add("Que sois en vuestro grupo, hombres, mujeres, o sois un grupo mixto?");
 		peticionSexo.add("Sois todos hombres, mujeres, o vuestro grupo es mixto?");
 		
+		List<String> peticionTelefono = new ArrayList<String>(); 
+		peticionTelefono.add("Podeis darme un numero de movil? Solo lo usare para que el grupo con el que quedeis pueda ponerse en contacto con vosotros, siempre con vuestra confirmacion.");
+		peticionTelefono.add("Me decis un numero de movil? Tranquilos que no lo dare sin vuestro permiso, es para poneros en contacto con el grupo con el que quedeis.");
+		peticionTelefono.add("Me dais un numero de movil? Lo necesito para que un grupo afin pueda ponerse en contacto con vosotros, pero no os preocupeis que no lo dare a nadie sin vuestro permiso.");
+		
 		List<String> peticionIDGrupoImperativo = new ArrayList<String>(); 
 		peticionIDGrupoImperativo.add("Si no me decis vuestro identificador de grupo no puedo seguir :(");
 		peticionIDGrupoImperativo.add("Vengaaa, dadme vuestro identificador de grupo o inventaros uno!");
@@ -136,6 +141,10 @@ public class conversacion {
 		List<String> peticionSexoImperativo = new ArrayList<String>(); 
 		peticionSexoImperativo.add("Quereis decirme ya si sois hombres, mujeres o si sois un grupo mixto?");
 		peticionSexoImperativo.add("Dejaos de tonterias y decirme si sois hombres, mujeres o un grupo mixto.");
+		
+		List<String> peticionTelefonoImperativo = new ArrayList<String>(); 
+		peticionTelefonoImperativo.add("En serio, necesito un numero de movil!");
+		peticionTelefonoImperativo.add("Si no me dais un numero de movil no puedo seguir :(");
 		
 		List<String> fechaAnterior = new ArrayList<String>(); 
 		fechaAnterior.add("Disculpe, la fecha en la que quiere la cita es anterior a la fecha actual, introduzca una fecha válida");
@@ -171,11 +180,13 @@ public class conversacion {
 		conversacion.put("peticionEdad", peticionEdad);
 		conversacion.put("peticionNumIntegrantes", peticionNumIntegrantes);
 		conversacion.put("peticionSexo", peticionSexo);
+		conversacion.put("peticionTelefono", peticionTelefono);
 		conversacion.put("solicitarNombreImperativo", solicitarNombreImperativo);
 		conversacion.put("peticionIDGrupoImperativo", peticionIDGrupoImperativo);
 		conversacion.put("peticionEdadImperativo", peticionEdadImperativo);
 		conversacion.put("peticionNumIntegrantesImperativo", peticionNumIntegrantesImperativo);
 		conversacion.put("peticionSexoImperativo", peticionSexoImperativo);
+		conversacion.put("peticionTelefonoImperativo", peticionTelefonoImperativo);
 		conversacion.put("solicitarAccionImperativo", solicitarAccionImperativo);
 		conversacion.put("semanticoErroneo", semanticoErroneo);
 		conversacion.put("fechaAnterior", fechaAnterior);

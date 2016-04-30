@@ -5,9 +5,10 @@ public class tipoNotif {
 	public static String nombre = "nombre";
 	
 	public static String idgrupo = "idgrupo";
+	public static String numintegrantes = "numintegrantes";
 	public static String edad = "edad";
 	public static String sexo = "sexo";
-	public static String numintegrantes = "numintegrantes";
+	public static String telefono = "telefono";
 	
 	public static String queHacer = "queHacer";
 	public static String dondeHacer = "dondeHacer";

@@ -14,11 +14,11 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
  *
  * @author
  */
-public class ObtenerNombre extends Objetivo {
+public class ObtenerTelefono extends Objetivo {
 
 	/** Crea una nueva instancia de DarAcceso */
-	public ObtenerNombre() {
-		super.setgoalId("ObtenerNombre");
+	public ObtenerTelefono() {
+		super.setgoalId("ObtenerTelefono");
 	}
 
 }
