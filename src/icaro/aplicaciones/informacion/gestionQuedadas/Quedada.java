@@ -23,7 +23,7 @@ public class Quedada implements Serializable {
 	private Sexo sexo;
 	private int edad;
 	private String queHacer;
-	private String dondeHacer;
+	private String lugar;
 	private Calendar fecha;
 
 
@@ -38,7 +38,7 @@ public class Quedada implements Serializable {
 		this.edad 			= 0;
 		this.tiempo 		= System.currentTimeMillis();
 		this.queHacer 		= "";
-		this.dondeHacer 	= "";
+		this.lugar 			= "";
 		this.fecha			= null;
 	}
 
@@ -113,12 +113,12 @@ public class Quedada implements Serializable {
 		this.queHacer = queHacer;
 	}
 	
-	public void setDondeHacer(String dondeHacer) {
-		this.dondeHacer = dondeHacer;
+	public void setLugar(String dondeHacer) {
+		this.lugar = dondeHacer;
 	}
 
-	public String getDondeHacer() {
-		return dondeHacer;
+	public String getLugar() {
+		return lugar;
 	}
 	
 	public Calendar getFecha() {

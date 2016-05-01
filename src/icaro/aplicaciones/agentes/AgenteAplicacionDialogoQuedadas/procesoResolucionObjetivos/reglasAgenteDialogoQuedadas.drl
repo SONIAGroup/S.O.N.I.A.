@@ -46,11 +46,17 @@ when
 	que:Quedada(idChat == chat)
  then
  	ob.setSolved();
- 	que.setDondeHacer(msgg);
+ 	que.setLugar(msgg);
  	fc.setFoco(null);
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
+   	// Creamos el siguiente objetivo
+   	Objetivo obFechaQuedada = new ObtenerFechaQuedada();
+ 	obFechaQuedada.setobjectReferenceId(chat);
+ 	insert(obFechaQuedada);
+ 			
    	update(ob);
    	update(que);
    	update(fc);
@@ -86,6 +92,12 @@ when
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
+   	// Creamos el siguiente objetivo
+   	Objetivo dondeHacer = new ObtenerDonde();
+ 	dondeHacer.setobjectReferenceId(chat);
+ 	insert(dondeHacer);
+ 		
    	update(ob);
    	update(que);
    	update(fc);

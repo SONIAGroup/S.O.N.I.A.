@@ -455,6 +455,7 @@ public class InterpreteMsgsIRC {
 		HashSet anotacionesBusquedaPrueba = new HashSet();
 		anotacionesBusquedaPrueba.add("saludo");
 		anotacionesBusquedaPrueba.add("queHacer");
+		anotacionesBusquedaPrueba.add("dondeHacer");
 		anotacionesBusquedaPrueba.add("hora");
 		anotacionesBusquedaPrueba.add("edad");
 		anotacionesBusquedaPrueba.add("sexo");
@@ -1535,6 +1536,13 @@ public class InterpreteMsgsIRC {
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
+				
+			} else if (anotType.equalsIgnoreCase("dondeHacer")&& !anotaciones_leidas.contains("dondeHacer")) {
+				anotaciones_leidas.add("dondeHacer");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
 
 			} else if (anotType.equalsIgnoreCase("hora")&& !anotaciones_leidas.contains("hora")) {
 				anotaciones_leidas.add("hora");
@@ -1570,7 +1578,7 @@ public class InterpreteMsgsIRC {
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
-
+				
 			} else if (anotType.equalsIgnoreCase("telefono")&& !anotaciones_leidas.contains("telefono")) {
 				anotaciones_leidas.add("telefono");
 				tienePeticion = true;
