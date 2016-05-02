@@ -38,7 +38,7 @@ public class VocabularioGestionCitas {
 	 * Cadenas de texto mostradas por el chat, normalmente accedidas desde las
 	 * tareas.
 	 */
-	public static final String SaludoInicial2 = "Hola ";
+	public static final String SaludoInicial2 = "Hola";
 	public static final String SaludoInicial1 = "Hola soy Sonia! Tu organizadora de quedadas entre grupos de amigos que no se conocen. Enviame un mensaje privado y hablamos ;)";
 	public static final String PeticionInformacionGeneral1 = "Dime que deseas";
 	public static final String RespuestaNoEniendo1 = "Lo siento pero no entiendo nada de lo que dice";

@@ -35,9 +35,9 @@ public class SaludoInicial extends TareaSincrona {
 							+ identRecursoComunicacionChat);
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
-				recComunicacionChat
-						.enviarMensageCanal(VocabularioGestionCitas.SaludoInicial1);
-			} else {
+				recComunicacionChat.enviarMensageCanal(VocabularioGestionCitas.SaludoInicial1);
+			} 
+			else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();
 				this.generarInformeConCausaTerminacion(identDeEstaTarea,
 						contextoEjecucionTarea, identAgenteOrdenante,

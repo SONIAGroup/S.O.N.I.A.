@@ -99,9 +99,9 @@ public class conversacion {
 		despedida.add("Hasta la proxima!! :)");
 		
 		List<String> peticionIDGrupo = new ArrayList<String>(); 
-		peticionIDGrupo.add("Lo primero que necesito es vuestro identificador de grupo. Si no teneis ninguno no os preocupeis, inventaroslo ahora mismo!");
-		peticionIDGrupo.add("Cual es vuestro identificador de grupo? Si no sabeis de que hablo inventaros un nick que os identifique como grupo!");
-		peticionIDGrupo.add("Decidme please vuestro identificador de grupo. Si no teneis ninguno es buen momento para pensar uno ;)");
+		peticionIDGrupo.add("Lo primero que necesito es vuestro identificador de grupo. Si no teneis ninguno no os preocupeis, inventaroslo ahora mismo!. Importante, tiene que empezar por @");
+		peticionIDGrupo.add("Cual es vuestro identificador de grupo? Si no sabeis de que hablo inventaros un @nick que os identifique como grupo!");
+		peticionIDGrupo.add("Decidme, please, vuestro identificador de grupo. Si no teneis ninguno es buen momento para pensar uno. Tiene que empezar por @ y luego el nombre que tu quieras!!. Por ejemplo, el mio es @soniabot");
 		
 		List<String> peticionEdad = new ArrayList<String>(); 
 		peticionEdad.add("Cual es la edad media aproximada de vuestro grupo?");

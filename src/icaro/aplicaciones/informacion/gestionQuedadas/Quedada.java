@@ -150,6 +150,11 @@ public class Quedada implements Serializable {
 		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
 		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[1]));
 	}
+
+	@Override
+	public String toString() {
+		return "" + this.queHacer + " en " + this.lugar + " en la fecha " + this.fecha.toString() + ", con un grupo de ";// + this.grupoQueAcepta.toString(); 
+	}
 	
 	
 	

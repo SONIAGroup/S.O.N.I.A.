@@ -93,7 +93,7 @@ public class Grupo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "El grupo " + this.id + " esta formado por " + this.numIntegrantes + ", de una edad media de " + this.edad + " de sexo " + this.sexo; 
+		return "" + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
 	}
 	
 	

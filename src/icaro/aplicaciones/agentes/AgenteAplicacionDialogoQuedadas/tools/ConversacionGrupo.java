@@ -115,8 +115,8 @@ public class ConversacionGrupo {
 				
 	/* Confirmar quedada*/	
 		List<String> confirmarQuedada = new ArrayList<String>();
-		confirmarQuedada.add("Ya tengo todo!! Solo falta que me confirmes la cita");
-		confirmarQuedada.add("Si me das el okay comenzare a buscarte al otro grupo para que quedeis");
+		confirmarQuedada.add("Ya tengo todo!! Voy a buscaros un grupo. Dadme un momen, please!!");
+		confirmarQuedada.add("Comenzare a buscaros al otro grupo para que quedeis ;)");
 		
 		List<String> imperativoConfirmarQuedada = new ArrayList<String>();
 		imperativoConfirmarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");

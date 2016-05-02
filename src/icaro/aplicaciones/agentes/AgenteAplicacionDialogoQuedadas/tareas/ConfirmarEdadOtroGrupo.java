@@ -40,11 +40,10 @@ public class ConfirmarEdadOtroGrupo extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				mensajeAenviar = "Muy bien. La quedada será para gente que tenga unos " + edad + " años ;)";
-				recComunicacionChat.enviarMensagePrivado(identInterlocutor,
-						mensajeAenviar);
+				mensajeAenviar = "Muy bien. La quedada será para gente que tenga unos " + edad + " anios ;)";
+				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				
-				recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
+				//recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
 
 			} 
 			else {

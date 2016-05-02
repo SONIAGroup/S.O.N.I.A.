@@ -5,7 +5,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 public class ObtenerConfirmacion extends Objetivo {
 	
 	public ObtenerConfirmacion() {
-		super.setgoalId("ObtenerInfoQuedada");
+		super.setgoalId("ObtenerConfirmacion");
 	}
 
 }

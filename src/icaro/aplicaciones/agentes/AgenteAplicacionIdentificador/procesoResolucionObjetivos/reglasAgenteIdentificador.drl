@@ -27,14 +27,16 @@ when
 then 
 TareaSincrona tarea = gestorTareas.crearTareaSincrona(InicializarInfoWorkMem.class);
     tarea.ejecutar();
-recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
 end
+
 
 rule "Saludo Inicial"
 when
 then
      TareaSincrona tarea = gestorTareas.crearTareaSincrona(SaludoInicial.class);
      tarea.ejecutar(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
+     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Saludo inicial cuando el grupo ha saludado"
@@ -593,8 +595,6 @@ rule "fechaAnterior"
 end
 
 
-	
-	
 rule "Timer Inactividad"
 	timer ( int: 1m )
 	when 
