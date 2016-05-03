@@ -59,9 +59,9 @@ public class Grupo implements Serializable {
 	}
 
 	public void setSexo(String sexo) {
-		if(sexo.indexOf("hombre") >= 0)
+		if(sexo.indexOf("hombre") >= 0 || sexo.indexOf("masculino") >= 0 )
 			this.sexo = Sexo.masculino;
-		else if(sexo.indexOf("mujer") >= 0)
+		else if(sexo.indexOf("mujer") >= 0 || sexo.indexOf("femenino") >= 0 )
 			this.sexo = Sexo.femenino;
 		else if(sexo.indexOf("mixto") >= 0)
 			this.sexo = Sexo.mixto;
@@ -86,7 +86,7 @@ public class Grupo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "" + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
+		return "" + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo + " telefono: " + this.telefono; 
 	}
 	
 	
