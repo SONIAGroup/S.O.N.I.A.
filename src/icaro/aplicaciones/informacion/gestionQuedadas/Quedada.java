@@ -150,10 +150,14 @@ public class Quedada implements Serializable {
 		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
 		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[1]));
 	}
+	
+	private String getFechaFormateada() {
+		return "" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE);
+	}
 
 	@Override
 	public String toString() {
-		return "" + this.queHacer + " en " + this.lugar + " en la fecha " + this.fecha.toString() + ", con un grupo de ";// + this.grupoQueAcepta.toString(); 
+		return "" + this.queHacer + " en " + this.lugar + " en la fecha " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
 	}
 	
 	

@@ -55,14 +55,7 @@ public class Grupo implements Serializable {
 	}
 	
 	public String getSexo() {
-		String sexo_str = null;
-		if (sexo == Sexo.masculino)
-			sexo_str = "hombres";
-		else if (sexo == Sexo.masculino)
-			sexo_str = "mujeres";
-		else if (sexo == Sexo.masculino)
-			sexo_str = "mixto";
-		return sexo_str;
+		return sexo.toString();
 	}
 
 	public void setSexo(String sexo) {
