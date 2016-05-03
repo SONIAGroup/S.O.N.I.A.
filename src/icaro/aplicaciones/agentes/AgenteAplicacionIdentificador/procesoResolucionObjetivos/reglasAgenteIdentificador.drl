@@ -52,8 +52,8 @@ rule "Saludo inicial cuando el grupo ha saludado"
  	ob.setobjectReferenceId(identInterlc);
  	insert( fgr );
  	insert( ob );
-  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(identInterlc,conversacion.msg("saludoInicial"));
+  	//TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    //tarea.ejecutar(identInterlc,conversacion.msg("saludoInicial"));
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
     retract(notif);
 end

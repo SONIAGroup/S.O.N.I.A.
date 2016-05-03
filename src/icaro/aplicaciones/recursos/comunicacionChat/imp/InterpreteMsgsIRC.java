@@ -7,6 +7,8 @@ package icaro.aplicaciones.recursos.comunicacionChat.imp;
 
 import static icaro.aplicaciones.recursos.comunicacionChat.imp.util.ConexionIrc.VERSION;
 import gate.Annotation;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas.MensajeGenerico;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
 import icaro.aplicaciones.informacion.gestionCitas.InfoConexionUsuario;
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
@@ -255,6 +257,11 @@ public class InterpreteMsgsIRC {
 		if (command.equals("JOIN")) {
 			this.onJoin(line.substring(line.indexOf(" :") + 2), sourceNick,
 					sourceLogin, sourceHostname);
+			
+			if ( !sourceNick.equals("ConexionIrc") ) {
+				MensajeGenerico msg = new MensajeGenerico();
+				msg.ejecutar(sourceNick, conversacion.msg("saludoInicial"));
+			}
 			return;
 		}
 
