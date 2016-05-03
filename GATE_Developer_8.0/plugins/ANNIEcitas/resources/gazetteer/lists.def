@@ -20,8 +20,6 @@ dondeHacer.lst::dondeHacer:spanish:dondeHacer
 cita.lst:Cita:Tipo
 especialistas.lst:especialista:doctor:spanish
 cuerpo.lst:cuerpo
-presentacion.lst::presentacion::nombre
-dni.lst:dni:dni
 despedida.lst::despedida:spanish:despedida
 fecha.lst::fecha:spanish:fecha
 peticion.lst:InicioPeticion

@@ -32,6 +32,8 @@ public final class ParserFecha {
 			put("hoy", 0);
 			put("pasado mañana", 2 * DIA);
 			put("mañana", DIA);
+			put("maniana", DIA);
+			put("manana", DIA);
 			put("ayer", -DIA);
 			put("semana que viene", SEMANA);
 			put("semana próxima", SEMANA);

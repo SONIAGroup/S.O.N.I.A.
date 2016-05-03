@@ -125,14 +125,14 @@ public class Quedada implements Serializable {
 		return fecha;
 	}
 	
-	public void setFecha(Calendar fecha) {
+	public void setFecha(String fecha) {
 		if (this.fecha == null)
-			this.fecha = fecha;
-		else {
-			this.fecha.set(Calendar.DAY_OF_MONTH, fecha.get(Calendar.DAY_OF_MONTH));
-			this.fecha.set(Calendar.MONTH, fecha.get(Calendar.MONTH));
-			this.fecha.set(Calendar.YEAR, fecha.get(Calendar.YEAR));
-		}
+			this.fecha = DateUtil.toCalendar(new Date());
+		
+		String[] parts = fecha.split("/");
+		this.fecha.set(Calendar.DAY_OF_MONTH, Integer.parseInt(parts[0]));
+		this.fecha.set(Calendar.MONTH, Integer.parseInt(parts[1]));
+		this.fecha.set(Calendar.YEAR, Integer.parseInt(parts[2]));
 	}
 	
 	public void setHora(String hora) {
@@ -143,16 +143,21 @@ public class Quedada implements Serializable {
 		if(hora.indexOf(":") >= 0)
 			parts = hora.split(":");
 		else if(hora.indexOf(".") >= 0)
-			parts = hora.split(".");
+			parts = hora.split("\\.");
 		else
 			parts = hora.split(" ");
 		
 		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
-		this.fecha.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[1]));
+		this.fecha.set(Calendar.MINUTE, Integer.parseInt(parts[1]));
 	}
 	
 	private String getFechaFormateada() {
-		return "" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + fecha.get(Calendar.MINUTE);
+		String min = "" + fecha.get(Calendar.MINUTE);
+		
+		if ( fecha.get(Calendar.MINUTE) < 10 )	
+			min = "0" + min;
+		
+		return "" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + min;
 	}
 
 	@Override

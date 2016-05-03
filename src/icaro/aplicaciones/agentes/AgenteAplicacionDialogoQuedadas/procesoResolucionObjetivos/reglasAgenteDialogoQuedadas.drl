@@ -39,20 +39,39 @@ then
    	update(fc);
 end
 
-/*
+
 rule "Recibir confirmacion de la quedada"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
-	notif:Notificacion(identNotificador == chat, tipoNotificacion == tipoNotif.confirmacion, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
 then
 	ob.setSolved();
+	// matching
+	// guardar la quedada en persistencia
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(chat, ConversacionGrupo.msg("confirmarQuedada"));
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	update(ob);
+	retract(notif);
 end
-*/
+
+rule "Recibir rechazo de la quedada"
+when
+	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+then
+	ob.setSolved();
+	// borrar sesion
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("rechazarQuedada"));
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	update(ob);
+	retract(notif);
+end
 
 
 /** REGLAS PARA SOLICITAR Y RECIBIR LA FECHA Y HORA DE LA QUEDADA **/
@@ -92,8 +111,7 @@ rule "Obtener fecha de la quedada (día y hora)"
  	que:Quedada(idChat == chat)
  then
  	if (notif.tipoNotificacion.equals(tipoNotif.fecha)){
- 		Calendar fecha = DateUtil.toCalendar(DateUtil.parse(msgg));
- 		que.setFecha(fecha);
+ 		que.setFecha(msgg);
  		ob1.setSolved();
  		update(ob1);
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO DIA!!!");
@@ -117,10 +135,6 @@ rule "Obtener fecha de la quedada (día y hora)"
  		ob.setSolved();
  		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"OBJETIVO FECHA COMPLETA CONSEGUIDO!!!");
  		
- 		// HABRA QUE PONER EL SIGUIENTE OBJETIVO.
- 		//Objetivo obQueHacer = new ObtenerQueHacer();
- 		//obQueHacer.setobjectReferenceId(chat);
- 		//insert(obQueHacer);
  		Objetivo obConfirmacion = new ObtenerConfirmacion();
  		obConfirmacion.setobjectReferenceId(chat);
  		insert(obConfirmacion); 
@@ -155,10 +169,6 @@ rule "Focalizar info restante de la fecha de la quedada"
  		
  		fc.setFoco(null);
  		
- 		// HABRA QUE PONER EL SIGUIENTE OBJETIVO.
- 		//Objetivo obQueHacer = new ObtenerQueHacer();
- 		//obQueHacer.setobjectReferenceId(chat);
- 		//insert(obQueHacer);
  		Objetivo obConfirmacion = new ObtenerConfirmacion();
  		obConfirmacion.setobjectReferenceId(chat);
  		insert(obConfirmacion);
@@ -191,8 +201,7 @@ when
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.fecha, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	Calendar fecha = DateUtil.toCalendar(DateUtil.parse(msgg));
- 	que.setFecha(fecha);
+ 	que.setFecha(msgg);
  	ob1.setSolved();
  	fc.setFoco(null);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());

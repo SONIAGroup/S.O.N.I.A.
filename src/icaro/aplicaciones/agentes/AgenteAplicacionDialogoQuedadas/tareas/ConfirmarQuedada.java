@@ -40,7 +40,7 @@ public class ConfirmarQuedada extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				mensajeAenviar = "Resumiendo, quereis quedar para " + quedada.toString();
+				mensajeAenviar = "Resumiendo, quereis quedar para " + quedada.toString() + ". Estais de acuerdo?";
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				
 			} 

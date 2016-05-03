@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.commons.collections.set.SynchronizedSortedSet;
+
 /**
  * Useful Date utilities.
  *

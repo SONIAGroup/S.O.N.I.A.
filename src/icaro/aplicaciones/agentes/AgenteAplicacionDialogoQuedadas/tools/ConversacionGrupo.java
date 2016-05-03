@@ -115,13 +115,23 @@ public class ConversacionGrupo {
 				
 	/* Confirmar quedada*/	
 		List<String> confirmarQuedada = new ArrayList<String>();
-		confirmarQuedada.add("Ya tengo todo!! Voy a buscaros un grupo. Dadme un momen, please!!");
+		confirmarQuedada.add("Voy a buscaros un grupo. Dadme un momen, please!!");
 		confirmarQuedada.add("Comenzare a buscaros al otro grupo para que quedeis ;)");
 		
 		List<String> imperativoConfirmarQuedada = new ArrayList<String>();
 		imperativoConfirmarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");
 		imperativoConfirmarQuedada.add("animo, esto ya es lo ultimo...me confirmas la quedada?");
-	/*///////////////////// */	
+	/*///////////////////// */
+		
+	/* Confirmar quedada*/	
+		List<String> rechazarQuedada = new ArrayList<String>();
+		rechazarQuedada.add("La vida es dura...volvamos a empezar ;(");
+	
+		List<String> imperativorechazarQuedada = new ArrayList<String>();
+		imperativorechazarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");
+		imperativorechazarQuedada.add("animo, esto ya es lo ultimo...me confirmas la quedada?");
+	/*///////////////////// */
+		
 		
 		
 	/* Agregamos los dialogos a la conversacion global */
@@ -145,6 +155,7 @@ public class ConversacionGrupo {
 		conversacionGrupo.put("imperativopedirFechayHora", imperativopedirFechayHora);
 		conversacionGrupo.put("confirmarFechayHora", confirmarFechayHora);
 		conversacionGrupo.put("confirmarQuedada", confirmarQuedada);
+		conversacionGrupo.put("rechazarQuedada", rechazarQuedada);
 		conversacionGrupo.put("imperativoConfirmarQuedada", imperativoConfirmarQuedada);
 			
 	}

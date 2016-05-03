@@ -235,6 +235,7 @@ public class InterpreteMsgsIRC {
 			conectorIrc.onUnknown(line);
 			return;
 		}
+		
 
 		// Check for normal messages to the channel.
 		if (command.equals("PRIVMSG")
@@ -471,7 +472,6 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("idgrupo");
 		anotacionesBusquedaPrueba.add("InicioPeticion");
 		anotacionesBusquedaPrueba.add("Lookup");
-		anotacionesBusquedaPrueba.add("nombre");
 		anotacionesBusquedaPrueba.add("despedida");
 		anotacionesBusquedaPrueba.add("fecha");
 		anotacionesBusquedaPrueba.add("fechaNumero");
@@ -1530,12 +1530,6 @@ public class InterpreteMsgsIRC {
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 
-			} else if (anotType.equalsIgnoreCase("nombre")&& !anotaciones_leidas.contains("nombre")) {
-				anotaciones_leidas.add("nombre");
-				tienePeticion = true;
-				anotacionesInterpretadas
-						.add(interpretarAnotacionSaludoEInicioPeticion(
-								contextoInterpretacion, annot));
 
 			} else if (anotType.equalsIgnoreCase("queHacer")&& !anotaciones_leidas.contains("queHacer")) {
 				anotaciones_leidas.add("queHacer");
@@ -1621,12 +1615,6 @@ public class InterpreteMsgsIRC {
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 
-			} else if (anotType.equalsIgnoreCase("consulta") && !anotaciones_leidas.contains("consulta")) {
-				anotaciones_leidas.add("consulta");
-				tienePeticion = true;
-				anotacionesInterpretadas
-						.add(interpretarAnotacionSaludoEInicioPeticion(
-								contextoInterpretacion, annot));
 			} else if (anotType.equalsIgnoreCase("si") && !anotaciones_leidas.contains("si")) {
 				anotaciones_leidas.add("si");
 				tienePeticion = true;
