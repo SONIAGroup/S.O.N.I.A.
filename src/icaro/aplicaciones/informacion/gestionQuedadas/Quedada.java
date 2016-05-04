@@ -165,7 +165,21 @@ public class Quedada implements Serializable {
 
 	@Override
 	public String toString() {
-		return "" + this.queHacer + " en " + this.lugar + " en la fecha " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
+		
+		String que = "";
+		String donde = "";
+		
+		if ( this.queHacer == null) 
+			que = "hacer cualquier plan";
+		else
+			que = this.queHacer;
+		
+		if ( this.lugar == null) 
+			donde = "cualquier lugar";
+		else
+			donde = this.lugar;
+		
+		return "" + que + " en " + this.lugar + " en la fecha " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
 	}
 	
 	

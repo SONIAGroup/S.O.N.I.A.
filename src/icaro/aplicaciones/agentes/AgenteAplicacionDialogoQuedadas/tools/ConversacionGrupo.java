@@ -87,7 +87,7 @@ public class ConversacionGrupo {
 		
 		List<String> confirmacionQueHacer = new ArrayList<String>();
 		confirmacionQueHacer.add("Bien!! Ya sabemos el plan");
-		confirmacionQueHacer.add("Suena interesante...Me puedo apuntar xD?");
+		confirmacionQueHacer.add("Suena interesante...Seguro que lo pasais genial :)");
 		confirmacionQueHacer.add("Que divertido! Pasemos a lo siguiente");
 	/*///////////////////// */
 		
@@ -98,8 +98,8 @@ public class ConversacionGrupo {
 		pedirDonde.add("Ahora teneis que decirme el sitio. Procurad que sea conocido para encontraros a otro grupo cuanto antes :)");
 		
 		List<String> imperativoDonde = new ArrayList<String>();
-		imperativoDonde.add("Eres muy cansino..dime, donde quieres quedar?");
-		imperativoDonde.add("No tengo todo el dia, sabes el lugar o te da igual?");
+		imperativoDonde.add("Sois unos cansinos..decidme donde quereis quedar!");
+		imperativoDonde.add("No tengo todo el dia, sabeis el lugar u os da igual?");
 		
 		List<String> confirmacionDonde = new ArrayList<String>();
 		confirmacionDonde.add("Vale, ya tenemos el lugar para quedar");

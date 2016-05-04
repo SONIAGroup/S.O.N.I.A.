@@ -276,25 +276,52 @@ rule "Obtener dónde se quiere hacer la quedada"
 when
 	ob:ObtenerDonde(chat:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == ob)
-	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.dondeHacer, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, notificacion:tipoNotificacion, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob.setSolved();
- 	que.setLugar(msgg);
- 	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));
+ 
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 	
+ 	if ( notificacion.equals(tipoNotif.queHacer) ) {
+ 		ob.setSolved();
+	 	que.setLugar(msgg);
+	 	fc.setFoco(null);
+	    
+	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));
+	   	
+	   	// Creamos el siguiente objetivo
+	   	Objetivo obFechaQuedada = new ObtenerFechaQuedada();
+	 	obFechaQuedada.setobjectReferenceId(chat);
+	 	insert(obFechaQuedada);
+	 		
+	   	update(ob);
+	   	update(que);
+	   	update(fc);
+ 	}
+ 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+ 		ob.setSolved();
+	 	que.setLugar(msgg);
+	 	fc.setFoco(null);
+	    
+	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));
+	   	
+	   	// Creamos el siguiente objetivo
+	   	Objetivo obFechaQuedada = new ObtenerFechaQuedada();
+	 	obFechaQuedada.setobjectReferenceId(chat);
+	 	insert(obFechaQuedada);
+	 		
+	   	update(ob);
+	   	update(que);
+	   	update(fc);
+ 	
+ 	}
+ 	else {
+ 		tarea.ejecutar(chat, ConversacionGrupo.msg("imperativoDonde"));
+ 	} 
+
+    retract(notif);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	// Creamos el siguiente objetivo
-   	Objetivo obFechaQuedada = new ObtenerFechaQuedada();
- 	obFechaQuedada.setobjectReferenceId(chat);
- 	insert(obFechaQuedada);
- 			
-   	update(ob);
-   	update(que);
-   	update(fc);
-   	retract(notif);
 end
 
 /** REGLAS PARA SOLICITAR Y RECIBIR QUÉ SE QUIERE HACER **/
@@ -317,25 +344,52 @@ rule "Obtener qué se quiere hacer en la quedada"
 when
 	ob:ObtenerQueHacer(chat:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == ob)
-	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.queHacer, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, notificacion:tipoNotificacion, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob.setSolved();
- 	que.setQueHacer(msgg);
- 	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
-   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	
-   	// Creamos el siguiente objetivo
-   	Objetivo dondeHacer = new ObtenerDonde();
- 	dondeHacer.setobjectReferenceId(chat);
- 	insert(dondeHacer);
- 		
-   	update(ob);
-   	update(que);
-   	update(fc);
+ 
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 	
+ 	if ( notificacion.equals(tipoNotif.queHacer) ) {
+ 		ob.setSolved();
+	 	que.setQueHacer(msgg);
+	 	fc.setFoco(null);
+	    
+	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
+	   	
+	   	// Creamos el siguiente objetivo
+	   	Objetivo dondeHacer = new ObtenerDonde();
+	 	dondeHacer.setobjectReferenceId(chat);
+	 	insert(dondeHacer);
+	 		
+	   	update(ob);
+	   	update(que);
+	   	update(fc);
+ 	}
+ 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+ 		ob.setSolved();
+	 	que.setQueHacer(null);
+	 	fc.setFoco(null);
+	    
+	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
+	   	
+	   	// Creamos el siguiente objetivo
+	   	Objetivo dondeHacer = new ObtenerDonde();
+	 	dondeHacer.setobjectReferenceId(chat);
+	 	insert(dondeHacer);
+	 		
+	   	update(ob);
+	   	update(que);
+	   	update(fc);
+ 	
+ 	}
+ 	else {
+ 		tarea.ejecutar(chat, ConversacionGrupo.msg("imperativoQueHacer"));
+ 	} 
+ 
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	retract(notif);
+   	
 end
 
 
