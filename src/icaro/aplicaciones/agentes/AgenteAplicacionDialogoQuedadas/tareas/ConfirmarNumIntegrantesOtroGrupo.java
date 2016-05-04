@@ -27,10 +27,9 @@ public class ConfirmarNumIntegrantesOtroGrupo extends TareaSincrona {
 		String identDeEstaTarea 	= this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
 		String identInterlocutor 	= (String) params[0];
-		String numIntegrantes_str 	= (String) params[1];
+		int numIntegrantes 			= (int) params[1];
 		
 		try {
-			int numIntegrantes = Integer.parseInt(numIntegrantes_str);
 			
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
@@ -40,9 +39,13 @@ public class ConfirmarNumIntegrantesOtroGrupo extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				if ( numIntegrantes >= 1 )
-					mensajeAenviar = "Entendido. El otro grupo deberá tener  " + numIntegrantes + " personas";
 				
+				if ( numIntegrantes == -1 )
+					mensajeAenviar = "Entendido. No os importa el numero de integrantes";
+				
+				else if ( numIntegrantes > 0 )
+					mensajeAenviar = "Entendido. El otro grupo debera tener  " + numIntegrantes + " personas";
+					
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
 
 			} 

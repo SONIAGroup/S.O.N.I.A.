@@ -27,10 +27,9 @@ public class ConfirmarEdadOtroGrupo extends TareaSincrona {
 		String identDeEstaTarea 	= this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
 		String identInterlocutor 	= (String) params[0];
-		String edad_str 			= (String) params[1];
+		int edad 					= (int) params[1];
 		
 		try {
-			int edad = Integer.parseInt(edad_str);
 			
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
@@ -40,10 +39,14 @@ public class ConfirmarEdadOtroGrupo extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				mensajeAenviar = "Muy bien. La quedada será para gente que tenga unos " + edad + " anios ;)";
-				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
+				if ( edad != -1 ) {
+					mensajeAenviar = "Muy bien. La quedada será para gente que tenga unos " + edad + " anios ;)";
+				}
+				else {
+					mensajeAenviar = "Muy bien, buscare gente de todas las edades (legales) ;)";
+				}
 				
-				//recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
+				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 
 			} 
 			else {

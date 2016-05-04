@@ -85,6 +85,9 @@ public class Quedada implements Serializable {
 			this.sexo = Sexo.femenino;
 		else if(sexo.indexOf("mixto") >= 0)
 			this.sexo = Sexo.mixto;
+		else if(sexo.indexOf("sin_especificar") >= 0) {
+			this.sexo = Sexo.sin_especificar;
+		}
 	}
 
 	public int getEdad() {

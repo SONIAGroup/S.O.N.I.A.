@@ -18,6 +18,7 @@ public class tipoNotif {
 	
 	public static String si = "si";
 	public static String no = "no";
+	public static String meDaIgual = "meDaIgual";
 	
 	public static String despedida = "despedida";
 	public static String pordefinir = "definido";

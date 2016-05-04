@@ -1,7 +1,6 @@
 paisesOrg.lst:Organizacion:Pais
 diasSemana.lst:Tiempo:DiaSemana
 gentilicios.lst:Persona:Gentilicio
-marcasAuto.lst:Organizacion:Autos
 meses.lst:Tiempo:Mes
 numero.lst:Numero
 profesiones.lst:Persona:Profesion
@@ -12,19 +11,16 @@ misc.lst:Misc
 tipoOrg.lst:Organizacion:Tipo
 tiempo.lst:Tiempo
 paises.lst:Lugar:Pais
-rumbosCardinales.lst:Lugar:RumboCardinal
 sexoGrupo.lst::sexo:spanish:sexo
 saludo.lst::saludo:spanish:saludo
 queHacer.lst::queHacer:spanish:queHacer
 dondeHacer.lst::dondeHacer:spanish:dondeHacer
-cita.lst:Cita:Tipo
 especialistas.lst:especialista:doctor:spanish
 cuerpo.lst:cuerpo
 despedida.lst::despedida:spanish:despedida
 fecha.lst::fecha:spanish:fecha
 peticion.lst:InicioPeticion
 consultas.lst:consulta:consulta:spanish:consulta
-nombresPersona.lst::presentacion:spanish:nombre
 anular.lst::::inicioAnulacion
 confirmacion.lst::si:spanish:si
 negacion.lst::::no
@@ -33,6 +29,4 @@ preposiciones.lst::preposicion:spanish
 determinantes.lst::determinante:spanish
 dia.lst::dia:spanish
 indeterminados.lst::indeterminado:spanish
-doctorIndeterminado::doctorInd:spanish
-medicoIndeterminado::::medicoIndeterminado
-todoIndeterminado.lst:::spanish:todoIndeterminado
+meDaIgual.lst:::spanish:meDaIgual

@@ -479,6 +479,7 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("consulta");
 		anotacionesBusquedaPrueba.add("si");
 		anotacionesBusquedaPrueba.add("no");
+		anotacionesBusquedaPrueba.add("meDaIgual");
 		// esto habria que pasarlo como parametro
 		if (infoConecxInterlocutor == null) {
 			infoConecxInterlocutor = new InfoConexionUsuario();
@@ -1628,6 +1629,16 @@ public class InterpreteMsgsIRC {
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 			}
+			
+			else if (anotType.equalsIgnoreCase("meDaIgual") && !anotaciones_leidas.contains("meDaIgual")) {
+				anotaciones_leidas.add("meDaIgual");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+			}
+			
+			
 
 		}
 		

@@ -32,18 +32,37 @@ public class ConversacionGrupo {
 	/*///////////////////// */
 	
 	/* Obtener informacion del grupo con el que se quiere quedar*/
-		List<String> pedirInfoOtroGrupo_numPersonas = new ArrayList<String>();
-		pedirInfoOtroGrupo_numPersonas.add("Necesito saber con cuantas personas quereis quedar");
-		pedirInfoOtroGrupo_numPersonas.add("Con cuantas personas os gustaria quedar?");
-		pedirInfoOtroGrupo_numPersonas.add("Quereis quedar con un numero aproximado de personas u os da igual?");
+		List<String> pedirInfoOtroGrupo_numIntegrantes = new ArrayList<String>();
+		pedirInfoOtroGrupo_numIntegrantes.add("Necesito saber con cuantas personas quereis quedar");
+		pedirInfoOtroGrupo_numIntegrantes.add("Con cuantas personas os gustaria quedar?");
+		pedirInfoOtroGrupo_numIntegrantes.add("Quereis quedar con un numero aproximado de personas u os da igual?");
+		
+		List<String> imperativoInfoOtroGrupo_numIntegrantes = new ArrayList<String>();
+		imperativoInfoOtroGrupo_numIntegrantes.add("Vamos mas lentos que los caracoles :( Dime el numero de integrantes del otro grupo!! U os da igual??");
+		
+		List<String> errorInfoOtroGrupo_numIntegrantes = new ArrayList<String>();
+		errorInfoOtroGrupo_numIntegrantes.add("Asi que quereis quedar con un grupo de 0 personas...pues ya esta la quedada!! Venga, en serio, decidme con cuantas personas queresis quedar");
 	
 		List<String> pedirInfoOtroGrupo_edad = new ArrayList<String>();
 		pedirInfoOtroGrupo_edad.add("Que edad media te gustaria que tuvieran?");
 		pedirInfoOtroGrupo_edad.add("Que edad, mas o menos, quieres que tengan?");
 		
+		List<String> imperativoInfoOtroGrupo_edad = new ArrayList<String>();
+		imperativoInfoOtroGrupo_edad.add("Como os gusta bacilarme...Que edad media os gustaria que tuvieran?");
+		
+		List<String> errorInfoOtroGrupo_edad = new ArrayList<String>();
+		errorInfoOtroGrupo_edad.add("Perdona, pero solo podeis quedar con gente mayor de edad...Decidme una edad aproximada,  por favor.");
+		
 		List<String> pedirInfoOtroGrupo_sexo = new ArrayList<String>();
-		pedirInfoOtroGrupo_sexo.add("Quereis quedar con chicos, chicas o te da igual?");
+		pedirInfoOtroGrupo_sexo.add("Quereis quedar con chicos, chicas u os da igual?");
 		pedirInfoOtroGrupo_sexo.add("Quereis que sean hombres, mujeres u os da igual?");
+		
+		List<String> confirmacionInfoOtroGrupo_sexo = new ArrayList<String>();
+		confirmacionInfoOtroGrupo_sexo.add("Okay, ya sabemos el sexo del otro grupo");
+		
+		List<String> imperativoInfoOtroGrupo_sexo = new ArrayList<String>();
+		imperativoInfoOtroGrupo_sexo.add("Venga...necesito saber el sexo del otro grupo. Si os das igual, decidmelo");
+		
 		
 		List<String> imperativoPedirInfoOtroGrupo = new ArrayList<String>();
 		imperativoPedirInfoOtroGrupo.add("Por favor, necesito que me digas los datos de la gente con la que quieres quedar");
@@ -136,12 +155,23 @@ public class ConversacionGrupo {
 		
 	/* Agregamos los dialogos a la conversacion global */
 		conversacionGrupo.put("sinContexto", sinContexto);
-		conversacionGrupo.put("pedirInfoOtroGrupo_numPersonas", pedirInfoOtroGrupo_numPersonas);
 		conversacionGrupo.put("pedirInfoOtroGrupo", pedirInfoOtroGrupo);
-		conversacionGrupo.put("pedirInfoOtroGrupo_edad", pedirInfoOtroGrupo_edad);
-		conversacionGrupo.put("pedirInfoOtroGrupo_sexo", pedirInfoOtroGrupo_sexo);
-		conversacionGrupo.put("imperativoPedirInfoOtroGrupo", imperativoPedirInfoOtroGrupo);
 		conversacionGrupo.put("confirmacionInfoOtroGrupo", confirmacionInfoOtroGrupo);
+		
+		conversacionGrupo.put("pedirInfoOtroGrupo_numIntegrantes", pedirInfoOtroGrupo_numIntegrantes);
+		conversacionGrupo.put("errorInfoOtroGrupo_numIntegrantes", errorInfoOtroGrupo_numIntegrantes);
+		conversacionGrupo.put("imperativoInfoOtroGrupo_numIntegrantes", imperativoInfoOtroGrupo_numIntegrantes);
+		
+		conversacionGrupo.put("pedirInfoOtroGrupo_edad", pedirInfoOtroGrupo_edad);
+		conversacionGrupo.put("imperativoInfoOtroGrupo_edad", imperativoInfoOtroGrupo_edad);
+		conversacionGrupo.put("errorInfoOtroGrupo_edad", errorInfoOtroGrupo_edad);
+		
+		conversacionGrupo.put("pedirInfoOtroGrupo_sexo", pedirInfoOtroGrupo_sexo);
+		conversacionGrupo.put("confirmacionInfoOtroGrupo_sexo", confirmacionInfoOtroGrupo_sexo);
+		conversacionGrupo.put("imperativoInfoOtroGrupo_sexo", imperativoInfoOtroGrupo_sexo);
+		
+		conversacionGrupo.put("imperativoPedirInfoOtroGrupo", imperativoPedirInfoOtroGrupo);
+		
 		conversacionGrupo.put("pedirQueHacer", pedirQueHacer);
 		conversacionGrupo.put("imperativoQueHacer", imperativoQueHacer);
 		conversacionGrupo.put("confirmacionQueHacer", confirmacionQueHacer);

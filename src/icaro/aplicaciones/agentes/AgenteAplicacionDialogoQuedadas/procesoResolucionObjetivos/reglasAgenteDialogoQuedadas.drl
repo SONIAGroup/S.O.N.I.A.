@@ -391,7 +391,7 @@ rule "Obtener info de otro grupo"
  		que.setEdad(Integer.parseInt(msgg));
  		ob2.setSolved();
  		update(ob2);
- 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO EDAD!!!");
+ 		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"DETECTADO EDAD!!!");	
  	}
  	else { // notif.tipoNotificacion == tipoNotif.sexo
  		que.setSexo(msgg);
@@ -461,7 +461,7 @@ rule "Solicitar numero integrantes del otro grupo"
   	ob1.setSolving();
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirInfoOtroGrupo_numPersonas"));
+    tarea.ejecutar(chat, ConversacionGrupo.msg("pedirInfoOtroGrupo_numIntegrantes"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(ob1);
 end
@@ -471,19 +471,45 @@ when
 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob1)
-	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.numintegrantes, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, notificacion:tipoNotificacion,  msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob1.setSolved();
- 	que.setNumIntegrantes(Integer.parseInt(msgg));
- 	fc.setFoco(null);
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConfirmarNumIntegrantesOtroGrupo.class);
-    tarea.ejecutar(chat, msgg);
-   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(ob1);
-   	update(que);
-   	update(fc);
-   	retract(notif);
+ 
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConfirmarNumIntegrantesOtroGrupo.class);
+ 	
+ 	if ( notificacion.equals(tipoNotif.numintegrantes) ) {
+ 		
+ 		if ( Integer.parseInt(msgg) == 0 ) {
+ 			TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 			tarea3.ejecutar(chat,ConversacionGrupo.msg("errorInfoOtroGrupo_numIntegrantes"));
+ 		}
+ 		else {
+ 			que.setNumIntegrantes(Integer.parseInt(msgg));
+ 			tarea.ejecutar(chat, Integer.parseInt(msgg));
+ 			fc.setFoco(null);
+ 			ob1.setSolved();
+ 			update(que);		
+ 			update(fc);
+ 			update(ob1);
+ 		} 
+ 	
+ 	}
+ 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+ 		que.setNumIntegrantes(-1);
+ 		tarea.ejecutar(chat, -1);
+ 		fc.setFoco(null);
+ 		ob1.setSolved();
+ 		update(que);
+ 		update(fc);
+ 		update(ob1);
+ 	}
+ 	else {
+		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 		tarea2.ejecutar(chat,ConversacionGrupo.msg("imperativoInfoOtroGrupo_numIntegrantes"));
+ 	}
+ 	
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+ 	retract(notif);
 end
 
 
@@ -508,20 +534,47 @@ rule "Obtener edad del otro grupo"
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob2)
-	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.edad, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, notificacion:tipoNotificacion, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob2.setSolved();
- 	que.setEdad(Integer.parseInt(msgg));
- 	fc.setFoco(null);
  	
-    TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(ConfirmarEdadOtroGrupo.class);
-    tarea1.ejecutar(chat, msgg);
-   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	
-   	update(ob2);
-   	update(fc);
-   	retract(notif);
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(ConfirmarEdadOtroGrupo.class);
+ 	
+ 	if ( notificacion.equals(tipoNotif.edad) ) {
+ 	
+ 		if ( Integer.parseInt(msgg) >= 18 ) {
+ 			que.setEdad(Integer.parseInt(msgg));
+	 		tarea.ejecutar(chat, Integer.parseInt(msgg));
+	 		fc.setFoco(null);
+	 		ob2.setSolved();
+	 		update(que);		
+	 		update(fc);
+	 		update(ob2);
+ 		}
+ 		else {
+ 			TareaSincrona tarea3 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 			tarea3.ejecutar(chat,ConversacionGrupo.msg("errorInfoOtroGrupo_edad"));
+ 		}
+ 	
+ 		
+ 	}
+ 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+ 		que.setEdad(-1);
+ 		tarea.ejecutar(chat, -1);
+ 		fc.setFoco(null);
+ 		ob2.setSolved();
+ 		update(que);
+ 		update(fc);
+ 		update(ob2);
+ 	}
+ 	else {
+		TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 		tarea2.ejecutar(chat,ConversacionGrupo.msg("imperativoInfoOtroGrupo_edad"));
+ 	}
+ 	
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+ 	retract(notif);
+ 	
 end
 
 
@@ -546,19 +599,35 @@ rule "Obtener sexo del otro grupo"
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.SOLVING)
  	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state == Objetivo.SOLVING)
  	fc:FocoGrupo(grupo == chat, foco == ob3)
-	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
+	notif:NotificacionQuedada(identNotificador == chat, notificacion:tipoNotificacion, msgg:mensajeNotificacion )//, tipoNotificacion == tipoNotif.sexo || tipoNotificacion == tipoNotif.meDaIgual ||, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob3.setSolved();
- 	que.setSexo(msgg);
- 	fc.setFoco(null);
+ 
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
  	
-    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(chat,"Okk.");
+ 	if ( notificacion.equals(tipoNotif.sexo) ) {
+ 		que.setSexo(msgg);
+ 		tarea.ejecutar(chat,ConversacionGrupo.msg("confirmacionInfoOtroGrupo_sexo"));
+ 		fc.setFoco(null);
+ 		ob3.setSolved();
+ 		update(que);		
+ 		update(fc);
+ 		update(ob3);
+ 	}
+ 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+ 		que.setSexo("sin_especificar");
+ 		tarea.ejecutar(chat,ConversacionGrupo.msg("confirmacionInfoOtroGrupo_sexo"));
+ 		fc.setFoco(null);
+ 		ob3.setSolved();
+ 		update(que);
+ 		update(fc);
+ 		update(ob3);
+ 	}
+ 	else {
+ 		tarea.ejecutar(chat,ConversacionGrupo.msg("imperativoInfoOtroGrupo_sexo"));
+ 	}
+ 	
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	
-   	update(ob3);
-   	update(fc);
-   	update(que);
    	retract(notif);
 end
+
