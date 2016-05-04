@@ -300,7 +300,7 @@ when
  	}
  	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
  		ob.setSolved();
-	 	que.setLugar(msgg);
+	 	que.setLugar(null);
 	 	fc.setFoco(null);
 	    
 	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionDonde"));

@@ -155,12 +155,78 @@ public class Quedada implements Serializable {
 	}
 	
 	private String getFechaFormateada() {
+		
 		String min = "" + fecha.get(Calendar.MINUTE);
+		String dia = "";
+		String mes = ""; 
 		
 		if ( fecha.get(Calendar.MINUTE) < 10 )	
 			min = "0" + min;
 		
-		return "" + fecha.get(Calendar.DAY_OF_MONTH) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + min;
+		switch(this.fecha.get(Calendar.DAY_OF_MONTH)) {
+			case Calendar.MONDAY:
+				dia = "lunes";
+			break;
+			case Calendar.TUESDAY:
+				dia = "martes";
+			break;
+			case Calendar.WEDNESDAY:
+				dia = "miercoles";
+			break;
+			case Calendar.THURSDAY:
+				dia = "jueves";
+			break;
+			case Calendar.FRIDAY:
+				dia = "viernes";
+			break;
+			case Calendar.SATURDAY:
+				dia = "sabado";
+			break;
+			case Calendar.SUNDAY:
+				dia = "domingo";
+			break;
+		}
+		
+		switch(this.fecha.get(Calendar.MONTH)) {
+			case Calendar.JANUARY:
+				dia = "Enero";
+			break;
+			case Calendar.FEBRUARY:
+				dia = "Febrero";
+			break;
+			case Calendar.MARCH:
+				dia = "Marzo";
+			break;
+			case Calendar.APRIL:
+				dia = "Abril";
+			break;
+			case Calendar.MAY:
+				dia = "Mayo";
+			break;
+			case Calendar.JUNE:
+				dia = "Junio";
+			break;
+			case Calendar.JULY:
+				dia = "Julio";
+			break;
+			case Calendar.AUGUST:
+				dia = "Agosto";
+			break;
+			case Calendar.SEPTEMBER:
+				dia = "Septiembre";
+			break;
+			case Calendar.OCTOBER:
+				dia = "Octubre";
+			break;
+			case Calendar.NOVEMBER:
+				dia = "Noviembre";
+			break;
+			case Calendar.DECEMBER:
+				dia = "Diciembre";
+			break;
+		}
+		
+		return dia + " " + fecha.get(Calendar.DAY_OF_MONTH) + " de " + mes + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + min;//+ "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR) + " a las " + fecha.get(Calendar.HOUR_OF_DAY) + ":" + min;
 	}
 
 	@Override
@@ -168,6 +234,8 @@ public class Quedada implements Serializable {
 		
 		String que = "";
 		String donde = "";
+		String edad = "";
+		String sexo = "";
 		
 		if ( this.queHacer == null) 
 			que = "hacer cualquier plan";
@@ -179,7 +247,18 @@ public class Quedada implements Serializable {
 		else
 			donde = this.lugar;
 		
-		return "" + que + " en " + this.lugar + " en la fecha " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media de " + this.edad + " anios y de sexo " + this.sexo; 
+		if ( this.edad == -1 ) 
+			edad = "sin especificar";
+		else 
+			edad = "de" + this.edad + "anios";
+		
+		if ( this.sexo == Sexo.sin_especificar ) 
+			sexo = "sin especificar";
+		else
+			sexo = this.sexo.toString();
+		
+		
+		return "" + que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
 	}
 	
 	
