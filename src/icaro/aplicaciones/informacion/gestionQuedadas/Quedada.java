@@ -187,7 +187,7 @@ public class Quedada implements Serializable {
 			break;
 		}
 		
-		switch(this.fecha.get(Calendar.MONTH)) {
+		switch(this.fecha.get(Calendar.MONTH) - 1) {
 			case Calendar.JANUARY:
 				mes = "Enero";
 			break;
@@ -250,7 +250,7 @@ public class Quedada implements Serializable {
 		if ( this.edad == -1 ) 
 			edad = "sin especificar";
 		else 
-			edad = " de" + this.edad + " anios ";
+			edad = "de " + this.edad + " anios ";
 		
 		if ( this.sexo == Sexo.sin_especificar ) 
 			sexo = "sin especificar";

@@ -144,7 +144,8 @@ public class ConversacionGrupo {
 		
 	/* Confirmar quedada*/	
 		List<String> rechazarQuedada = new ArrayList<String>();
-		rechazarQuedada.add("La vida es dura...volvamos a empezar ;(");
+		rechazarQuedada.add("Siento no haber podido ayudarte ;(. Espero que volvamos a hablar pronto. Chaoo");
+		rechazarQuedada.add("Me he saturado. Volvamos a empezar de cero ;)");
 	
 		List<String> imperativorechazarQuedada = new ArrayList<String>();
 		imperativorechazarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");

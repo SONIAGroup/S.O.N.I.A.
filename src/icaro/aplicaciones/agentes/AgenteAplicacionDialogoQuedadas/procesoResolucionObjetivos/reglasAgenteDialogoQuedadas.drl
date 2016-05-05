@@ -65,11 +65,13 @@ when
 	que:Quedada(idChat == chat)
 then
 	ob.setSolved();
-	// borrar sesion
+    
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(chat, ConversacionGrupo.msg("rechazarQuedada"));
+    
+    // mandar mensaje al agnteidentificador para que borre la sesion
+        
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-	update(ob);
 	retract(notif);
 end
 

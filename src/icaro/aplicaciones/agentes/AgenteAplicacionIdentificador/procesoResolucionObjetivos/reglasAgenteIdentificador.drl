@@ -553,7 +553,7 @@ end
 rule "Detectar Inactividad prolongada"
 	when 
  	 cu:UsuarioContexto(user:usuario, inactividad(2) );
-	 Inactividad(user == objectReferenceId, state == Objetivo.PENDING );
+	 Inactividad(user == objectReferenceId, state == Objetivo.PENDING )
 	 
 	 then
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
@@ -568,7 +568,7 @@ end
 rule "Despedirse"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.despedida)
- 	 gr:Grupo(grupo == identInterlc );
+ 	 gr:Grupo(grupo == identInterlc )
 	 then
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
    Tarea tarea = gestorTareas.crearTarea(EliminarSesionGrupo.class);
@@ -583,7 +583,7 @@ end
 rule "fechaAnterior"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.fechaAnterior)
-	 cu:UsuarioContexto(usuario == identInterlc );
+	 cu:UsuarioContexto(usuario == identInterlc )
 	 then
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
    TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
