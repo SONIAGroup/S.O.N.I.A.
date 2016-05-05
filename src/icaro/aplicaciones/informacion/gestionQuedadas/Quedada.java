@@ -189,40 +189,40 @@ public class Quedada implements Serializable {
 		
 		switch(this.fecha.get(Calendar.MONTH)) {
 			case Calendar.JANUARY:
-				dia = "Enero";
+				mes = "Enero";
 			break;
 			case Calendar.FEBRUARY:
-				dia = "Febrero";
+				mes = "Febrero";
 			break;
 			case Calendar.MARCH:
-				dia = "Marzo";
+				mes = "Marzo";
 			break;
 			case Calendar.APRIL:
-				dia = "Abril";
+				mes = "Abril";
 			break;
 			case Calendar.MAY:
-				dia = "Mayo";
+				mes = "Mayo";
 			break;
 			case Calendar.JUNE:
-				dia = "Junio";
+				mes = "Junio";
 			break;
 			case Calendar.JULY:
-				dia = "Julio";
+				mes = "Julio";
 			break;
 			case Calendar.AUGUST:
-				dia = "Agosto";
+				mes = "Agosto";
 			break;
 			case Calendar.SEPTEMBER:
-				dia = "Septiembre";
+				mes = "Septiembre";
 			break;
 			case Calendar.OCTOBER:
-				dia = "Octubre";
+				mes = "Octubre";
 			break;
 			case Calendar.NOVEMBER:
-				dia = "Noviembre";
+				mes = "Noviembre";
 			break;
 			case Calendar.DECEMBER:
-				dia = "Diciembre";
+				mes = "Diciembre";
 			break;
 		}
 		
@@ -250,7 +250,7 @@ public class Quedada implements Serializable {
 		if ( this.edad == -1 ) 
 			edad = "sin especificar";
 		else 
-			edad = "de" + this.edad + "anios";
+			edad = " de" + this.edad + " anios ";
 		
 		if ( this.sexo == Sexo.sin_especificar ) 
 			sexo = "sin especificar";

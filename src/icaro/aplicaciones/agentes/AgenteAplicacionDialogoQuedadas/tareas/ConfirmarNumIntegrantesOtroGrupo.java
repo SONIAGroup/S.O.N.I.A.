@@ -44,7 +44,11 @@ public class ConfirmarNumIntegrantesOtroGrupo extends TareaSincrona {
 					mensajeAenviar = "Entendido. No os importa el numero de integrantes";
 				
 				else if ( numIntegrantes > 0 )
-					mensajeAenviar = "Entendido. El otro grupo debera tener  " + numIntegrantes + " personas";
+					
+					if ( numIntegrantes == 1)
+						mensajeAenviar = "Solo quereis quedar con una persona..interesante ;)";
+					else
+						mensajeAenviar = "Entendido. El otro grupo debera tener  " + numIntegrantes + " personas";
 					
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
 

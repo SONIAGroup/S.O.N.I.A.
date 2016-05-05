@@ -40,7 +40,7 @@ public class ConfirmarEdadOtroGrupo extends TareaSincrona {
 				String mensajeAenviar = null;
 				
 				if ( edad != -1 ) {
-					mensajeAenviar = "Muy bien. La quedada será para gente que tenga unos " + edad + " anios ;)";
+					mensajeAenviar = "Muy bien. La quedada sera para gente que tenga unos " + edad + " anios ;)";
 				}
 				else {
 					mensajeAenviar = "Muy bien, buscare gente de todas las edades (legales) ;)";

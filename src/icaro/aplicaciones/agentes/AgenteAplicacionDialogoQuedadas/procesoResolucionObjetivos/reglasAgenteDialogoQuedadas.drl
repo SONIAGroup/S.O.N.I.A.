@@ -272,7 +272,7 @@ rule "Solicitar dónde se quiere hacer la quedada"
    	update(fc);
 end
 
-rule "Obtener dónde se quiere hacer la quedada"
+rule "Obtener donde se quiere hacer la quedada"
 when
 	ob:ObtenerDonde(chat:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -282,7 +282,7 @@ when
  
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
  	
- 	if ( notificacion.equals(tipoNotif.queHacer) ) {
+ 	if ( notificacion.equals(tipoNotif.dondeHacer) ) {
  		ob.setSolved();
 	 	que.setLugar(msgg);
 	 	fc.setFoco(null);
