@@ -424,7 +424,7 @@ end
 
 
 rule "Obtener info de otro grupo"
- salience 40		// Creo que no le gustaba el salience...no se podría focalizar este objetivo¿?
+ salience 40
  when
  	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.PENDING || state == Objetivo.SOLVING)
  	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)

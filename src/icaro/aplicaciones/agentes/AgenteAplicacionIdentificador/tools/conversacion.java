@@ -55,10 +55,18 @@ public class conversacion {
 		inactividad.add("Soy una chica muy ocupada, no puedo estar esperandoos eternamente!!");
 		inactividad.add("Como no me contesteis ya mismo os apago el PC! Que a parte de organizar quedadas tambien soy una chica hacker :P");
 		
-		List<String> grupoRegistrado = new ArrayList<String>();
-		grupoRegistrado.add("Andaaa pero si ya os tenia registrados, tengo memoria pez disculpadme :(");
-		grupoRegistrado.add("Ya os tengo localizados! Me alegro que hayais vuelto! Aunque no os he echado de menos ;)");
-		grupoRegistrado.add("Anda que bien! Si ya os tengo registrados de otra vez. Me alegro de veros!");
+		List<String> solicitarPass = new ArrayList<String>();
+		solicitarPass.add("Ya os tengo identificados, pero por seguridad decidme el numero de telefono con el que os registrasteis.");
+		solicitarPass.add("Genial! Os tengo por aqui apuntados! Para asegurarme que sois vosotros decidme please el numero de telefono con el que os registrasteis.");
+		
+		List<String> passIncorrecta = new ArrayList<String>();
+		passIncorrecta.add("Lo siento pero no habeis puesto el numero correcto. Volvedme a decir vuestro identificador de grupo. O si no teneis ninguno inventaroslo! No pasa nada!");
+		passIncorrecta.add("Ups, el numero que habeis puesto no es el que tengo apuntado. Volvedme a decir de nuevo vuestro identificador de grupo, o si no inventaros uno ahora mismo!");
+		
+		List<String> passCorrecta = new ArrayList<String>();
+		passCorrecta.add("Genial! Ahora si que estoy segura de que vois vosotros!");
+		passCorrecta.add("Ya os tengo localizados! Me alegro que hayais vuelto! Aunque no os he echado de menos ;)");
+		passCorrecta.add("Me alegro de veros de nuevo! :)");
 		
 		List<String> grupoNoRegistrado = new ArrayList<String>();
 		grupoNoRegistrado.add("Me encanta que entren a utilizarme grupos nuevos! Necesito saber mas sobre vosotros, veamos...");
@@ -168,7 +176,9 @@ public class conversacion {
 		conversacion.put("prePersistenciaGrupo", prePersistenciaGrupo);
 		conversacion.put("persistenciaGrupoCompletada", persistenciaGrupoCompletada);
 		conversacion.put("inactividad", inactividad);
-		conversacion.put("grupoRegistrado", grupoRegistrado);
+		conversacion.put("solicitarPass", solicitarPass);
+		conversacion.put("passIncorrecta", passIncorrecta);
+		conversacion.put("passCorrecta", passCorrecta);
 		conversacion.put("grupoNoRegistrado", grupoNoRegistrado);
 		conversacion.put("volverASaludar", volverASaludar);
 		conversacion.put("ultimaPreguntaIdentificacion", ultimaPreguntaIdentificacion);

@@ -7,6 +7,7 @@ package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
+import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicacion;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
@@ -29,6 +30,7 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 					Objetivo ob = (Objetivo) g;
 					if (ob.getobjectReferenceId().equals(grupo)) {
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(ob);
+						System.out.println("HE ELIMINADO EL OBJETIVO: " + ob.getgoalId());
 					}
 				}
 
@@ -36,6 +38,7 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 					FocoGrupo fc = (FocoGrupo) g;
 					if(fc.getGrupo().equals(grupo)) {
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(fc);
+						System.out.println("HE ELIMINADO EL FOCO");
 					}
 				}
 				
@@ -43,6 +46,15 @@ public class EliminarSesionGrupo extends TareaComunicacion{
 					Grupo gr = (Grupo) g;
 					if(gr.grupo.equals(grupo)) {
 						this.getEnvioHechos().eliminarHechoWithoutFireRules(gr);
+						System.out.println("HE ELIMINADO EL GRUPO: " + gr.getId());
+					}
+				}
+				
+				if(g instanceof Quedada ){
+					Quedada que = (Quedada) g;
+					if(que.idChat.equals(grupo)) {
+						this.getEnvioHechos().eliminarHechoWithoutFireRules(que);
+						System.out.println("HE ELIMINADO LA QUEDADA: " + que.idChat);
 					}
 				}
 			

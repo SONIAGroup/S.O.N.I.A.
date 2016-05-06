@@ -248,6 +248,36 @@ rule "Regla de obtencion del número de integrantes del grupo"
    	retract(notif);
 end
 
+rule "Regla de obtencion de la contraseña del grupo (telefono)"
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.REFINED)
+ 	ob:ObtenerIDGrupo(objectReferenceId == group, state == Objetivo.SOLVED)
+ 	fc:FocoGrupo(grupo == group)
+    notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.telefono, msgg:mensajeNotificacion )
+    gr:Grupo(grupo == group)
+ then
+ 	
+ 	if (gr.getTelefono().equals(msgg)){
+ 		obGeneral.setSolving();
+ 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  		tarea.ejecutar(group, conversacion.msg("passCorrecta"));	
+ 	}
+ 	else {
+ 		obGeneral.setPending();
+ 		ob.setPending();
+ 		fc.setFoco(ob);
+ 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  		tarea.ejecutar(group, conversacion.msg("passIncorrecta"));
+ 	}
+ 	gr.actividad();
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
+   	update(obGeneral);
+   	update(ob);
+   	update(fc);
+   	retract(notif);
+end
+
 rule "Regla de solicitud del identificador del grupo"
  when
  	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
@@ -271,7 +301,7 @@ end
 rule "Regla de obtencion del identificador del grupo"
  when
  	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
- 	ob:ObtenerIDGrupo(state == Objetivo.PENDING, objectReferenceId == group)
+ 	ob:ObtenerIDGrupo(objectReferenceId == group, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == group, foco == ob )
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.idgrupo, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
@@ -576,7 +606,7 @@ rule "Despedirse"
    TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
      tarea2.ejecutar(gr.grupo,  conversacion.msg("despedida"));
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   retract( gr );
+   
    retract( notif );
 end
 

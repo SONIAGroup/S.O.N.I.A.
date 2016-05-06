@@ -50,14 +50,14 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 				gr.setSexo(ngr.getSexo());
 				gr.setTelefono(ngr.getTelefono());
 				
-				objetivoGeneral.setSolving();
+				objetivoGeneral.setRefined();
 				objetivoGeneral.setobjectReferenceId(identInterlocutor);
 				this.getEnvioHechos().insertarHechoWithoutFireRules(objetivoGeneral);
 				this.getEnvioHechos().actualizarHecho(gr);
 
 				if (recComunicacionChat != null) {
 					recComunicacionChat.comenzar(identAgenteOrdenante);
-					String mensajeAenviar = conversacion.msg("grupoRegistrado");
+					String mensajeAenviar = conversacion.msg("solicitarPass");
 					recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				}
 				
