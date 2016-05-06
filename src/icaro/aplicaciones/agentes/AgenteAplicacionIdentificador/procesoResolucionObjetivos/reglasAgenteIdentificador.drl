@@ -46,13 +46,14 @@ rule "Saludo inicial cuando el grupo ha saludado"
  then
  	Grupo gr = new Grupo();
  	gr.grupo = identInterlc;
- 	insert( gr );
  	FocoGrupo fgr = new FocoGrupo(identInterlc);
  	Objetivo ob = new IdentificarGrupo();
  	ob.setobjectReferenceId(identInterlc);
- 	insert( fgr );
- 	insert( ob );
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(gr);
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(fgr);
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);    
     retract(notif);
 end
 
@@ -64,15 +65,15 @@ rule "Saludo inicial cuando el grupo dice algo que no es un saludo"
  then
  	Grupo gr = new Grupo();
  	gr.grupo = identInterlc;
- 	insert( gr );
  	FocoGrupo fgr = new FocoGrupo(identInterlc);
  	Objetivo ob = new IdentificarGrupo();
  	ob.setobjectReferenceId(identInterlc);
- 	insert( fgr );
- 	insert( ob );
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(identInterlc,conversacion.msg("saludoInicialNoSaludo"));
-    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(gr);
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(fgr);
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
     retract(notif);
 end
 
@@ -103,8 +104,9 @@ rule "Regla de solicitar teléfono del grupo"
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(group,conversacion.msg("peticionTelefono"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	
+   	tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
 end
 
 rule "Regla de obtencion del teléfono del grupo"
@@ -123,8 +125,8 @@ rule "Regla de obtencion del teléfono del grupo"
     tarea.ejecutar(group,conversacion.msg("prePersistenciaGrupo"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
-   	update(fc);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
    	retract(notif);
 end
 
@@ -142,8 +144,9 @@ rule "Regla de solicitar sexo del grupo"
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(group,conversacion.msg("peticionSexo"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	
+   	tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
 end
 
 rule "Regla de obtencion del sexo del grupo"
@@ -158,14 +161,14 @@ rule "Regla de obtencion del sexo del grupo"
  	gr.setSexo(msgg);
  	gr.actividad();
  	fc.setFoco(null);
-    TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea1.ejecutar(group, "Genial!");
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group, "Genial!");
     TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea2.ejecutar(group,conversacion.msg("ultimaPreguntaIdentificacion"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
-   	update(fc);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
    	retract(notif);
 end
 
@@ -183,8 +186,9 @@ rule "Regla de solicitar edad del grupo"
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(group,conversacion.msg("peticionEdad"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	
+   	tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
 end
 
 rule "Regla de obtencion de la edad del grupo"
@@ -203,8 +207,8 @@ rule "Regla de obtencion de la edad del grupo"
     tarea.ejecutar(group, msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
-   	update(fc);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
    	retract(notif);
 end
 
@@ -222,8 +226,9 @@ rule "Regla de solicitar número de integrantes del grupo"
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(group,conversacion.msg("peticionNumIntegrantes"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-   	update(fc);
-   	insert(ob);
+   	
+   	tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
 end
 
 rule "Regla de obtencion del número de integrantes del grupo"
@@ -242,9 +247,9 @@ rule "Regla de obtencion del número de integrantes del grupo"
     tarea.ejecutar(group, msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
-   	update(gr);
-   	update(fc);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
+	tarea.getEnvioHechos().actualizarHecho(gr);
    	retract(notif);
 end
 
@@ -256,25 +261,23 @@ rule "Regla de obtencion de la contraseña del grupo (telefono)"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.telefono, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
  	if (gr.getTelefono().equals(msgg)){
  		obGeneral.setSolving();
- 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   		tarea.ejecutar(group, conversacion.msg("passCorrecta"));	
  	}
  	else {
  		obGeneral.setPending();
  		ob.setPending();
  		fc.setFoco(ob);
- 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   		tarea.ejecutar(group, conversacion.msg("passIncorrecta"));
  	}
  	gr.actividad();
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(obGeneral);
-   	update(ob);
-   	update(fc);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
+	tarea.getEnvioHechos().actualizarHecho(obGeneral);
    	retract(notif);
 end
 
@@ -293,9 +296,10 @@ rule "Regla de solicitud del identificador del grupo"
   	tarea.ejecutar(group, conversacion.msg("peticionIDGrupo"));	
   
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
-    insert(ob);
-    update(obj);
-    update(fc);
+    
+    tarea.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+    tarea.getEnvioHechos().actualizarHecho(obj);
+	tarea.getEnvioHechos().actualizarHecho(fc);
 end
 
 rule "Regla de obtencion del identificador del grupo"
@@ -314,10 +318,10 @@ rule "Regla de obtencion del identificador del grupo"
     tarea.ejecutar(group,gr,obGeneral);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
-   	update(ob);
-   	update(fc);
-   	update(obGeneral);
-   	update(gr);
+   	tarea.getEnvioHechos().actualizarHecho(ob);
+	tarea.getEnvioHechos().actualizarHecho(fc);
+	tarea.getEnvioHechos().actualizarHecho(obGeneral);
+	tarea.getEnvioHechos().actualizarHecho(gr);
    	retract(notif);
 end
 
@@ -330,10 +334,11 @@ rule "Notificar desconocimiento"
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(NotificarAlGrupoSinContexto.class);
     tarea.ejecutar(fc);
     gr.actividad();
-    retract(notif);
-    update(fc);
-    update(gr);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+ 	
+ 	tarea.getEnvioHechos().actualizarHecho(fc);
+	tarea.getEnvioHechos().actualizarHecho(gr);
+	retract(notif);
 end
 
 rule "Finalizar la identificación del grupo"
@@ -355,8 +360,8 @@ rule "Finalizar la identificación del grupo"
   	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
  	ob.setSolving();
  	
- 	update(ob);
- 	update(fc);
+ 	tarea.getEnvioHechos().actualizarHecho(fc);
+	tarea.getEnvioHechos().actualizarHecho(ob);
 end
 
 rule "Notificar a agentes de la finalización de la identificación del grupo"
@@ -367,8 +372,9 @@ rule "Notificar a agentes de la finalización de la identificación del grupo"
  	Tarea tarea = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
     tarea.ejecutar(group, gr);
     obj.setSolved();
-	update(obj);
- 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+    
+    tarea.getEnvioHechos().actualizarHecho(obj);
 end
 
 rule "Redireccionar mensaje a agente quedadas"
@@ -385,6 +391,7 @@ rule "Redireccionar mensaje a agente quedadas"
    retract(notif);
 end
 
+/*
 rule "Contexto incorrecto Luego de identificar"
  when 
    notif:Notificacion(identInterlc:identNotificador, 
@@ -400,6 +407,7 @@ rule "Contexto incorrecto Luego de identificar"
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
   	retract(notif);
 end
+
 
 rule "Recibir Objetivo primera vez"
  when 
@@ -418,7 +426,7 @@ rule "Recibir Objetivo primera vez"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
  	retract(notif);
 end
-/*
+
 rule "Focalizacion de distribucion de mensajes"
  when
     obj:IdentificarUsuario(state == Objetivo.SOLVED ,user:objectReferenceId)
@@ -440,7 +448,7 @@ rule "Focalizacion de distribucion de mensajes"
 end
 */
 
-rule "Solicita Distribucion de mensajes paciente"
+/*rule "Solicita Distribucion de mensajes paciente"
  when
     notif:Notificacion(identInterlc:identNotificador, 
     		(tipoNotificacion == tipoNotifPaciente.inicioPeticion ||
@@ -594,15 +602,18 @@ rule "Detectar Inactividad prolongada"
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    retract( cu );
 end
+*/
 
 rule "Despedirse"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.despedida)
  	 gr:Grupo(grupo == identInterlc )
 	 then
+	 
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
    Tarea tarea = gestorTareas.crearTarea(EliminarSesionGrupo.class);
      tarea.ejecutar(gr.grupo);
+     
    TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
      tarea2.ejecutar(gr.grupo,  conversacion.msg("despedida"));
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -610,6 +621,7 @@ rule "Despedirse"
    retract( notif );
 end
 
+/*
 rule "fechaAnterior"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.fechaAnterior)
@@ -630,5 +642,6 @@ rule "Timer Inactividad"
 	 then
    update(m);
 end
+*/
 	
 
