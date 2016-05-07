@@ -14,7 +14,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  *
- * @author Francisco J Garijo
+ * @author SONIAGroup
  */
 public class MensajeGenerico extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;

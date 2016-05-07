@@ -18,7 +18,7 @@ global String agentId;
 
 rule "Recibir desde agente identificador el grupo identificado e informarle"
  when
- 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada)
+ 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "INFO")
  then
  	Objetivo ob = new ObtenerNuevosMensajesGrupo();
  	ob.setobjectReferenceId(chat);
@@ -27,15 +27,32 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
 	if (mgr != null) {
-		
+		//Enviar mensaje privado al chat indicando el mensaje
 		persistencia.eliminarMensajeGrupo(gr.getId());		
 	}
 	else {
 		TareaSincrona tarea = gestorTareas.crearTareaSincrona(DescribirQuedada.class);
     	tarea.ejecutar(chat, que, gr);
+    	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  		tarea2.ejecutar(chat, ConversacionGrupo.msg("cancelarQuedada"));
     	//activar objetivo respuesta a cancelar
 	}
  	
+ 	insert(fc);
+ 	insert(gr);
+    insert(ob);
+    insert(que);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Recibir desde agente identificador el grupo identificado"
+ when
+ 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "NOINFO")
+ then
+ 	Objetivo ob = new ObtenerNuevosMensajesGrupo();
+ 	ob.setobjectReferenceId(chat);
+ 	FocoGrupo fc = new FocoGrupo(chat);
  	insert(fc);
  	insert(gr);
     insert(ob);

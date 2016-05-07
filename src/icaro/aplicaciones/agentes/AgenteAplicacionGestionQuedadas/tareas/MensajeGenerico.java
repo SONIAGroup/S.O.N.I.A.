@@ -6,10 +6,6 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionGestionQuedadas.tareas;
 
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
-import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
-import icaro.aplicaciones.informacion.gestionQuedadas.NotificacionIdentificado;
-import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
-import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
@@ -17,45 +13,30 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
- * 
- * @author SONIAGroup
  *
+ * @author SONIAGroup
  */
-public class DescribirQuedada extends TareaSincrona {
+public class MensajeGenerico extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
 
 	@Override
 	public void ejecutar(Object... params) {
 
-		String identDeEstaTarea 	= this.getIdentTarea();
+		String identDeEstaTarea = this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		String identInterlocutor 	= (String) params[0];
-		Quedada quedada 			= (Quedada) params[1];
-		Grupo grupo					= (Grupo) params[2];
+		String identInterlocutor = (String) params[0];
+		String mensaje = (String) params[1];
 		try {
-			
+			// // Se busca la interfaz del recurso en el repositorio de
+			// interfaces
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
-					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
-			
+					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
-				String idOtroGrupo = null;
-				if (quedada.getGrupoQueAcepta() != null){
-					if (quedada.getGrupoQueAcepta().getId().equals(grupo))
-						idOtroGrupo = quedada.getGrupoEmisor().getId();
-					else
-						idOtroGrupo = quedada.getGrupoQueAcepta().getId();
-				}
-				
-				String mensajeAenviar = null;
-				if (idOtroGrupo == null)
-					mensajeAenviar = "Teneis creada una quedada para " + quedada.toString() + ", pero todavia no he encontrado ningun grupo interesado :(";
-				else
-					mensajeAenviar = "El grupo " + idOtroGrupo + " ha quedado con vosotros para " + quedada.toString() + ".";
-				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
-				
-			} 
-			else {
+				String mensajeAenviar = mensaje;
+				recComunicacionChat.enviarMensagePrivado(identInterlocutor,
+						mensajeAenviar);
+			} else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();
 				this.generarInformeConCausaTerminacion(
 						identDeEstaTarea,

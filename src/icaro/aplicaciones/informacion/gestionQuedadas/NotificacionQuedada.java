@@ -13,6 +13,10 @@ public class NotificacionQuedada {
 
 	public NotificacionQuedada() {
 	}
+	
+	public NotificacionQuedada(String identNotificador) {
+		this.identNotificador = identNotificador;
+	}
 
 	public NotificacionQuedada(Notificacion notif) {
 		identNotificador = notif.getidentNotificador();

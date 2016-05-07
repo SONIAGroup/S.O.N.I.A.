@@ -371,6 +371,22 @@ rule "Notificar a agentes de la finalización de la identificación del grupo"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
+rule "Notificar a agente gestion quedadas de la creacion de la quedada"
+ when 
+ 	ob:RedireccionarNotifAgenteDialogoQuedadas(group:objectReferenceId, state == Objetivo.PENDING)
+ 	notif:NotificacionQuedada(identNotificador == group)
+ 	gr:Grupo(grupo == group)
+ then
+ 	ob.setSolved();
+ 	Objetivo ob2 = new RedireccionarNotifAgenteGestionQuedadas();
+ 	ob2.setobjectReferenceId(group);
+ 	Tarea tarea = gestorTareas.crearTarea(NotificarAgenteGestionQuedadas.class);
+    tarea.ejecutar(group, gr);
+	update(ob);
+	insert(ob2);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
 rule "Redireccionar mensaje a agente dialogo quedadas"
  when
     RedireccionarNotifAgenteDialogoQuedadas(group:objectReferenceId, state == Objetivo.PENDING)

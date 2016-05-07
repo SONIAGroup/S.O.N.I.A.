@@ -28,7 +28,7 @@ public class PersistenciaQuedadasImp implements Serializable {
 	
 	public static Quedada obtenerQuedadaDeGrupoQueAcepta(String idGrupo) {
 		for(Quedada que : tablaQuedadas.values()){
-			if(que.getGrupoQueAcepta().getId().equals(idGrupo)){
+			if(que.getGrupoQueAcepta() != null && que.getGrupoQueAcepta().getId().equals(idGrupo)){
 				return que;
 			}
 		}

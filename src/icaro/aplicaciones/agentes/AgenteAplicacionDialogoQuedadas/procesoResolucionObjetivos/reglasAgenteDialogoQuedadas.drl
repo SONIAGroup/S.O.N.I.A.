@@ -55,6 +55,8 @@ then
     tarea1.ejecutar(que);
 	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea2.ejecutar(chat, ConversacionGrupo.msg("confirmarQuedada"));
+    Tarea tarea3 = gestorTareas.crearTarea(NotificarQuedadaCompletada.class);
+    tarea3.ejecutar(chat);
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	update(ob);
 	retract(notif);

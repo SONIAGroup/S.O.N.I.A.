@@ -18,9 +18,10 @@ public class ConversacionGrupo {
 		
 		conversacionGrupo = new HashMap<String, List<String>>();
 		
-		List<String> describirQuedada = new ArrayList<String>();
-		//describirQuedada.add("");
-			
+		List<String> cancelarQuedada = new ArrayList<String>();
+		cancelarQuedada.add("Quereis cancelar la quedada?");
+		
+		conversacionGrupo.put("cancelarQuedada", cancelarQuedada);		
 	}
 	
 	

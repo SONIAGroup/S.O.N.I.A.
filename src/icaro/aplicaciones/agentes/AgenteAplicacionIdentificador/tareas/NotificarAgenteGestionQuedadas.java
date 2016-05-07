@@ -15,7 +15,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicac
  *
  * @author SONIAGroup
  */
-public class NotificarGrupoIdentificado extends TareaComunicacion {
+public class NotificarAgenteGestionQuedadas extends TareaComunicacion {
 
 	@Override
 	public void ejecutar(Object... params) {
@@ -25,24 +25,11 @@ public class NotificarGrupoIdentificado extends TareaComunicacion {
 		String identInterlocutor    = (String) params[0];
 		Grupo gr = (Grupo) params[1];
 		try {
-			NotificacionIdentificado ngri = null;
-			Objetivo ob = null;
 			ItfPersistenciaQuedadas persistencia = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
 			Quedada quedada = persistencia.obtenerQuedadaDeGrupo(gr.getId());
-			
-			if (quedada == null) {
-				ngri = new NotificacionIdentificado(identInterlocutor, gr);
-				this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas);
-				ob = new RedireccionarNotifAgenteDialogoQuedadas();
-			}
-			else {
-				ngri = new NotificacionIdentificado(identInterlocutor, gr, quedada);
-				ngri.setTipoNotificacion("INFO");
-				this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteAplicacionGestionQuedadas);
-				ob = new RedireccionarNotifAgenteGestionQuedadas();
-			}
-			ob.setobjectReferenceId(identInterlocutor);
-			this.getEnvioHechos().insertarHechoWithoutFireRules(ob);
+			NotificacionIdentificado ngri = new NotificacionIdentificado(identInterlocutor, gr, quedada);
+			ngri.setTipoNotificacion("NOINFO");
+			this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteAplicacionGestionQuedadas);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
