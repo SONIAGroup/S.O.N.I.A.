@@ -25,4 +25,9 @@ public class ClaseGeneradoraPersistenciaMensajesGrupo extends ImplRecursoSimple 
 	public MensajeGrupo obtenerMensajeGrupo(String idGrupo) throws Exception {
 		return PersistenciaMensajesGrupoImp.obtenerMensajeGrupo(idGrupo);
 	}
+	
+	@Override
+	public void eliminarMensajeGrupo(String idGrupo) throws Exception {
+		PersistenciaMensajesGrupoImp.eliminarMensajeGrupo(idGrupo);
+	}
 }

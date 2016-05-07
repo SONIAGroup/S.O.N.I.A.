@@ -7,5 +7,5 @@ public interface ItfPersistenciaMensajesGrupo extends ItfUsoRecursoSimple {
 
 	void insertarMensajeGrupo(MensajeGrupo mgr) throws Exception;
 	MensajeGrupo obtenerMensajeGrupo(String idGrupo) throws Exception;
-
+	void eliminarMensajeGrupo(String idGrupo) throws Exception;
 }

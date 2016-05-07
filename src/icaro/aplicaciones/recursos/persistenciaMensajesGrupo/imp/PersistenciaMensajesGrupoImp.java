@@ -20,5 +20,10 @@ public class PersistenciaMensajesGrupoImp implements Serializable {
 		return tablaMensajesGrupo.get(idGrupo);
 
 	}
+	
+	public static void eliminarMensajeGrupo(String idGrupo) {
+		tablaMensajesGrupo.remove(idGrupo);
+		IOUtils.write(MENSAJES_PATH, tablaMensajesGrupo);
+	}
 
 }
