@@ -21,18 +21,19 @@ public class NotificacionIdentificado {
 	// anotaciones del gazetero de annie
 	public String tipoNotificacion;
 	// anotaciones del gazetero de annie
+	public Quedada quedada;
 	public Grupo grupo;
 
 	public Grupo getGrupo() {
 		return grupo;
 	}
+	
+	public Quedada getQuedada() {
+		return quedada;
+	}
 
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
-	}
-
-	public NotificacionIdentificado() {
-
 	}
 
 	public NotificacionIdentificado(String chatName, Grupo gr) {
@@ -40,6 +41,15 @@ public class NotificacionIdentificado {
 		grupo = gr;
 		tipoNotificacion = mensajeNotificacion = null;
 		contexto = null;
+		quedada = null;
+	}
+	
+	public NotificacionIdentificado(String chatName, Grupo gr, Quedada que) {
+		identNotificador = chatName;
+		grupo = gr;
+		tipoNotificacion = mensajeNotificacion = null;
+		contexto = null;
+		quedada = que;
 	}
 
 	public String getidentObjectRefNotificacion() {

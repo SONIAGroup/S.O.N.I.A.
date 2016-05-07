@@ -371,9 +371,9 @@ rule "Notificar a agentes de la finalización de la identificación del grupo"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
-rule "Redireccionar mensaje a agente quedadas"
+rule "Redireccionar mensaje a agente dialogo quedadas"
  when
-    IdentificarGrupo(group:objectReferenceId, state == Objetivo.SOLVED)
+    RedireccionarNotifAgenteDialogoQuedadas(group:objectReferenceId, state == Objetivo.PENDING)
     notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && tipoNotificacion != tipoNotif.despedida)
     gr:Grupo(grupo == group)
  then
@@ -381,6 +381,20 @@ rule "Redireccionar mensaje a agente quedadas"
 	gr.actividad();
   	Tarea tarea = gestorTareas.crearTarea(Distribuir.class);
     tarea.ejecutar(notif, VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas);
+   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   retract(notif);
+end
+
+rule "Redireccionar mensaje a agente gestion quedadas"
+ when
+    RedireccionarNotifAgenteGestionQuedadas(group:objectReferenceId, state == Objetivo.PENDING)
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && tipoNotificacion != tipoNotif.despedida)
+    gr:Grupo(grupo == group)
+ then
+   recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
+	gr.actividad();
+  	Tarea tarea = gestorTareas.crearTarea(Distribuir.class);
+    tarea.ejecutar(notif, VocabularioGestionQuedadas.IdentAgenteAplicacionGestionQuedadas);
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    retract(notif);
 end

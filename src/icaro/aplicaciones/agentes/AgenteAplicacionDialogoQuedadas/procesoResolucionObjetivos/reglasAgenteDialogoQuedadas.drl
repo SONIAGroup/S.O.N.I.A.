@@ -49,9 +49,12 @@ when
 then
 	ob.setSolved();
 	// matching
-	// guardar la quedada en persistencia
-	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmarQuedada"));
+	
+	// Guardar la quedada en persistencia. Esto sólo se debe hacer cuando el matching no ha tenido éxito.
+	TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
+    tarea1.ejecutar(que);
+	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea2.ejecutar(chat, ConversacionGrupo.msg("confirmarQuedada"));
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	update(ob);
 	retract(notif);

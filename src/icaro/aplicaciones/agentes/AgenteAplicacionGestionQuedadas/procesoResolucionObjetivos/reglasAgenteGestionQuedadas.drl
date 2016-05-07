@@ -16,22 +16,36 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
-rule "Recibir grupo identificado"
+rule "Recibir desde agente identificador el grupo identificado e informarle"
  when
- 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo)
+ 	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada)
  then
  	Objetivo ob = new ObtenerNuevosMensajesGrupo();
  	ob.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
+ 	
+ 	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
+	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
+	if (mgr != null) {
+		
+		persistencia.eliminarMensajeGrupo(gr.getId());		
+	}
+	else {
+		TareaSincrona tarea = gestorTareas.crearTareaSincrona(DescribirQuedada.class);
+    	tarea.ejecutar(chat, que, gr);
+    	//activar objetivo respuesta a cancelar
+	}
+ 	
  	insert(fc);
  	insert(gr);
     insert(ob);
+    insert(que);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Obtener nuevos mensajes desde persistencia"
- when
+ when //Sólo se debe ejecutar cuando el agente no está esperando una respuesta.
  	ob:ObtenerNuevosMensajesGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
  	gr:Grupo(grupo == chat)
  then
