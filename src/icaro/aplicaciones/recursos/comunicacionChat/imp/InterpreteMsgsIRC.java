@@ -462,7 +462,9 @@ public class InterpreteMsgsIRC {
 		// para el agente
 		HashSet anotacionesBusquedaPrueba = new HashSet();
 		anotacionesBusquedaPrueba.add("saludo");
-		anotacionesBusquedaPrueba.add("queHacer");
+		
+		anotacionesBusquedaPrueba.add("queHacer_beber");
+		
 		anotacionesBusquedaPrueba.add("dondeHacer");
 		anotacionesBusquedaPrueba.add("hora");
 		anotacionesBusquedaPrueba.add("edad");
@@ -1532,8 +1534,8 @@ public class InterpreteMsgsIRC {
 								contextoInterpretacion, annot));
 
 
-			} else if (anotType.equalsIgnoreCase("queHacer")&& !anotaciones_leidas.contains("queHacer")) {
-				anotaciones_leidas.add("queHacer");
+			} else if (anotType.equalsIgnoreCase("queHacer_beber")&& !anotaciones_leidas.contains("queHacer_beber")) {
+				anotaciones_leidas.add("queHacer_beber");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(

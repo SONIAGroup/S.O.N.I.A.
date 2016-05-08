@@ -13,7 +13,7 @@ tiempo.lst:Tiempo
 paises.lst:Lugar:Pais
 sexoGrupo.lst::sexo:spanish:sexo
 saludo.lst::saludo:spanish:saludo
-queHacer.lst::queHacer:spanish:queHacer
+queHacer_beber.lst::queHacer_beber:spanish:queHacer_beber
 dondeHacer.lst::dondeHacer:spanish:dondeHacer
 especialistas.lst:especialista:doctor:spanish
 cuerpo.lst:cuerpo

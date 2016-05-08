@@ -22,7 +22,7 @@ public class Quedada implements Serializable {
 	private int numIntegrantes;
 	private Sexo sexo;
 	private int edad;
-	private String queHacer;
+	private TiposQuedada queHacer;
 	private String lugar;
 	private Calendar fecha;
 
@@ -37,7 +37,7 @@ public class Quedada implements Serializable {
 		this.sexo 			= null;
 		this.edad 			= 0;
 		this.tiempo 		= System.currentTimeMillis();
-		this.queHacer 		= "";
+		this.queHacer 		= null;
 		this.lugar 			= "";
 		this.fecha			= null;
 	}
@@ -109,10 +109,10 @@ public class Quedada implements Serializable {
 	
 	
 	public String getQueHacer() {
-		return queHacer;
+		return queHacer.toString();
 	}
 
-	public void setQueHacer(String queHacer) {
+	public void setQueHacer(TiposQuedada queHacer) {
 		this.queHacer = queHacer;
 	}
 	
@@ -232,16 +232,10 @@ public class Quedada implements Serializable {
 	@Override
 	public String toString() {
 		
-		String que = "";
 		String donde = "";
 		String edad = "";
 		String sexo = "";
-		
-		if ( this.queHacer == null) 
-			que = "hacer cualquier plan";
-		else
-			que = this.queHacer;
-		
+				
 		if ( this.lugar == null) 
 			donde = "cualquier lugar";
 		else
@@ -258,7 +252,7 @@ public class Quedada implements Serializable {
 			sexo = this.sexo.toString();
 		
 		
-		return "" + que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
+		return "" + getQueHacer() + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
 	}
 	
 	

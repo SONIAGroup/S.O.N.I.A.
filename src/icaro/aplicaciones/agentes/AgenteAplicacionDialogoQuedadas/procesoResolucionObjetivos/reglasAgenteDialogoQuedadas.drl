@@ -357,9 +357,9 @@ when
  
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
  	
- 	if ( notificacion.equals(tipoNotif.queHacer) ) {
+ 	if ( notificacion.equals(tipoNotif.queHacer_beber) ) {
  		ob.setSolved();
-	 	que.setQueHacer(msgg);
+	 	que.setQueHacer(TiposQuedada.beber);
 	 	fc.setFoco(null);
 	    
 	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
@@ -375,7 +375,7 @@ when
  	}
  	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
  		ob.setSolved();
-	 	que.setQueHacer(null);
+	 	que.setQueHacer(TiposQuedada.da_igual);
 	 	fc.setFoco(null);
 	    
 	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));

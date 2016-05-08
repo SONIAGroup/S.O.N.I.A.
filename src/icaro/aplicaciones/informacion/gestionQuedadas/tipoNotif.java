@@ -10,7 +10,8 @@ public class tipoNotif {
 	public static String sexo = "sexo";
 	public static String telefono = "telefono";
 	
-	public static String queHacer = "queHacer";
+	public static String queHacer_beber = "queHacer_beber";
+	
 	public static String dondeHacer = "dondeHacer";
 	public static String fecha = "fecha";
 	public static String fechaAnterior = "fechaAnterior";
