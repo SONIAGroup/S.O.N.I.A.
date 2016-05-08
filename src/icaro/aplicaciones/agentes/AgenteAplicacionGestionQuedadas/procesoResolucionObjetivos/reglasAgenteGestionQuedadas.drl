@@ -35,7 +35,10 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
     	tarea.ejecutar(chat, que, gr);
     	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   		tarea2.ejecutar(chat, ConversacionGrupo.msg("cancelarQuedada"));
-    	//activar objetivo respuesta a cancelar
+    	Objetivo ob2 = new ObtenerRespuestaCancelarQuedada();
+    	ob.setobjectReferenceId(chat);
+    	fc.setFoco(ob2);
+    	insert(ob2);
 	}
  	
  	insert(fc);
@@ -61,9 +64,39 @@ rule "Recibir desde agente identificador el grupo identificado"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
+rule "Obtener respuesta negativa a cancelar quedada"
+ when
+ 	ob:ObtenerRespuestaCancelarQuedada(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
+ then
+ 	ob.setSolved();
+ 	fc.setFoco(null);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea.ejecutar(chat, ConversacionGrupo.msg("decirOk"));
+ 	update(ob);
+ 	update(fc);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Obtener respuesta afirmativa a cancelar quedada" // FALTA POR HACER!!
+ when
+ 	ob:ObtenerRespuestaCancelarQuedada(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	ob.setSolved();
+ 	fc.setFoco(null);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
 rule "Obtener nuevos mensajes desde persistencia"
  when //Sólo se debe ejecutar cuando el agente no está esperando una respuesta.
  	ob:ObtenerNuevosMensajesGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == null)
  	gr:Grupo(grupo == chat)
  then
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
