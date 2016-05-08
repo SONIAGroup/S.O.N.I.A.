@@ -2,7 +2,6 @@ package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionQuedadas.NotificacionQuedada;
-import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicacion;
 
 /**
@@ -19,11 +18,7 @@ public class Distribuir extends TareaComunicacion {
 		Notificacion notif = (Notificacion) params[0];
 		String idAgente = (String) params[1];
 		try {
-			if (idAgente.equals(VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas)) {
-				this.informaraOtroAgente(new NotificacionQuedada(notif), idAgente);
-			}// else if (idAgente.equals(VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoPaciente)) {
-			//	this.informaraOtroAgente(new NotificacionPaciente(notif), idAgente);
-			//}
+			this.informaraOtroAgente(new NotificacionQuedada(notif), idAgente);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

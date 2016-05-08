@@ -21,7 +21,11 @@ public class ConversacionGrupo {
 		List<String> cancelarQuedada = new ArrayList<String>();
 		cancelarQuedada.add("Quereis cancelar la quedada?");
 		
-		conversacionGrupo.put("cancelarQuedada", cancelarQuedada);		
+		List<String> decirOk = new ArrayList<String>();
+		decirOk.add("Perfecto! Cualquier cosa que me entere acerca de la quedada os la comunicare! Asi que os recomendaria que no cerrarais el chat o vengais a verme de vez en cuando, por si os tengo que decir alguna novedad ;)");
+		
+		conversacionGrupo.put("cancelarQuedada", cancelarQuedada);
+		conversacionGrupo.put("decirOk", decirOk);
 	}
 	
 	
