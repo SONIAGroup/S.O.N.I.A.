@@ -357,9 +357,51 @@ when
  
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
  	
- 	if ( notificacion.equals(tipoNotif.queHacer_beber) ) {
+ 	if ( 
+ 			notificacion.equals(tipoNotif.queHacer_beber)    || 
+ 			notificacion.equals(tipoNotif.queHacer_deporte)  || 
+ 			notificacion.equals(tipoNotif.queHacer_cultural) ||
+ 			notificacion.equals(tipoNotif.queHacer_compras)  ||
+ 			notificacion.equals(tipoNotif.queHacer_comer)    ||
+ 			notificacion.equals(tipoNotif.queHacer_fiesta)   ||
+ 			notificacion.equals(tipoNotif.meDaIgual)
+ 		) {
+ 		
+ 		
+ 		TiposQuedada tipo = null;
+ 		
+ 		if ( notificacion.equals(tipoNotif.queHacer_beber) ) {
+			tipo = TiposQuedada.beber;	
+ 		}
+ 		else if ( notificacion.equals(tipoNotif.queHacer_deporte) ) {
+			tipo = TiposQuedada.parseaDeporte(msgg);
+ 		}
+ 		else if ( notificacion.equals(tipoNotif.queHacer_cultural) ) {
+			tipo = TiposQuedada.parseaCultural(msgg);
+ 		}
+ 		else if ( notificacion.equals(tipoNotif.queHacer_compras) ) {
+			tipo = TiposQuedada.compras;
+ 		}
+ 		else if ( notificacion.equals(tipoNotif.queHacer_comer) ) {
+			tipo = TiposQuedada.comer;
+ 		}
+ 		else if ( notificacion.equals(tipoNotif.queHacer_fiesta) ) {
+			tipo = TiposQuedada.fiesta;
+ 		}
+ 		else {
+ 			tipo = TiposQuedada.da_igual;
+ 		}
+ 		
+ 		if ( notificacion.equals(tipoNotif.meDaIgual) ) {
+	 		que.setDecripcionQueHacer(null);
+	 	}
+	 	else {
+	 		que.setDecripcionQueHacer(msgg);
+	 	}
+	 		
  		ob.setSolved();
-	 	que.setQueHacer(TiposQuedada.beber);
+	 	que.setQueHacer(tipo);
+	 	
 	 	fc.setFoco(null);
 	    
 	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
@@ -372,23 +414,7 @@ when
 	   	update(ob);
 	   	update(que);
 	   	update(fc);
- 	}
- 	else if ( notificacion.equals(tipoNotif.meDaIgual) ) {
- 		ob.setSolved();
-	 	que.setQueHacer(TiposQuedada.da_igual);
-	 	fc.setFoco(null);
-	    
-	    tarea.ejecutar(chat, ConversacionGrupo.msg("confirmacionQueHacer"));
 	   	
-	   	// Creamos el siguiente objetivo
-	   	Objetivo dondeHacer = new ObtenerDonde();
-	 	dondeHacer.setobjectReferenceId(chat);
-	 	insert(dondeHacer);
-	 		
-	   	update(ob);
-	   	update(que);
-	   	update(fc);
- 	
  	}
  	else {
  		tarea.ejecutar(chat, ConversacionGrupo.msg("imperativoQueHacer"));

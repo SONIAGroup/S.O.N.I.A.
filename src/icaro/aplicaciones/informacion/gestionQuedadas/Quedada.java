@@ -23,6 +23,7 @@ public class Quedada implements Serializable {
 	private Sexo sexo;
 	private int edad;
 	private TiposQuedada queHacer;
+	private String descripcion_queHacer;
 	private String lugar;
 	private Calendar fecha;
 
@@ -30,16 +31,17 @@ public class Quedada implements Serializable {
 	private long tiempo;
 	
 	public Quedada(String idChat, Grupo grupoEmisor) {
-		this.idChat 		= idChat;
-		this.grupoEmisor	= grupoEmisor;
-		this.grupoQueAcepta	= null;
-		this.numIntegrantes = 0;
-		this.sexo 			= null;
-		this.edad 			= 0;
-		this.tiempo 		= System.currentTimeMillis();
-		this.queHacer 		= null;
-		this.lugar 			= "";
-		this.fecha			= null;
+		this.idChat 			  = idChat;
+		this.grupoEmisor		  = grupoEmisor;
+		this.grupoQueAcepta		  = null;
+		this.numIntegrantes 	  = 0;
+		this.sexo 				  = null;
+		this.edad 				  = 0;
+		this.tiempo 			  = System.currentTimeMillis();
+		this.queHacer 			  = null;
+		this.descripcion_queHacer = null;
+		this.lugar 				  = "";
+		this.fecha				  = null;
 	}
 
 	public void setGrupoEmisor(Grupo grupoEmisor) {
@@ -114,6 +116,15 @@ public class Quedada implements Serializable {
 
 	public void setQueHacer(TiposQuedada queHacer) {
 		this.queHacer = queHacer;
+	}
+	
+	public String getDescripcionQueHacer() {
+		return this.descripcion_queHacer;
+	}
+	
+	public void setDecripcionQueHacer(String desc) {
+		if(desc != null)
+			this.descripcion_queHacer = desc;
 	}
 	
 	public void setLugar(String dondeHacer) {
@@ -232,9 +243,18 @@ public class Quedada implements Serializable {
 	@Override
 	public String toString() {
 		
+		String que = "";
 		String donde = "";
 		String edad = "";
 		String sexo = "";
+		
+		if ( descripcion_queHacer == null ) {
+			que = getQueHacer();
+		}
+		else {
+			que = getQueHacer() + " (" + descripcion_queHacer + ")";
+		}
+		
 				
 		if ( this.lugar == null) 
 			donde = "cualquier lugar";
@@ -252,7 +272,7 @@ public class Quedada implements Serializable {
 			sexo = this.sexo.toString();
 		
 		
-		return "" + getQueHacer() + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
+		return que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
 	}
 	
 	

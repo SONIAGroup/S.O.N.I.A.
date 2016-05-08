@@ -464,6 +464,11 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("saludo");
 		
 		anotacionesBusquedaPrueba.add("queHacer_beber");
+		anotacionesBusquedaPrueba.add("queHacer_deporte");
+		anotacionesBusquedaPrueba.add("queHacer_cultural");
+		anotacionesBusquedaPrueba.add("queHacer_compras");
+		anotacionesBusquedaPrueba.add("queHacer_comer");
+		anotacionesBusquedaPrueba.add("queHacer_fiesta");
 		
 		anotacionesBusquedaPrueba.add("dondeHacer");
 		anotacionesBusquedaPrueba.add("hora");
@@ -1536,6 +1541,41 @@ public class InterpreteMsgsIRC {
 
 			} else if (anotType.equalsIgnoreCase("queHacer_beber")&& !anotaciones_leidas.contains("queHacer_beber")) {
 				anotaciones_leidas.add("queHacer_beber");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+			
+			} else if (anotType.equalsIgnoreCase("queHacer_deporte")&& !anotaciones_leidas.contains("queHacer_deporte")) {
+				anotaciones_leidas.add("queHacer_deporte");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+			
+			} else if (anotType.equalsIgnoreCase("queHacer_cultural")&& !anotaciones_leidas.contains("queHacer_cultural")) {
+				anotaciones_leidas.add("queHacer_cultural");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+				
+			} else if (anotType.equalsIgnoreCase("queHacer_compras")&& !anotaciones_leidas.contains("queHacer_compras")) {
+				anotaciones_leidas.add("queHacer_compras");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+				
+			} else if (anotType.equalsIgnoreCase("queHacer_comer")&& !anotaciones_leidas.contains("queHacer_comer")) {
+				anotaciones_leidas.add("queHacer_comer");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+			
+			} else if (anotType.equalsIgnoreCase("queHacer_fiesta")&& !anotaciones_leidas.contains("queHacer_fiesta")) {
+				anotaciones_leidas.add("queHacer_fiesta");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(

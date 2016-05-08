@@ -14,6 +14,11 @@ paises.lst:Lugar:Pais
 sexoGrupo.lst::sexo:spanish:sexo
 saludo.lst::saludo:spanish:saludo
 queHacer_beber.lst::queHacer_beber:spanish:queHacer_beber
+queHacer_deporte.lst::queHacer_deporte:spanish:queHacer_deporte
+queHacer_cultural.lst::queHacer_cultural:spanish:queHacer_cultural
+queHacer_compras.lst::queHacer_compras:spanish:queHacer_compras
+queHacer_comer.lst::queHacer_comer:spanish:queHacer_comer
+queHacer_fiesta.lst::queHacer_fiesta:spanish:queHacer_fiesta
 dondeHacer.lst::dondeHacer:spanish:dondeHacer
 especialistas.lst:especialista:doctor:spanish
 cuerpo.lst:cuerpo
