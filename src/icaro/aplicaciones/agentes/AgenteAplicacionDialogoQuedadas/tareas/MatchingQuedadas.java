@@ -59,18 +59,18 @@ public class MatchingQuedadas extends TareaSincrona {
 				
 				Grupo g1 = new Grupo();
 				g1.setId("idPrueba");
-				g1.setEdad(20);
-				g1.setNumIntegrantes(4);
-				g1.setSexo("hombres");
+				g1.setEdad(22);
+				g1.setNumIntegrantes(3);
+				g1.setSexo("mujeres");
 				
 				Quedada q1 = new Quedada("idChat", g1);
-				q1.setEdad(25);
-				q1.setNumIntegrantes(2);
-				q1.setSexo("mujeres");
+				q1.setEdad(23);
+				q1.setNumIntegrantes(4);
+				q1.setSexo("hombres");
 				q1.setQueHacer(TiposQuedada.beber);
 				q1.setDecripcionQueHacer("ir a tomar una cerve");
-				q1.setDecripcionQueHacer("sol");
-				q1.setFecha("09/05/2016");
+				q1.setLugar("sol");
+				q1.setFecha("10/05/2016");
 				
 				candidatas.add(q1);
 							
@@ -84,12 +84,12 @@ public class MatchingQuedadas extends TareaSincrona {
 					}
 				}
 				
-				// No ha encontrado una quedada..
+				// Si no se encuentra una quedada afin..
 				if ( m == -1 ) {
-					mensajeAenviar = "He encontrado una quedada!!";
+					mensajeAenviar = "No hay quedadas disponibles";
 				}
 				else {
-					mensajeAenviar = "No hay quedadas disponibles";
+					mensajeAenviar = "He encontrado una quedada!!";
 				}
 		
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
@@ -117,16 +117,81 @@ public class MatchingQuedadas extends TareaSincrona {
 		}
 	}
 	
+	
+	/**
+	 * Calcula y devuelve la afinidad existente entre dos quedadas.
+	 * 
+	 * @param Quedada q1
+	 * @param Quedada q2
+	 * @return afinidad (max. 80, min. -1)
+	 */
 	private int afinidad(Quedada q1, Quedada q2) {
+		
 		int a = 0;
 		
+		Calendar f1 = q1.getFecha();
+		Calendar f2 = q2.getFecha();
+		
+		Grupo g1 = q1.getGrupoEmisor();
+		Grupo g2 = q2.getGrupoEmisor();
+
+		boolean A = (q1.getNumIntegrantes() == -1 || q2.getNumIntegrantes() == -1) ||
+					(q1.getEdad() == -1 || q2.getEdad() == -1) ||
+					(q1.getSexo() == null || q2.getSexo() == null);
+		
+/* Primero las condiciones que hacen que la afinidad sea la menor*/
+		
 		// Si las fechas no coinciden, la afinidad es la menor
-		if ( (q1.getFecha().get(Calendar.DAY_OF_MONTH) != q2.getFecha().get(Calendar.DAY_OF_MONTH)) ||
-			 (q1.getFecha().get(Calendar.MONTH) != q2.getFecha().get(Calendar.MONTH)) ||
-			 (q1.getFecha().get(Calendar.YEAR) != q2.getFecha().get(Calendar.YEAR)) ) {
+		if ( (f1.get(Calendar.DAY_OF_MONTH) != f2.get(Calendar.DAY_OF_MONTH)) ||
+			 (f1.get(Calendar.MONTH) != f2.get(Calendar.MONTH)) ||
+			 (f1.get(Calendar.YEAR) != f2.get(Calendar.YEAR)) ) {
 			
 			return -1;
 		}
+		
+		
+		// Si, en ambos sentidos,
+		// el numero de integrantes difiere en mas de 1 persona, 
+		// la edad difiere en mas de 2 años
+		// o el sexo no coincide
+		// las quedadas no son afines
+		
+		boolean B = (Math.abs(q1.getNumIntegrantes() - g2.getNumIntegrantes()) > 1) ||
+					(Math.abs(q1.getEdad() - g2.getEdad()) > 2) ||
+					!q1.getSexo().equals(g2.getSexo());
+		
+		boolean C = (Math.abs(q2.getNumIntegrantes() - g1.getNumIntegrantes()) > 1) ||
+					(Math.abs(q2.getEdad() - g1.getEdad()) > 2) ||
+					!q2.getSexo().equals(g1.getSexo());
+		
+		if ( !A && (B || C) ) {
+			return -1;
+		}
+		
+		
+/* Se calcula la afinidad */
+		
+		// Si a alguno de los dos o a los dos no les importa los integrantes, edad y/o sexo
+		// del otro grupo, se suma 20
+		if ( A ) {
+			a += 20;
+		}
+		
+		
+		// Si las horas difieren en 10 min...
+		if ( ( Math.abs(f1.get(Calendar.HOUR_OF_DAY) - f2.get(Calendar.HOUR_OF_DAY)) < 2 ) && 
+				(Math.abs( f1.get(Calendar.MINUTE) - f2.get(Calendar.MINUTE) )  <= 10) ) {
+			
+			a += 20;
+		}
+		
+		// Si las horas difieren en 30 min..
+		else if ( ( Math.abs(f1.get(Calendar.HOUR_OF_DAY) - f2.get(Calendar.HOUR_OF_DAY)) < 2 ) && 
+				(Math.abs( f1.get(Calendar.MINUTE) - f2.get(Calendar.MINUTE) )  <= 30) ) {
+			
+			a += 10;
+		}
+		
 		
 		// Si lo que se quiere hacer en ambos planes coincide...
 		if ( q1.getQueHacer().equals(q2.getQueHacer()) ) {
@@ -137,14 +202,15 @@ public class MatchingQuedadas extends TareaSincrona {
 			a += 10;
 		}
 		
-		if ( q1.getLugar().equals(q2.getLugar()) ) {
+		// Si el lugar coincide...
+		if ( q1.getLugar().equals(q2.getLugar()) || q1.getLugar().contains(q2.getLugar()) ) {
 			a += 20;
 		}
 		else if ( q1.getLugar() == null || q2.getLugar() == null ) {
-			a += 10;
+			a += 15;
 		}
 		
-		// Faltan integrantes, edades y sexo...
+		
 		
 		return a;
 	}

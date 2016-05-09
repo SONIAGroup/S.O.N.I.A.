@@ -481,8 +481,6 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("Lookup");
 		anotacionesBusquedaPrueba.add("despedida");
 		anotacionesBusquedaPrueba.add("fecha");
-		anotacionesBusquedaPrueba.add("fechaNumero");
-		anotacionesBusquedaPrueba.add("inicioAnulacion");
 		anotacionesBusquedaPrueba.add("consulta");
 		anotacionesBusquedaPrueba.add("si");
 		anotacionesBusquedaPrueba.add("no");
@@ -1644,19 +1642,6 @@ public class InterpreteMsgsIRC {
 						.parseaFecha(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot)));
 
-			} else if (anotType.equalsIgnoreCase("fechaNumero")&& !anotaciones_leidas.contains("fechaNumero")) {
-				anotaciones_leidas.add("fechaNumero");
-				tienePeticion = true;
-				anotacionesInterpretadas.add(ParserFecha
-						.parseaFechaNumero(interpretarAnotacionSaludoEInicioPeticion(
-								contextoInterpretacion, annot)));
-
-			} else if (anotType.equalsIgnoreCase("inicioAnulacion")&& !anotaciones_leidas.contains("inicioAnulacion")) {
-				anotaciones_leidas.add("inicioAnulacion");
-				tienePeticion = true;
-				anotacionesInterpretadas
-						.add(interpretarAnotacionSaludoEInicioPeticion(
-								contextoInterpretacion, annot));
 
 			} else if (anotType.equalsIgnoreCase("si") && !anotaciones_leidas.contains("si")) {
 				anotaciones_leidas.add("si");
@@ -1664,6 +1649,7 @@ public class InterpreteMsgsIRC {
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
+				
 			} else if (anotType.equalsIgnoreCase("no") && !anotaciones_leidas.contains("no")) {
 				anotaciones_leidas.add("no");
 				tienePeticion = true;
