@@ -23,6 +23,46 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
+
+/** REGLAS PARA RECIBIR LA CONFIRMACION Y RECHAZO DEL MATCHING **/
+rule "Encontrada quedada: Recibir confirmacion para guardarla actualizada y borrar la del otro"
+when
+	ob:ObtenerConfirmacionMatchingCuandoFunciona(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+then
+	ob.setSolved();
+	
+	// Almacenar la quedada
+	
+	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea2.ejecutar(chat, ConversacionGrupo.msg("finalizar"));
+    
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	update(ob);
+	retract(notif);
+end
+
+rule "Encontrada quedada: Recibir rechazo para pasar al obj guardarOnO"
+when
+	ob:ObtenerConfirmacionMatchingCuandoFunciona(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+then
+	ob.setSolved();
+
+	// Mandar mensaje al agnteidentificador para que borre la sesion
+    
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("despedirse"));
+        
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	retract(notif);
+end
+
+
 /** REGLAS PARA MOSTRAR LA INFORMACION DE LA QUEDADA Y PEDIR SU CONFIRMACION **/
 rule "Mostrar informacion de la quedada que se ha hecho y solicitar confirmacion para hacer el matching"
 when
@@ -40,7 +80,7 @@ then
 end
 
 
-rule "Recibir confirmacion para hacer el matching"
+rule "Recibir confirmacion para buscar otra quedada"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -51,7 +91,7 @@ then
 	// matching
 	
 	TareaSincrona tarea0 = gestorTareas.crearTareaSincrona(MatchingQuedadas.class);
-	tarea0.ejecutar(chat, que);
+	tarea0.ejecutar(chat, que, fc);
 	
 	// Guardar la quedada en persistencia. Esto sólo se debe hacer cuando el matching no ha tenido éxito.
 	//TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
@@ -65,7 +105,7 @@ then
 	retract(notif);
 end
 
-rule "Recibir rechazo para hacer el matching"
+rule "Recibir rechazo para hacer buscar otra quedada"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)

@@ -48,7 +48,7 @@ public class ConversacionGrupo {
 		pedirInfoOtroGrupo_edad.add("Que edad, mas o menos, quieres que tengan?");
 		
 		List<String> imperativoInfoOtroGrupo_edad = new ArrayList<String>();
-		imperativoInfoOtroGrupo_edad.add("Como os gusta bacilarme...Que edad media os gustaria que tuvieran?");
+		imperativoInfoOtroGrupo_edad.add("Como os gusta tomarme el pelo...Que edad media os gustaria que tuvieran?");
 		
 		List<String> errorInfoOtroGrupo_edad = new ArrayList<String>();
 		errorInfoOtroGrupo_edad.add("Perdona, pero solo podeis quedar con gente mayor de edad...Decidme una edad aproximada,  por favor.");
@@ -163,6 +163,17 @@ public class ConversacionGrupo {
 		
 	/*///////////////////// */
 		
+	/* Fin */
+		List<String> despedirse = new ArrayList<String>();
+		despedirse.add("Vaya..siento no haberos sido de ayuda ;( Espero que volvais pronto");
+		despedirse.add("Jouch, odio las despedidas. Nos vemos pronto, eeh? ;)");
+		
+		List<String> finalizar = new ArrayList<String>();
+		finalizar.add("Mi tarea aqui ha concluido. Os avisare sobre las novedades de vuestra quedada cada vez que volvais. Chaoo ;)");
+		finalizar.add("Me ha encantado ayudaros. Os mantendre informados cada vez que volvamos a hablar. Hasta luego cocodrilo!!");
+		
+	/*///////////////////// */
+		
 		
 	/* Agregamos los dialogos a la conversacion global */
 		conversacionGrupo.put("sinContexto", sinContexto);
@@ -201,6 +212,9 @@ public class ConversacionGrupo {
 		
 		conversacionGrupo.put("conMatching", conMatching);
 		conversacionGrupo.put("sinMatching", sinMatching);
+		
+		conversacionGrupo.put("despedirse", despedirse);
+		conversacionGrupo.put("finalizar", finalizar);
 			
 	}
 	

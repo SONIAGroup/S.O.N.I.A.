@@ -7,11 +7,10 @@ package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
+import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.ObtenerConfirmacionMatchingCuandoFunciona;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.aplicaciones.informacion.gestionQuedadas.TiposQuedada;
@@ -38,6 +37,7 @@ public class MatchingQuedadas extends TareaSincrona {
 		String identAgenteOrdenante = this.getIdentAgente();
 		String identInterlocutor 	= (String) params[0];
 		Quedada quedada 			= (Quedada) params[1];
+		FocoGrupo foco				= (FocoGrupo) params[2];
 		
 		try {
 			
@@ -51,7 +51,6 @@ public class MatchingQuedadas extends TareaSincrona {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
 				
 				String mensajeAenviar = null;
-				
 				
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, ConversacionGrupo.msg("confirmarQuedada"));
 				
@@ -93,14 +92,25 @@ public class MatchingQuedadas extends TareaSincrona {
 				// Si no se encuentra una quedada afin..
 				if ( m == -1 ) {
 					mensajeAenviar = "ConversacionGrupo.msg(sinMatching)";
-					// Crear Objetivo y focalizarlo para recibir la respuesta a esto
-					
 				}
 				else {
 					mensajeAenviar =  ConversacionGrupo.msg("conMatching") + " " + destino.toString() + " " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
-					// Crear objetivo y focalizarlo para recibir la respuesta a esto
+					
+					// Actualizamos la quedada
+					quedada.setGrupoQueAcepta(destino.getGrupoEmisor());
+					this.getEnvioHechos().actualizarHecho(quedada);
+					
+					// Creamos el objetivo
+					Objetivo obtenerConfirmacionMatching = new ObtenerConfirmacionMatchingCuandoFunciona();
+					obtenerConfirmacionMatching.setobjectReferenceId(identInterlocutor);
+					this.getEnvioHechos().insertarHechoWithoutFireRules(obtenerConfirmacionMatching);
+					
+					// Focalizamos en ese objetivo
+					foco.setFoco(obtenerConfirmacionMatching);
+					this.getEnvioHechos().actualizarHecho(foco);
+					
 				}
-		
+				
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 
 			} 
