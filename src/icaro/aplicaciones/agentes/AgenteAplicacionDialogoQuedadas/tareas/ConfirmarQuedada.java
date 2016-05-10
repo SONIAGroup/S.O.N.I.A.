@@ -5,6 +5,7 @@
 
 package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas;
 
+import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
@@ -40,7 +41,7 @@ public class ConfirmarQuedada extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				mensajeAenviar = "Resumiendo, quereis quedar para " + quedada.toString() + ". Estais de acuerdo?";
+				mensajeAenviar = "Resumiendo, quereis quedar para " + quedada.toString() + ". " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				
 			} 

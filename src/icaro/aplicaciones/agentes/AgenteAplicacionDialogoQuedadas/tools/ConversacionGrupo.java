@@ -136,22 +136,32 @@ public class ConversacionGrupo {
 		List<String> confirmarQuedada = new ArrayList<String>();
 		confirmarQuedada.add("Voy a buscaros un grupo. Dadme un momen, please!!");
 		confirmarQuedada.add("Comenzare a buscaros al otro grupo para que quedeis ;)");
+		confirmarQuedada.add("Bien, dadme unos segundos para que busque un plan que se adapte lo maximo posible a vuestra quedada...");
+		
 		
 		List<String> imperativoConfirmarQuedada = new ArrayList<String>();
-		imperativoConfirmarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");
-		imperativoConfirmarQuedada.add("animo, esto ya es lo ultimo...me confirmas la quedada?");
+		imperativoConfirmarQuedada.add("Estais de acuerdo?");
+		imperativoConfirmarQuedada.add("Esto es lo que estais buscando?");
 	/*///////////////////// */
 		
-	/* Confirmar quedada*/	
+	/* Rechazar quedada*/	
 		List<String> rechazarQuedada = new ArrayList<String>();
 		rechazarQuedada.add("Siento no haber podido ayudarte ;(. Espero que volvamos a hablar pronto. Chaoo");
 		rechazarQuedada.add("Me he saturado. Volvamos a empezar de cero ;)");
 	
-		List<String> imperativorechazarQuedada = new ArrayList<String>();
-		imperativorechazarQuedada.add("Ya estamos acabando. Dime, confirmas esta quedada?");
-		imperativorechazarQuedada.add("animo, esto ya es lo ultimo...me confirmas la quedada?");
+		
 	/*///////////////////// */
 		
+	/* Matching */
+		List<String> conMatching = new ArrayList<String>();
+		conMatching.add("Os he encontrado una quedada!! Se trata de");
+		conMatching.add("Aja!! Tengo un plan para vosotros:");
+		
+		List<String> sinMatching = new ArrayList<String>();
+		sinMatching.add("Lo siento. No he encontrado ninguna quedada que se parezca a la vuestra. ¿Quereis que la guarde y que os avise si la encuentro?");
+		sinMatching.add("Vaya..no tengo localizada ninguna quedada similar ;( La guardo y os aviso cuando encuntre una??");
+		
+	/*///////////////////// */
 		
 		
 	/* Agregamos los dialogos a la conversacion global */
@@ -188,6 +198,9 @@ public class ConversacionGrupo {
 		conversacionGrupo.put("confirmarQuedada", confirmarQuedada);
 		conversacionGrupo.put("rechazarQuedada", rechazarQuedada);
 		conversacionGrupo.put("imperativoConfirmarQuedada", imperativoConfirmarQuedada);
+		
+		conversacionGrupo.put("conMatching", conMatching);
+		conversacionGrupo.put("sinMatching", sinMatching);
 			
 	}
 	

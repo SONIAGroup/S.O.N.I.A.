@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
+import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
@@ -51,6 +52,9 @@ public class MatchingQuedadas extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
+				
+				recComunicacionChat.enviarMensagePrivado(identInterlocutor, ConversacionGrupo.msg("confirmarQuedada"));
+				
 				//ArrayList<Quedada> candidatas = persistencia.obtenerQuedadasSinGrupo();
 				
 				/// PRUEBAS
@@ -76,20 +80,25 @@ public class MatchingQuedadas extends TareaSincrona {
 							
 				int a = 0;
 				int m = -1;
+				Quedada destino = null;
+				
 				for( Quedada q : candidatas ) {
 					a = afinidad(q, quedada);
 					if ( a > m ) {
-						System.out.println("Afinidad: " + a);
 						m = a;
+						destino = q;
 					}
 				}
 				
 				// Si no se encuentra una quedada afin..
 				if ( m == -1 ) {
-					mensajeAenviar = "No hay quedadas disponibles";
+					mensajeAenviar = "ConversacionGrupo.msg(sinMatching)";
+					// Crear Objetivo y focalizarlo para recibir la respuesta a esto
+					
 				}
 				else {
-					mensajeAenviar = "He encontrado una quedada!!";
+					mensajeAenviar =  ConversacionGrupo.msg("conMatching") + " " + destino.toString() + " " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
+					// Crear objetivo y focalizarlo para recibir la respuesta a esto
 				}
 		
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
@@ -162,7 +171,7 @@ public class MatchingQuedadas extends TareaSincrona {
 		
 		boolean C = (Math.abs(q2.getNumIntegrantes() - g1.getNumIntegrantes()) > 1) ||
 					(Math.abs(q2.getEdad() - g1.getEdad()) > 2) ||
-					!q2.getSexo().equals(g1.getSexo());
+					(q2.getSexo() != g1.getSexo());
 		
 		if ( !A && (B || C) ) {
 			return -1;

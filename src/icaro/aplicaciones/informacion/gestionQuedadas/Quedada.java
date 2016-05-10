@@ -274,8 +274,7 @@ public class Quedada implements Serializable {
 		
 		return que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
 	}
-	
-	
+
 	
 
 }

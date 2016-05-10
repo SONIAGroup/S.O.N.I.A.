@@ -24,7 +24,7 @@ global String agentId;
 
 
 /** REGLAS PARA MOSTRAR LA INFORMACION DE LA QUEDADA Y PEDIR SU CONFIRMACION **/
-rule "Mostrar informacion de la quedada y solicitar confirmacion"
+rule "Mostrar informacion de la quedada que se ha hecho y solicitar confirmacion para hacer el matching"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == null)
@@ -40,7 +40,7 @@ then
 end
 
 
-rule "Recibir confirmacion de la quedada"
+rule "Recibir confirmacion para hacer el matching"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -65,7 +65,7 @@ then
 	retract(notif);
 end
 
-rule "Recibir rechazo de la quedada"
+rule "Recibir rechazo para hacer el matching"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
