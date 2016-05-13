@@ -4,7 +4,8 @@ public class MensajeGrupo {
 	
 	static public final int CANCELAR = 0;
 	static public final int CONFIRMAR = 1;
-	static public final int SOLICITAR = 2;
+	static public final int DENEGAR = 2;
+	static public final int SOLICITAR = 3;
 	
 	public String idGrupoEmisor;
 	public String idGrupoDestinatario;

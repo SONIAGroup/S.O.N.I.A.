@@ -27,7 +27,7 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
 	if (mgr != null) {
-		//Enviar mensaje privado al chat indicando el mensaje
+		insert(mgr);
 		persistencia.eliminarMensajeGrupo(gr.getId());		
 	}
 	else {
@@ -36,7 +36,7 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
     	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   		tarea2.ejecutar(chat, ConversacionGrupo.msg("cancelarQuedada"));
     	Objetivo ob2 = new ObtenerRespuestaCancelarQuedada();
-    	ob.setobjectReferenceId(chat);
+    	ob2.setobjectReferenceId(chat);
     	fc.setFoco(ob2);
     	insert(ob2);
 	}
@@ -70,12 +70,11 @@ rule "Obtener respuesta negativa a cancelar quedada"
 	fc:FocoGrupo(grupo == chat, foco == ob)
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
  then
- 	ob.setSolved();
  	fc.setFoco(null);
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   	tarea.ejecutar(chat, ConversacionGrupo.msg("decirOk"));
- 	update(ob);
  	update(fc);
+ 	retract(ob);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
@@ -87,13 +86,77 @@ rule "Obtener respuesta afirmativa a cancelar quedada" // FALTA POR HACER!!
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
- 	ob.setSolved();
+ 	//ob.setSolved();
  	fc.setFoco(null);
+ 	retract(ob);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
+rule "Obtener respuesta negativa a solicitar quedada"
+ when
+ 	ob:ObtenerRespuestaSolicitarQuedada(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
+ then
+ 	fc.setFoco(null);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea.ejecutar(chat, ConversacionGrupo.msg("respuestaDenegar"));
+ 	update(fc);
+ 	retract(ob);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Obtener respuesta afirmativa a solicitar quedada" // FALTA POR HACER!!
+ when
+ 	ob:ObtenerRespuestaSolicitarQuedada(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+ then
+ 	//ob.setSolved();
+ 	fc.setFoco(null);
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea.ejecutar(chat, ConversacionGrupo.msg("respuestaConfirmar"));
+ 	retract(ob);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Informar al grupo acerca del MensajeGrupo recibido para él"
+ when
+ 	fc:FocoGrupo(chat:grupo, foco == null)
+ 	gr:Grupo(grupo == chat)
+ 	msggr:MensajeGrupo(idGrupoDestinatario == gr.getId(), msg:mensaje )
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+ 	String texto;
+  	
+ 	if (msg == MensajeGrupo.SOLICITAR) {
+ 		Objetivo ob = new ObtenerRespuestaSolicitarQuedada();
+ 		ob.setobjectReferenceId(chat);
+ 		insert(ob);
+ 		texto = ConversacionGrupo.msg("infoSolicitar");
+ 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 	}
+ 	else if (msg == MensajeGrupo.CONFIRMAR) {
+ 		texto = ConversacionGrupo.msg("infoConfirmar");
+ 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 	}
+ 	else if (msg == MensajeGrupo.DENEGAR) {
+ 		texto = ConversacionGrupo.msg("infoDenegar");
+ 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 	}
+ 	else if (msg == MensajeGrupo.CANCELAR) {
+ 		texto = ConversacionGrupo.msg("infoCancelar");
+ 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 	}
+ 	retract(msggr);	
+end
+
 rule "Obtener nuevos mensajes desde persistencia"
+ salience -1
  when //Sólo se debe ejecutar cuando el agente no está esperando una respuesta.
  	ob:ObtenerNuevosMensajesGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == null)
