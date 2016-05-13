@@ -159,7 +159,7 @@ public class ConversacionGrupo {
 		
 		List<String> sinMatching = new ArrayList<String>();
 		sinMatching.add("Lo siento. No he encontrado ninguna quedada que se parezca a la vuestra. ¿Quereis que la guarde y que os avise si la encuentro?");
-		sinMatching.add("Vaya..no tengo localizada ninguna quedada similar ;( La guardo y os aviso cuando encuntre una??");
+		sinMatching.add("Vaya..no tengo localizada ninguna quedada similar ;( La guardo y os aviso cuando encuentre una??");
 		
 	/*///////////////////// */
 		

@@ -1,6 +1,8 @@
 package icaro.aplicaciones.recursos.persistenciaQuedadas;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.aplicaciones.recursos.persistenciaQuedadas.ItfPersistenciaQuedadas;
 import icaro.aplicaciones.recursos.persistenciaQuedadas.imp.PersistenciaQuedadasImp;
@@ -33,6 +35,11 @@ public class ClaseGeneradoraPersistenciaQuedadas extends ImplRecursoSimple imple
 	@Override
 	public Quedada obtenerQuedadaDeGrupo(String idGrupo) throws Exception {
 		return PersistenciaQuedadasImp.obtenerQuedadaDeGrupo(idGrupo);
+	}
+
+	@Override
+	public ArrayList<Quedada> obtenerQuedadasSinGrupoQueAcepta() throws Exception {
+		return PersistenciaQuedadasImp.obtenerQuedadasSinGrupoQueAcepta();
 	}
 
 }
