@@ -23,9 +23,51 @@ global ItfUsoRecursoTrazas recursoTrazas;
 global String agentId;
 
 
+/** REGLAS PARA RECIBIR LA CONFIRMACION O RECHAZO PARA GUARDAR LA QUEDADA CUANDO EL MATCHING NO HA ENCONTRADO A OTRO GRUPO **/
+rule "Recibir si para guardar la quedada (sin grupo receptor)"
+when
+	ob:GuardarQuedadaIncompleta(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+then
+	ob.setSolved();
+	
+	// TODO: ACTUALIZAR LOS CAMPOS DE QUEDADA QUE HAGAN REFERENCIA A QUE ESTA INCOMPLETA
+	
+	// Guardar la quedada en persistencia. Esto sólo se debe hacer cuando el matching no ha tenido éxito.
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
+    tarea.ejecutar(que);
+	
+	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea2.ejecutar(chat, ConversacionGrupo.msg("finalizar"));
+    
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	update(ob);
+	retract(notif);
+end
+
+rule "Recibir no para guardar la quedada (sin grupo receptor)"
+when
+	ob:GuardarQuedadaIncompleta(chat:objectReferenceId, state == Objetivo.PENDING)
+	fc:FocoGrupo(grupo == chat, foco == ob)
+	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.no, msgg:mensajeNotificacion )
+	que:Quedada(idChat == chat)
+then
+	ob.setSolved();
+    
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("despedirse"));
+    
+    // mandar mensaje al agnteidentificador para que borre la sesion
+        
+    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	retract(notif);
+end
+
 
 /** REGLAS PARA RECIBIR LA CONFIRMACION Y RECHAZO DEL MATCHING **/
-rule "Encontrada quedada: Recibir confirmacion para guardarla actualizada y borrar la del otro"
+rule "Recibir si para guardar la quedada (con grupo receptor)"
 when
 	ob:ObtenerConfirmacionMatchingCuandoFunciona(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -34,7 +76,11 @@ when
 then
 	ob.setSolved();
 	
-	// Almacenar la quedada
+	// TODO: ACTUALIZAR LOS CAMPOS DE QUEDADA QUE HAGAN REFERENCIA A QUE ESTA PENDIENTE DE CONFIRMAR
+	
+	// Guardar la quedada en persistencia. Esto sólo se debe hacer cuando el matching no ha tenido éxito.
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
+    tarea.ejecutar(que);
 	
 	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea2.ejecutar(chat, ConversacionGrupo.msg("finalizar"));
@@ -44,7 +90,7 @@ then
 	retract(notif);
 end
 
-rule "Encontrada quedada: Recibir rechazo para pasar al obj guardarOnO"
+rule "Recibir no para guardar la quedada (con grupo receptor)"
 when
 	ob:ObtenerConfirmacionMatchingCuandoFunciona(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -52,11 +98,11 @@ when
 	que:Quedada(idChat == chat)
 then
 	ob.setSolved();
-
-	// Mandar mensaje al agnteidentificador para que borre la sesion
     
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea.ejecutar(chat, ConversacionGrupo.msg("despedirse"));
+    
+    // mandar mensaje al agnteidentificador para que borre la sesion
         
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	retract(notif);
@@ -64,7 +110,7 @@ end
 
 
 /** REGLAS PARA MOSTRAR LA INFORMACION DE LA QUEDADA Y PEDIR SU CONFIRMACION **/
-rule "Mostrar informacion de la quedada que se ha hecho y solicitar confirmacion para hacer el matching"
+rule "Mostrar informacion de la quedada que se ha hecho"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == null)
@@ -80,7 +126,7 @@ then
 end
 
 
-rule "Recibir confirmacion para buscar otra quedada"
+rule "Recibir si de la informacion que se ha dado sobre la quedada que se ha hecho"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)
@@ -88,7 +134,6 @@ when
 	que:Quedada(idChat == chat)
 then
 	ob.setSolved();
-	// matching
 	
 	TareaSincrona tarea0 = gestorTareas.crearTareaSincrona(MatchingQuedadas.class);
 	tarea0.ejecutar(chat, que, fc);
@@ -105,7 +150,7 @@ then
 	retract(notif);
 end
 
-rule "Recibir rechazo para hacer buscar otra quedada"
+rule "Recibir no de la informacion que se ha dado sobre la quedada que se ha hecho"
 when
 	ob:ObtenerConfirmacion(chat:objectReferenceId, state == Objetivo.PENDING)
 	fc:FocoGrupo(grupo == chat, foco == ob)

@@ -41,5 +41,18 @@ public class PersistenciaQuedadasImp implements Serializable {
 			que = obtenerQuedadaDeGrupoQueAcepta(idGrupo);
 		return que;
 	}
+	
+	public static ArrayList<Quedada> obtenerQuedadasSinGrupoQueAcepta() {
+		
+		ArrayList<Quedada> q = new ArrayList<Quedada>();
+		
+		for(Quedada que : tablaQuedadas.values()) {
+			if(que.getGrupoQueAcepta() == null)
+				q.add(que);
+		}
+		
+		return q;
+				
+	}
 
 }

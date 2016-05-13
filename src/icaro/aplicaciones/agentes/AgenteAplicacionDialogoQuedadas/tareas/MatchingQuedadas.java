@@ -7,6 +7,8 @@ package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.GuardarQuedadaIncompleta;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.ObtenerConfirmacionMatchingCuandoFunciona;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
@@ -54,29 +56,8 @@ public class MatchingQuedadas extends TareaSincrona {
 				
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, ConversacionGrupo.msg("confirmarQuedada"));
 				
-				//ArrayList<Quedada> candidatas = persistencia.obtenerQuedadasSinGrupo();
+				ArrayList<Quedada> candidatas = persistencia.obtenerQuedadasSinGrupoQueAcepta();
 				
-				/// PRUEBAS
-				
-				ArrayList<Quedada> candidatas = new ArrayList<Quedada>();
-				
-				Grupo g1 = new Grupo();
-				g1.setId("idPrueba");
-				g1.setEdad(22);
-				g1.setNumIntegrantes(3);
-				g1.setSexo("mujeres");
-				
-				Quedada q1 = new Quedada("idChat", g1);
-				q1.setEdad(23);
-				q1.setNumIntegrantes(4);
-				q1.setSexo("hombres");
-				q1.setQueHacer(TiposQuedada.beber);
-				q1.setDecripcionQueHacer("ir a tomar una cerve");
-				q1.setLugar("sol");
-				q1.setFecha("10/05/2016");
-				
-				candidatas.add(q1);
-							
 				int a = 0;
 				int m = -1;
 				Quedada destino = null;
@@ -91,13 +72,24 @@ public class MatchingQuedadas extends TareaSincrona {
 				
 				// Si no se encuentra una quedada afin..
 				if ( m == -1 ) {
-					mensajeAenviar = "ConversacionGrupo.msg(sinMatching)";
+					
+					// Mostramos los mensajes que informan sobre que no hay otro grupo para la quedada
+					// y para guardarla para un futuro
+					mensajeAenviar = ConversacionGrupo.msg("sinMatching");
+					Objetivo guardarQuedadaIncompleta = new GuardarQuedadaIncompleta();
+					guardarQuedadaIncompleta.setobjectReferenceId(identInterlocutor);
+					this.getEnvioHechos().insertarHechoWithoutFireRules(guardarQuedadaIncompleta);
+					
+					// Focalizamos en ese objetivo
+					foco.setFoco(guardarQuedadaIncompleta);
+					this.getEnvioHechos().actualizarHecho(foco);
 				}
 				else {
-					mensajeAenviar =  ConversacionGrupo.msg("conMatching") + " " + destino.toString() + " " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
+					mensajeAenviar =  ConversacionGrupo.msg("conMatching") + " " + quedada.toString() + " " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
 					
 					// Actualizamos la quedada
 					quedada.setGrupoQueAcepta(destino.getGrupoEmisor());
+					// TODO: cambiar estado quedada a pendiente de confirmar
 					this.getEnvioHechos().actualizarHecho(quedada);
 					
 					// Creamos el objetivo
@@ -177,7 +169,7 @@ public class MatchingQuedadas extends TareaSincrona {
 		
 		boolean B = (Math.abs(q1.getNumIntegrantes() - g2.getNumIntegrantes()) > 1) ||
 					(Math.abs(q1.getEdad() - g2.getEdad()) > 2) ||
-					!q1.getSexo().equals(g2.getSexo());
+					(q1.getSexo() != g2.getSexo());
 		
 		boolean C = (Math.abs(q2.getNumIntegrantes() - g1.getNumIntegrantes()) > 1) ||
 					(Math.abs(q2.getEdad() - g1.getEdad()) > 2) ||
