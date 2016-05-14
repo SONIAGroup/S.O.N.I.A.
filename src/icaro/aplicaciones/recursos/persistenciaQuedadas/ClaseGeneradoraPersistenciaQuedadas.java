@@ -21,6 +21,11 @@ public class ClaseGeneradoraPersistenciaQuedadas extends ImplRecursoSimple imple
 	public void insertarQuedada(Quedada que) throws Exception {
 		PersistenciaQuedadasImp.insertarQuedada(que);
 	}
+	
+	@Override
+	public void eliminarQuedada(Quedada que) throws Exception {
+		PersistenciaQuedadasImp.eliminarQuedada(que);
+	}
 
 	@Override
 	public Quedada obtenerQuedadaDeGrupoEmisor(String idGrupo) throws Exception {

@@ -22,6 +22,11 @@ public class PersistenciaQuedadasImp implements Serializable {
 		IOUtils.write(QUEDADAS_PATH, tablaQuedadas);
 	}
 	
+	public static void eliminarQuedada(Quedada que) {
+		tablaQuedadas.remove(que.getGrupoEmisor().getId());
+		IOUtils.write(QUEDADAS_PATH, tablaQuedadas);
+	}
+	
 	public static Quedada obtenerQuedadaDeGrupoEmisor(String idGrupo) {
 		return tablaQuedadas.get(idGrupo);
 	}

@@ -40,18 +40,26 @@ public class DescribirQuedada extends TareaSincrona {
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
 				String idOtroGrupo = null;
+				String msgConfirmada = null;
 				if (quedada.getGrupoQueAcepta() != null){
-					if (quedada.getGrupoQueAcepta().getId().equals(grupo))
+					if (quedada.getGrupoQueAcepta().getId().equals(grupo)) {
 						idOtroGrupo = quedada.getGrupoEmisor().getId();
-					else
+						if (quedada.getConfirmada())
+							msgConfirmada = "El grupo " + idOtroGrupo + " ya ha confirmado que asistira!";
+						else
+							msgConfirmada = "El grupo " + idOtroGrupo + " aun no ha confirmado la quedada, pero no os preocupeis que en cuanto sepa algo os lo digo";
+					}
+					else {
 						idOtroGrupo = quedada.getGrupoQueAcepta().getId();
+						msgConfirmada = "Ya avise al grupo " + idOtroGrupo + " confirmandoles que vais a asistir!";
+					}
 				}
 				
 				String mensajeAenviar = null;
 				if (idOtroGrupo == null)
 					mensajeAenviar = "Teneis creada una quedada para " + quedada.toString() + ", pero todavia no he encontrado ningun grupo interesado :(";
 				else
-					mensajeAenviar = "El grupo " + idOtroGrupo + " ha quedado con vosotros para " + quedada.toString() + ".";
+					mensajeAenviar = "Recordad que habeis quedado con el grupo " + idOtroGrupo + " para " + quedada.toString() + ". " + msgConfirmada;
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				
 			} 

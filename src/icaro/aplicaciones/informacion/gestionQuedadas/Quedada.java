@@ -26,6 +26,7 @@ public class Quedada implements Serializable {
 	private String descripcion_queHacer;
 	private String lugar;
 	private Calendar fecha;
+	private boolean confirmada;
 
 
 	private long tiempo;
@@ -42,6 +43,7 @@ public class Quedada implements Serializable {
 		this.descripcion_queHacer = null;
 		this.lugar 				  = "";
 		this.fecha				  = null;
+		this.confirmada			  = false;
 	}
 
 	public void setGrupoEmisor(Grupo grupoEmisor) {
@@ -165,6 +167,14 @@ public class Quedada implements Serializable {
 		this.fecha.set(Calendar.MINUTE, Integer.parseInt(parts[1]));
 	}
 	
+	public boolean getConfirmada() {
+		return this.confirmada;
+	}
+	
+	public void setConfirmada(boolean confirmada) {
+		this.confirmada = confirmada;
+	}
+
 	private String getFechaFormateada() {
 		
 		String min = "" + fecha.get(Calendar.MINUTE);
