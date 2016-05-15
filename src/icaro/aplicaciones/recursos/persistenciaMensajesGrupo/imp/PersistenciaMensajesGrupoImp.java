@@ -2,6 +2,8 @@ package icaro.aplicaciones.recursos.persistenciaMensajesGrupo.imp;
 
 import icaro.aplicaciones.informacion.IOUtils;
 import icaro.aplicaciones.informacion.gestionQuedadas.MensajeGrupo;
+import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -18,10 +20,10 @@ public class PersistenciaMensajesGrupoImp implements Serializable {
 
 	public static MensajeGrupo obtenerMensajeGrupo(String idGrupo) {
 		return tablaMensajesGrupo.get(idGrupo);
-
 	}
 	
 	public static void eliminarMensajeGrupo(String idGrupo) {
+		tablaMensajesGrupo.put(idGrupo, null);
 		tablaMensajesGrupo.remove(idGrupo);
 		IOUtils.write(MENSAJES_PATH, tablaMensajesGrupo);
 	}

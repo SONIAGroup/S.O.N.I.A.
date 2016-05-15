@@ -21,8 +21,8 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
  when
  	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "INFO")
  then
- 	Objetivo ob = new ObtenerNuevosMensajesGrupo();
- 	ob.setobjectReferenceId(chat);
+ 	//Objetivo ob = new ObtenerNuevosMensajesGrupo();
+ 	//ob.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
  	
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
@@ -54,12 +54,12 @@ rule "Recibir desde agente identificador el grupo identificado"
  when
  	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "NOINFO")
  then
- 	Objetivo ob = new ObtenerNuevosMensajesGrupo();
- 	ob.setobjectReferenceId(chat);
+ 	//Objetivo ob = new ObtenerNuevosMensajesGrupo();
+ 	//ob.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
  	insert(fc);
  	insert(gr);
-    insert(ob);
+    //insert(ob);
     insert(que);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -154,7 +154,8 @@ end
 
 rule "Informar al grupo acerca del MensajeGrupo recibido para él"
  when
- 	fc:FocoGrupo(chat:grupo, foco == null)
+ 	ob:ObtenerNuevosMensajesGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == chat, foco == null)
  	gr:Grupo(grupo == chat)
  	msggr:MensajeGrupo(idGrupoDestinatario == gr.getId(), msg:mensaje )
  	que:Quedada(idChat == chat)
@@ -166,10 +167,10 @@ rule "Informar al grupo acerca del MensajeGrupo recibido para él"
  		ItfPersistenciaQuedadas persQuedada = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
  		Quedada que_act = persQuedada.obtenerQuedadaDeGrupoQueAcepta(msggr.getIdGrupoEmisor());
  		que.setGrupoQueAcepta(que_act.getGrupoQueAcepta());
- 		Objetivo ob = new ObtenerRespuestaSolicitarQuedada();
- 		ob.setobjectReferenceId(chat);
- 		fc.setFoco(ob);
- 		insert(ob);
+ 		Objetivo ob2 = new ObtenerRespuestaSolicitarQuedada();
+ 		ob2.setobjectReferenceId(chat);
+ 		fc.setFoco(ob2);
+ 		insert(ob2);
  		update(fc);
  		update(que);
  		texto = ConversacionGrupo.msg("infoSolicitar");
@@ -189,12 +190,13 @@ rule "Informar al grupo acerca del MensajeGrupo recibido para él"
  		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
  		retract(que);
  	}
- 	retract(msggr);	
+ 	retract(msggr);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Obtener nuevos mensajes desde persistencia"
  salience -1
- timer ( int: 0 1s )
+ timer ( int: 0 5s )
  when //Sólo se ejecutara cuando el agente no está esperando una respuesta.
  	ob:ObtenerNuevosMensajesGrupo(chat:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(grupo == chat, foco == null)
@@ -203,7 +205,9 @@ rule "Obtener nuevos mensajes desde persistencia"
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
 	if (mgr != null) {
+		recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"MENSAJE GRUPO. CHAT: " + chat + " ID ORIGEN: " + mgr.getIdGrupoEmisor() + " ID DESTINATARIO: " + mgr.getIdGrupoDestinatario());
 		insert(mgr);
 		persistencia.eliminarMensajeGrupo(gr.getId());		
 	}
+	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end

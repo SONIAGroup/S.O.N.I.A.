@@ -88,7 +88,6 @@ public class MatchingQuedadas extends TareaSincrona {
 					mensajeAenviar =  ConversacionGrupo.msg("conMatching") + " " + quedada.toString() + " " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
 					
 					// Actualizamos la quedada
-					//quedada.setGrupoQueAcepta(destino.getGrupoEmisor());
 					destino.setGrupoQueAcepta(quedada.getGrupoEmisor());
 					destino.idChat = identInterlocutor;
 					this.getEnvioHechos().eliminarHecho(quedada);
