@@ -1,7 +1,10 @@
 package icaro.aplicaciones.informacion.gestionQuedadas;
 
-public class MensajeGrupo {
+import java.io.Serializable;
+
+public class MensajeGrupo implements Serializable {
 	
+	private static final long serialVersionUID = -4638466049663386395L;
 	static public final int CANCELAR = 0;
 	static public final int CONFIRMAR = 1;
 	static public final int DENEGAR = 2;

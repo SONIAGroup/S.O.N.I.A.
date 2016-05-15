@@ -36,6 +36,7 @@ public class NotificarGrupoIdentificado extends TareaComunicacion {
 				ob = new RedireccionarNotifAgenteDialogoQuedadas();
 			}
 			else {
+				quedada.idChat = identInterlocutor;
 				ngri = new NotificacionIdentificado(identInterlocutor, gr, quedada);
 				ngri.setTipoNotificacion("INFO");
 				this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteAplicacionGestionQuedadas);

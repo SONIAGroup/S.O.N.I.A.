@@ -136,6 +136,7 @@ rule "Obtener respuesta afirmativa a solicitar quedada"
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
  then
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," LA QUEDADA TIENE GRUPO EMISOR " + que.getGrupoEmisor().getId() + " Y GRUPO QUE ACEPTA " + que.getGrupoQueAcepta().getId());
  	fc.setFoco(null);
  	ItfPersistenciaQuedadas persQuedada = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
  	ItfPersistenciaMensajesGrupo persMensajeGrupo = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
@@ -167,23 +168,25 @@ rule "Informar al grupo acerca del MensajeGrupo recibido para él"
  		que.setGrupoQueAcepta(que_act.getGrupoQueAcepta());
  		Objetivo ob = new ObtenerRespuestaSolicitarQuedada();
  		ob.setobjectReferenceId(chat);
+ 		fc.setFoco(ob);
  		insert(ob);
+ 		update(fc);
  		update(que);
  		texto = ConversacionGrupo.msg("infoSolicitar");
- 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
  	}
  	else if (msg == MensajeGrupo.CONFIRMAR) {
  		texto = ConversacionGrupo.msg("infoConfirmar");
- 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
  	}
  	else if (msg == MensajeGrupo.DENEGAR) {
  		texto = ConversacionGrupo.msg("infoDenegar");
- 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
  		retract(que);
  	}
  	else if (msg == MensajeGrupo.CANCELAR) {
  		texto = ConversacionGrupo.msg("infoCancelar");
- 		tarea.ejecutar(chat, texto.replaceFirst("{param}", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
  		retract(que);
  	}
  	retract(msggr);	

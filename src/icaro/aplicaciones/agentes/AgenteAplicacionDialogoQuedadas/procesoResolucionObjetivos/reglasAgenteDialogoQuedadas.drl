@@ -1,7 +1,8 @@
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
 //import static icaro.aplicaciones.recursos.recursoCalendario.imp.RecursoCalendarioImp.*;
-import static icaro.aplicaciones.recursos.persistenciaUsuarios.imp.PersistenciaUsuariosImp.*;
+import icaro.aplicaciones.recursos.persistenciaMensajesGrupo.*;
+import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
 import icaro.infraestructura.patronAgenteCognitivo.procesadorObjetivos.gestorTareas.ItfGestorTareas;
 import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
@@ -74,13 +75,17 @@ when
 	notif:NotificacionQuedada(identNotificador == chat, tipoNotificacion == tipoNotif.si, msgg:mensajeNotificacion )
 	que:Quedada(idChat == chat)
 then
+	
 	ob.setSolved();
+	ItfPersistenciaMensajesGrupo persMensajeGrupo = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	
 	// TODO: ACTUALIZAR LOS CAMPOS DE QUEDADA QUE HAGAN REFERENCIA A QUE ESTA PENDIENTE DE CONFIRMAR
 	
 	// Guardar la quedada en persistencia. Esto sólo se debe hacer cuando el matching no ha tenido éxito.
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
     tarea.ejecutar(que);
+    
+    persMensajeGrupo.insertarMensajeGrupo(new MensajeGrupo(que.getGrupoQueAcepta().getId(), que.getGrupoEmisor().getId(), MensajeGrupo.SOLICITAR));
 	
 	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
     tarea2.ejecutar(chat, ConversacionGrupo.msg("finalizar"));

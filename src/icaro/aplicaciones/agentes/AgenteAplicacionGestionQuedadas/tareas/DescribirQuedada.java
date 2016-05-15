@@ -42,7 +42,7 @@ public class DescribirQuedada extends TareaSincrona {
 				String idOtroGrupo = null;
 				String msgConfirmada = null;
 				if (quedada.getGrupoQueAcepta() != null){
-					if (quedada.getGrupoQueAcepta().getId().equals(grupo)) {
+					if (quedada.getGrupoQueAcepta().getId().equals(grupo.getId())) {
 						idOtroGrupo = quedada.getGrupoEmisor().getId();
 						if (quedada.getConfirmada())
 							msgConfirmada = "El grupo " + idOtroGrupo + " ya ha confirmado que asistira!";

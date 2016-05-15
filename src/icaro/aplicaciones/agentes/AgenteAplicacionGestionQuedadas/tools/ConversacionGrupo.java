@@ -25,22 +25,22 @@ public class ConversacionGrupo {
 		decirOk.add("Perfecto! Cualquier cosa que me entere acerca de la quedada os la comunicare! Asi que os recomendaria que no cerrarais el chat o vengais a verme de vez en cuando, por si os tengo que decir alguna novedad ;)");
 		
 		List<String> infoSolicitar = new ArrayList<String>();
-		infoSolicitar.add("Al grupo {param} le gusta la quedada que habeis propuesto y les encantaria quedar con vosotros. Aceptais quedar con ellos?");
+		infoSolicitar.add("Al grupo -param- les gusta la quedada que habeis propuesto y les encantaria quedar con vosotros. Aceptais quedar con ellos?");
 		
 		List<String> infoConfirmar = new ArrayList<String>();
-		infoConfirmar.add("El grupo {param} ha aceptado quedar con vosotros! Con esto la quedada esta ya confirmada, sed puntuales por favor! ;)");
+		infoConfirmar.add("El grupo -param- ha aceptado quedar con vosotros! Con esto la quedada esta ya confirmada, sed puntuales por favor! ;)");
 		
 		List<String> infoDenegar = new ArrayList<String>();
-		infoDenegar.add("El grupo {param} ha denegado vuestra propuesta de quedar con ellos, no saben lo que se pierden ;) Volved a crear una quedada que seguro que encontrais a un grupo mejor.");
+		infoDenegar.add("El grupo -param- ha denegado vuestra propuesta de quedar con ellos, no saben lo que se pierden ;) Volved a crear una quedada que seguro que encontrais a un grupo mejor.");
 		
 		List<String> infoCancelar = new ArrayList<String>();
-		infoCancelar.add("El grupo con el que ibais a quedar, {param}, ha cancelado la quedada. Espero que no os haya fastidiado mucho :(");
+		infoCancelar.add("El grupo con el que ibais a quedar, -param-, ha cancelado la quedada. Espero que no os haya fastidiado mucho :(");
 		
 		List<String> respuestaDenegar = new ArrayList<String>();
-		respuestaDenegar.add("rellenar");
+		respuestaDenegar.add("Ooo siento que no querais quedar con ellos. Os avisare cuando haya otro grupo interesado en vuestra quedada.");
 		
 		List<String> respuestaConfirmar = new ArrayList<String>();
-		respuestaConfirmar.add("rellenar");
+		respuestaConfirmar.add("Genial! Ya he avisado al otro grupo de vuestra confirmacion y les he pedido que sean puntuales, serlo vosotros tambien!");
 		
 		conversacionGrupo.put("cancelarQuedada", cancelarQuedada);
 		conversacionGrupo.put("decirOk", decirOk);

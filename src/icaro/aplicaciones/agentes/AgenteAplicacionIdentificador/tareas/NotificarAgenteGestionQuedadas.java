@@ -13,7 +13,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicac
 
 /**
  *
- * @author SONIAGroup
+ * @author Jorge Casas Hernan
  */
 public class NotificarAgenteGestionQuedadas extends TareaComunicacion {
 
@@ -27,6 +27,7 @@ public class NotificarAgenteGestionQuedadas extends TareaComunicacion {
 		try {
 			ItfPersistenciaQuedadas persistencia = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
 			Quedada quedada = persistencia.obtenerQuedadaDeGrupo(gr.getId());
+			quedada.idChat = identInterlocutor;
 			NotificacionIdentificado ngri = new NotificacionIdentificado(identInterlocutor, gr, quedada);
 			ngri.setTipoNotificacion("NOINFO");
 			this.informaraOtroAgente(ngri, VocabularioGestionQuedadas.IdentAgenteAplicacionGestionQuedadas);
