@@ -11,7 +11,7 @@ package icaro.aplicaciones.informacion.gestionQuedadas;
 public class VocabularioGestionQuedadas {
 
 	/*
-	 * Estos son identificadores no cadenas de texto, tienen un pro�sito
+	 * Estos son identificadores no cadenas de texto, tienen un pro�sito
 	 * distinto.
 	 */
 	public static final String ResultadoAutenticacion_DatosNoValidos = "usuarioNoValido";
@@ -43,7 +43,7 @@ public class VocabularioGestionQuedadas {
 	 * tareas.
 	 */
 	public static final String SaludoInicial2 = "Hola ";
-	public static final String SaludoInicial1 = "Hola soy Sonia! Tu organizadora de quedadas entre grupos de amigos que no se conocen. Enviame un mensaje privado y hablamos ;)";
+	public static final String SaludoInicial1 = "¡Hola soy Sonia! Tu organizadora de quedadas entre grupos de amigos que no se conocen. Envíame un mensaje privado y hablamos ;)";
 	public static final String PeticionInformacionGeneral1 = "Dime que deseas";
 	public static final String RespuestaNoEniendo1 = "Lo siento pero no entiendo nada de lo que dice";
 	public static final String RespuestaNoEniendo2 = "Lo siento pero sigo sin entender nada";
