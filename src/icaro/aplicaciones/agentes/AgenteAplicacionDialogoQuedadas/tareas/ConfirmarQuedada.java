@@ -17,7 +17,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  * 
- * @author Mariano Hernández García
+ * @author Mariano Hernï¿½ndez Garcï¿½a
  *
  */
 public class ConfirmarQuedada extends TareaSincrona {
@@ -41,7 +41,7 @@ public class ConfirmarQuedada extends TareaSincrona {
 				
 				String mensajeAenviar = null;
 				
-				mensajeAenviar = "Resumiendo, quereis quedar para " + quedada.toString() + ". " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
+				mensajeAenviar = "Resumiendo, querÃ©is quedar para " + quedada.toString() + ". " + ConversacionGrupo.msg("imperativoConfirmarQuedada");
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				
 			} 

@@ -15,7 +15,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  * 
- * @author Mariano Hern�ndez Garc�a
+ * @author Mariano Hern�ndez Garc�a
  *
  */
 public class ConfirmarNumIntegrantesOtroGrupo extends TareaSincrona {
@@ -41,14 +41,14 @@ public class ConfirmarNumIntegrantesOtroGrupo extends TareaSincrona {
 				
 				
 				if ( numIntegrantes == -1 )
-					mensajeAenviar = "Entendido. No os importa el numero de integrantes";
+					mensajeAenviar = "Entendido. No os importa el número de integrantes del otro grupo";
 				
 				else if ( numIntegrantes > 0 )
 					
 					if ( numIntegrantes == 1)
-						mensajeAenviar = "Solo quereis quedar con una persona..interesante ;)";
+						mensajeAenviar = "¿Sólo queréis quedar con una persona? Interesante.. ;)";
 					else
-						mensajeAenviar = "Entendido. El otro grupo debera tener  " + numIntegrantes + " personas";
+						mensajeAenviar = "Entendido. El otro grupo deberá tener  " + numIntegrantes + " personas";
 					
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor,mensajeAenviar);
 

@@ -15,7 +15,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  * 
- * @author Mariano Hernández García
+ * @author Mariano Hernï¿½ndez Garcï¿½a
  *
  */
 public class ConfirmarEdadOtroGrupo extends TareaSincrona {
@@ -40,10 +40,10 @@ public class ConfirmarEdadOtroGrupo extends TareaSincrona {
 				String mensajeAenviar = null;
 				
 				if ( edad != -1 ) {
-					mensajeAenviar = "Muy bien. La quedada sera para gente que tenga unos " + edad + " anios ;)";
+					mensajeAenviar = "Muy bien. La quedada serÃ¡ para gente que tenga unos " + edad + " aÃ±os ;)";
 				}
 				else {
-					mensajeAenviar = "Muy bien, buscare gente de todas las edades (legales) ;)";
+					mensajeAenviar = "Muy bien, buscarÃ© gente de todas las edades (legales) ;)";
 				}
 				
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
