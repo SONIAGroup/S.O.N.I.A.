@@ -89,7 +89,7 @@ rule "Respuesta ante resaludo del grupo"
      retract(notif);
 end
 
-rule "Regla de solicitar teléfono del grupo"
+rule "Regla de solicitar telefono del grupo"
  when
  	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(foco == null, grupo == group)
@@ -107,7 +107,7 @@ rule "Regla de solicitar teléfono del grupo"
    	insert(ob);
 end
 
-rule "Regla de obtencion del teléfono del grupo"
+rule "Regla de obtencion del telefono del grupo"
  when
  	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
  	ob:ObtenerTelefono(state == Objetivo.PENDING, objectReferenceId == group)
@@ -208,7 +208,7 @@ rule "Regla de obtencion de la edad del grupo"
    	retract(notif);
 end
 
-rule "Regla de solicitar número de integrantes del grupo"
+rule "Regla de solicitar numero de integrantes del grupo"
  when
  	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
  	fc:FocoGrupo(foco == null, grupo == group)
@@ -226,7 +226,7 @@ rule "Regla de solicitar número de integrantes del grupo"
    	insert(ob);
 end
 
-rule "Regla de obtencion del número de integrantes del grupo"
+rule "Regla de obtencion del numero de integrantes del grupo"
  when
  	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
  	ob:ObtenerNumIntegrantes(state == Objetivo.PENDING, objectReferenceId == group)
@@ -248,7 +248,7 @@ rule "Regla de obtencion del número de integrantes del grupo"
    	retract(notif);
 end
 
-rule "Regla de obtencion de la contraseña del grupo (telefono)"
+rule "Regla de obtencion de la contrasena del grupo (telefono)"
  when
  	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.REFINED)
  	ob:ObtenerIDGrupo(objectReferenceId == group, state == Objetivo.SOLVED)
@@ -336,7 +336,7 @@ rule "Notificar desconocimiento"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
-rule "Finalizar la identificación del grupo"
+rule "Finalizar la identificacion del grupo"
  when
  	ob:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
  	ObtenerIDGrupo(objectReferenceId == group , state == Objetivo.SOLVED);
@@ -359,7 +359,7 @@ rule "Finalizar la identificación del grupo"
  	update(fc);
 end
 
-rule "Notificar a agentes de la finalización de la identificación del grupo"
+rule "Notificar a agentes de la finalizacion de la identificacion del grupo"
  when 
  	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.SOLVING)
     gr:Grupo(grupo == group)

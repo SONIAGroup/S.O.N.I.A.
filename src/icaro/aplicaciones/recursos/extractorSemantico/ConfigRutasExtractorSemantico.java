@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- * La informacion de esta clase hay que ponerla en la configuraciÃ³n de la organizaciÃ³n
+ * La informacion de esta clase hay que ponerla en la configuración de la organización
  */
 package icaro.aplicaciones.recursos.extractorSemantico;
 

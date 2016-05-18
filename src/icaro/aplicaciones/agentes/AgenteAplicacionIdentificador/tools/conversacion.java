@@ -12,8 +12,8 @@ public class conversacion {
 		conversacion = new HashMap<String, List<String>>();
 		
 		List<String> saludoInicial = new ArrayList<String>();
-		saludoInicial.add("Hola! Soy SONIA, una chica bot creada para organizar quedadas entre grupos de amigos que no se conocen.");
-		saludoInicial.add("Buenas tardes! Estais preparados para quedar con un magnifico grupo de amigos y pasarlo genial?");
+		saludoInicial.add("Â¡Hola! Soy SONIA, una chica bot creada para organizar quedadas entre grupos de amigos que no se conocen. Prueba ï¿½");
+		saludoInicial.add("Â¡Buenas tardes! ï¿½Estï¿½is preparados para quedar con un magnï¿½fico grupo de amigos y pasarlo genial?");
 		
 		List<String> solicitarNuevamenteIDGrupo = new ArrayList<String>();
 		solicitarNuevamenteIDGrupo.add("Ahora si que si necesito vuestro identificador de grupo.");
@@ -85,7 +85,7 @@ public class conversacion {
 		List<String> sincontexto = new ArrayList<String>(); 
 		sincontexto.add("Disculpa que sea tan cortita, pero no te estoy entendiendo ;(");
 		sincontexto.add("No me estaras vacilando no? Es que no entiendo de que me estas hablando :(");
-		sincontexto.add("Lo siento pero no te entiendo, mis creadores solo me han enseñado a organizar quedadas entre grupos ;(");
+		sincontexto.add("Lo siento pero no te entiendo, mis creadores solo me han enseï¿½ado a organizar quedadas entre grupos ;(");
 		sincontexto.add("Sabes que mi nombre viene de Sistema Organizador de eNcuentros basado en Inteligencia Artificial?? Te digo esto porque no te estoy entendiendo, asi que por decir yo algo jeje.");
 		
 		List<String> distribucion = new ArrayList<String>(); 
@@ -155,8 +155,8 @@ public class conversacion {
 		peticionTelefonoImperativo.add("Si no me dais un numero de movil no puedo seguir :(");
 		
 		List<String> fechaAnterior = new ArrayList<String>(); 
-		fechaAnterior.add("Disculpe, la fecha en la que quiere la cita es anterior a la fecha actual, introduzca una fecha válida");
-		fechaAnterior.add("Parece que ya ha pasado el día deseado para la cita");
+		fechaAnterior.add("Disculpe, la fecha en la que quiere la cita es anterior a la fecha actual, introduzca una fecha vï¿½lida");
+		fechaAnterior.add("Parece que ya ha pasado el dï¿½a deseado para la cita");
 		fechaAnterior.add("Introduzca una fecha futura");
 		
 		List<String> semanticoErroneo = new ArrayList<String>(); 

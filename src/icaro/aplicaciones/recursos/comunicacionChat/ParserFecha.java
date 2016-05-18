@@ -16,10 +16,10 @@ public final class ParserFecha {
 	private static final int DIA = 1;
 	private static final int SEMANA = 7;
 	private static final int MES = 30;
-	private static final int AÑO = 365;
+	private static final int ANO = 365;
 
 	/**
-	 * Los valores de estas claves se sumarán/restarán a la fecha actual
+	 * Los valores de estas claves se sumarï¿½n/restarï¿½n a la fecha actual
 	 */
 	private static final Map<String, Integer> MAPEO_FECHAS = new HashMap<String, Integer>() {
 
@@ -30,39 +30,39 @@ public final class ParserFecha {
 
 		{
 			put("hoy", 0);
-			put("pasado mañana", 2 * DIA);
-			put("mañana", DIA);
+			put("pasado maÃ±ana", 2 * DIA);
+			put("maÃ±ana", DIA);
 			put("maniana", DIA);
 			put("manana", DIA);
 			put("ayer", -DIA);
 			put("semana que viene", SEMANA);
-			put("semana próxima", SEMANA);
+			put("semana prï¿½xima", SEMANA);
 			put("semana proxima", SEMANA);
 			put("semana siguiente", SEMANA);
 			put("siguiente semana", SEMANA);
 			put("siguiente semana", SEMANA);
 			put("mes que viene", MES);
 			put("mes siguiente", MES);
-			put("año siguiente", AÑO);
-			put("año próximo", AÑO);
-			put("año proximo", AÑO);
-			put("próximo año", AÑO);
-			put("mes próximo", MES);
+			put("aï¿½o siguiente", ANO);
+			put("aï¿½o prï¿½ximo", ANO);
+			put("aï¿½o proximo", ANO);
+			put("prï¿½ximo aï¿½o", ANO);
+			put("mes prï¿½ximo", MES);
 			put("mes proximo", MES);
-			put("proximo año", AÑO);
+			put("proximo aï¿½o", ANO);
 			put("proximo mes", MES);
-			put("próximo mes", MES);
-			put("próxima semana", SEMANA);
+			put("prï¿½ximo mes", MES);
+			put("prï¿½xima semana", SEMANA);
 			put("proxima semana", SEMANA);
-			put("próximo día", DIA);
-			put("proximo día", DIA);
+			put("prï¿½ximo dï¿½a", DIA);
+			put("proximo dï¿½a", DIA);
 			put("proximo dia", DIA);
 		}
 	};
 
 	/**
-	 * Los valores de estas claves serán usados para obtener la fecha
-	 * correspondiente al día de la semana
+	 * Los valores de estas claves serï¿½n usados para obtener la fecha
+	 * correspondiente al dï¿½a de la semana
 	 */
 	private static final Map<String, Integer> MAPEO_DIAS_SEMANA = new HashMap<String, Integer>() {
 
@@ -74,19 +74,19 @@ public final class ParserFecha {
 		{
 			put("lunes", Calendar.MONDAY);
 			put("martes", Calendar.TUESDAY);
-			put("miércoles", Calendar.WEDNESDAY);
+			put("miï¿½rcoles", Calendar.WEDNESDAY);
 			put("miercoles", Calendar.WEDNESDAY);
 			put("jueves", Calendar.THURSDAY);
 			put("viernes", Calendar.FRIDAY);
-			put("sábado", Calendar.SATURDAY);
+			put("sï¿½bado", Calendar.SATURDAY);
 			put("sabado", Calendar.SATURDAY);
 			put("domingo", Calendar.SUNDAY);
 		}
 	};
 
 	/**
-	 * Los valores de estas claves serán usados para obtener la fecha
-	 * correspondiente al día del mes
+	 * Los valores de estas claves serï¿½n usados para obtener la fecha
+	 * correspondiente al dï¿½a del mes
 	 */
 	private static final Map<String, Integer> MAPEO_DIAS_MES = new HashMap<String, Integer>() {
 
@@ -104,8 +104,8 @@ public final class ParserFecha {
 	}
 
 	/**
-	 * Dada una notificación con una anotación de tipo "fecha" del tipo
-	 * "mañana, pasado, ayer, el viernes, etc." la convierte a un mensaje de
+	 * Dada una notificaciï¿½n con una anotaciï¿½n de tipo "fecha" del tipo
+	 * "maï¿½ana, pasado, ayer, el viernes, etc." la convierte a un mensaje de
 	 * tipo "dd/MM/yyyy"
 	 * 
 	 * @param notif
