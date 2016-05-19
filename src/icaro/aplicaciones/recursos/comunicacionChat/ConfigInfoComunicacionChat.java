@@ -5,14 +5,15 @@
  */
 package icaro.aplicaciones.recursos.comunicacionChat;
 
+
 /**
  *
  * @author FGarijo
  */
 public class ConfigInfoComunicacionChat {
-	//public static final String urlFeeNode = "irc.freenode.net";
-	public static final String urlFeeNode = "192.168.137.2";
-	public static final String nicknameConexionAgte = "SONIA_Bot";
+	public static final String urlFeeNode = "irc.freenode.net";		// Kiwiirc
+	//public static final String urlFeeNode = "192.168.137.2";		// Raspberry (u otro servidor IRC local)
+	public static final String nicknameConexionAgte = "SONIA_Bot";		
 	public static final String chanelConexionAgte = "#kiwiirc-sonia";
 	public static final String identInterlocutorPruebas = "pacopa22";
 }
