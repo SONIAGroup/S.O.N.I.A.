@@ -38,9 +38,9 @@ public class ConfirmarEdad extends TareaSincrona {
 				String mensajeAenviar = null;
 				
 				if (edad < 20)
-					mensajeAenviar = "Solo " + edad + " a\u00b1os?? Que jovencitos!";
+					mensajeAenviar = "Solo " + edad + " años?? Que jovencitos!";
 				else if (edad < 30)
-					mensajeAenviar = edad + " a\u00b1os?? Me encanta esa edad!";
+					mensajeAenviar = edad + " años?? Me encanta esa edad!";
 				else
 					mensajeAenviar = "Ufff que viejos sois no?? jjajaj es broma! ;)";
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor,

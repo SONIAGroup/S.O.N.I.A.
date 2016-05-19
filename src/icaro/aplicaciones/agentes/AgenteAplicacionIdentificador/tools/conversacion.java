@@ -16,7 +16,7 @@ public class conversacion {
 		saludoInicial.add("¡Buenas tardes!, ¿Estáis preparados para quedar con un magnífico grupo de amig@s y pasarlo genial?");
 		
 		List<String> solicitarNuevamenteIDGrupo = new ArrayList<String>();
-		solicitarNuevamenteIDGrupo.add("Ahora sí que si necesito vuestro identificador de grupo.");
+		solicitarNuevamenteIDGrupo.add("Ahora sí que sí necesito vuestro identificador de grupo.");
 		solicitarNuevamenteIDGrupo.add("Decídme ahora sí o sí vuestro identificador de grupo, please.");
 		
 		List<String> saludoInicialNoSaludo = new ArrayList<String>();
@@ -79,7 +79,7 @@ public class conversacion {
 		volverASaludar.add("¡Ya nos hemos saludado antes! Recuerda que soy una máquina, me acuerdo de todo. Jajaja :)");
 		
 		List<String> ultimaPreguntaIdentificacion = new ArrayList<String>();
-		ultimaPreguntaIdentificacion.add("Y la ultima pregunta para terminar de identificaros es...");
+		ultimaPreguntaIdentificacion.add("Y la última pregunta para terminar de identificaros es...");
 		ultimaPreguntaIdentificacion.add("Vale, solo me queda ya una pregunta por haceros.");
 		ultimaPreguntaIdentificacion.add("Bueno pues ya casi he terminado de identificaros. Sólo me queda por haceros una pregunta.");
 		
@@ -111,7 +111,7 @@ public class conversacion {
 		
 		List<String> peticionIDGrupo = new ArrayList<String>(); 
 		peticionIDGrupo.add("Lo primero que necesito es vuestro identificador de grupo. Si no tenéis ninguno no os preocupéis, ¡inventaróslo ahora mismo!. Importante, tiene que empezar por @");
-		peticionIDGrupo.add("¡Cuál es vuestro identificador de grupo?. Si no sabéis de qué hablo, necesito un @nick que os identifique como grupo");
+		peticionIDGrupo.add("¿Cuál es vuestro identificador de grupo?. Si no sabéis de qué hablo, necesito un @nick que os identifique como grupo");
 		peticionIDGrupo.add("Decidme, please, vuestro identificador de grupo. Si no tenéis ninguno es buen momento para pensar uno. Tiene que empezar por @ y luego el nombre que queráis. Por ejemplo, el mio es @soniabot :)");
 		
 		List<String> peticionEdad = new ArrayList<String>(); 
@@ -133,6 +133,25 @@ public class conversacion {
 		peticionTelefono.add("¿Podéis darme un número de móvil? Sólo lo usaré para que el grupo con el que quedéis pueda ponerse en contacto con vosotros; siempre con vuestra confirmación.");
 		peticionTelefono.add("¿Me decis un número de móvil? Tranquilos que no lo dare sin vuestro permiso, es para poneros en contacto con el grupo con el que quedéis.");
 		peticionTelefono.add("¿Me dais un número de móvil? Lo necesito para que un grupo afín pueda ponerse en contacto con vosotros, pero no os preocupéis que no se lo daré a nadie sin vuestro permiso.");
+		
+		List<String> noIDGrupo = new ArrayList<String>(); 
+		noIDGrupo.add("Eso no me vale como identificador de grupo, lo siento. Un identificador de grupo debe empezar con @ y a continuación una serie de letras.");
+		
+		List<String> noEdad = new ArrayList<String>(); 
+		noEdad.add("¡Eso no es una edad!");
+		
+		List<String> noNumIntegrantes = new ArrayList<String>(); 
+		noNumIntegrantes.add("¡No me habéis entendido! Necesito saber cuántas personas sois. Quizás 3 personas, 4...");
+		
+		List<String> noSexo = new ArrayList<String>(); 
+		noSexo.add("Jajaja ¿Por qué me decís eso? Lo que me tenéis que decir ahora es si sois hombres, mujeres o si vuestro grupo es mixto.");
+		
+		List<String> noTelefono = new ArrayList<String>(); 
+		noTelefono.add("Lo siento pero para mí eso no es un teléfono, escribídme un teléfono que yo entienda.");
+		
+		List<String> noPass = new ArrayList<String>(); 
+		noPass.add("Eso no me vale, necesito que me digáis el teléfono tal cual lo escribísteis la vez que nos conocimos. Entender que si no no puedo fiarme de vosotros :(");
+		
 		
 		List<String> peticionIDGrupoImperativo = new ArrayList<String>(); 
 		peticionIDGrupoImperativo.add("Si no me decis vuestro identificador de grupo no puedo seguir :(");
@@ -194,6 +213,12 @@ public class conversacion {
 		conversacion.put("peticionNumIntegrantes", peticionNumIntegrantes);
 		conversacion.put("peticionSexo", peticionSexo);
 		conversacion.put("peticionTelefono", peticionTelefono);
+		conversacion.put("noIDGrupo", noIDGrupo);
+		conversacion.put("noEdad", noEdad);
+		conversacion.put("noNumIntegrantes", noNumIntegrantes);
+		conversacion.put("noSexo", noSexo);
+		conversacion.put("noTelefono", noTelefono);
+		conversacion.put("noPass", noPass);
 		conversacion.put("solicitarNombreImperativo", solicitarNombreImperativo);
 		conversacion.put("peticionIDGrupoImperativo", peticionIDGrupoImperativo);
 		conversacion.put("peticionEdadImperativo", peticionEdadImperativo);

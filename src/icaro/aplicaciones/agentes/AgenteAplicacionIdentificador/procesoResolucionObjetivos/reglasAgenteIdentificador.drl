@@ -115,7 +115,7 @@ rule "Regla de obtencion del telefono del grupo"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.telefono, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	gr.setTelefono(msgg);
  	gr.actividad();
  	fc.setFoco(null);
@@ -125,6 +125,20 @@ rule "Regla de obtencion del telefono del grupo"
    	
    	update(ob);
    	update(fc);
+   	retract(notif);
+end
+
+rule "Regla de obtencion del telefono del grupo cuando se recibe algo que no es un telefono"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerTelefono(state == Objetivo.PENDING, objectReferenceId == group)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.telefono, msgg:mensajeNotificacion )
+ then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group,conversacion.msg("noTelefono"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	retract(notif);
 end
 
@@ -154,7 +168,7 @@ rule "Regla de obtencion del sexo del grupo"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.sexo, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	gr.setSexo(msgg);
  	gr.actividad();
  	fc.setFoco(null);
@@ -166,6 +180,21 @@ rule "Regla de obtencion del sexo del grupo"
    	
    	update(ob);
    	update(fc);
+   	retract(notif);
+end
+
+rule "Regla de obtencion del sexo del grupo cuando se obtiene algo que no es el sexo"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerSexo(state == Objetivo.PENDING, objectReferenceId == group)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.sexo, msgg:mensajeNotificacion )
+ then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group,conversacion.msg("noSexo"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
    	retract(notif);
 end
 
@@ -195,7 +224,7 @@ rule "Regla de obtencion de la edad del grupo"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.edad, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	gr.setEdad(Integer.parseInt(msgg));
  	gr.actividad();
  	fc.setFoco(null);
@@ -205,6 +234,21 @@ rule "Regla de obtencion de la edad del grupo"
    	
    	update(ob);
    	update(fc);
+   	retract(notif);
+end
+
+rule "Regla de obtencion de la edad del grupo cuando se recibe algo que no es una edad"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerEdad(state == Objetivo.PENDING, objectReferenceId == group)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.edad, msgg:mensajeNotificacion )
+ then
+    TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group,conversacion.msg("noEdad"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+   	
    	retract(notif);
 end
 
@@ -234,7 +278,7 @@ rule "Regla de obtencion del numero de integrantes del grupo"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.numintegrantes, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	gr.setNumIntegrantes(Integer.parseInt(msgg));
  	gr.actividad();
  	fc.setFoco(null);
@@ -248,6 +292,21 @@ rule "Regla de obtencion del numero de integrantes del grupo"
    	retract(notif);
 end
 
+rule "Regla de obtencion del numero de integrantes cuando no se recibe el num integ"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerNumIntegrantes(state == Objetivo.PENDING, objectReferenceId == group)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.numintegrantes, msgg:mensajeNotificacion )
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(group,conversacion.msg("noNumIntegrantes"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	
+   	retract(notif);
+end
+
 rule "Regla de obtencion de la contrasena del grupo (telefono)"
  when
  	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.REFINED)
@@ -258,9 +317,11 @@ rule "Regla de obtencion de la contrasena del grupo (telefono)"
  then
  	
  	if (gr.getTelefono().equals(msgg)){
- 		obGeneral.setSolving();
+    	obGeneral.setSolving();
  		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  		tarea.ejecutar(group, conversacion.msg("passCorrecta"));	
+  		tarea.ejecutar(group, conversacion.msg("passCorrecta"));
+  		Tarea tarea2 = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
+    	tarea2.ejecutar(group, gr);
  	}
  	else {
  		obGeneral.setPending();
@@ -269,12 +330,27 @@ rule "Regla de obtencion de la contrasena del grupo (telefono)"
  		TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   		tarea.ejecutar(group, conversacion.msg("passIncorrecta"));
  	}
- 	gr.actividad();
+ 	//gr.actividad();
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
    	update(obGeneral);
    	update(ob);
    	update(fc);
+   	retract(notif);
+end
+
+rule "Regla de obtencion de la contrasena del grupo (telefono) cuando no se obtiene un telefono"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.REFINED)
+ 	ob:ObtenerIDGrupo(objectReferenceId == group, state == Objetivo.SOLVED)
+ 	fc:FocoGrupo(grupo == group)
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.telefono, msgg:mensajeNotificacion )
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea.ejecutar(group, conversacion.msg("noPass"));
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	
    	retract(notif);
 end
 
@@ -306,7 +382,7 @@ rule "Regla de obtencion del identificador del grupo"
     notif:Notificacion(identNotificador == group, tipoNotificacion == tipoNotif.idgrupo, msgg:mensajeNotificacion )
     gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	gr.setId(msgg);
  	gr.actividad();
  	fc.setFoco(null);
@@ -321,6 +397,21 @@ rule "Regla de obtencion del identificador del grupo"
    	retract(notif);
 end
 
+rule "Regla de obtencion del identificador del grupo cuando no se recibe un identificador"
+ salience -1
+ when
+ 	obGeneral:IdentificarGrupo(group:objectReferenceId, state == Objetivo.PENDING)
+ 	ob:ObtenerIDGrupo(objectReferenceId == group, state == Objetivo.PENDING)
+ 	fc:FocoGrupo(grupo == group, foco == ob )
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.idgrupo, msgg:mensajeNotificacion )
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+  	tarea.ejecutar(group, conversacion.msg("noIDGrupo"));	
+   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+	
+   	retract(notif);
+end
+
 rule "Notificar desconocimiento"
  when
  	notif:Notificacion(group:identNotificador, tipoNotificacion == VocabularioGestionQuedadas.ExtraccionSemanticaNull )
@@ -329,10 +420,10 @@ rule "Notificar desconocimiento"
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(NotificarAlGrupoSinContexto.class);
     tarea.ejecutar(fc);
-    gr.actividad();
+    //gr.actividad();
     retract(notif);
-    update(fc);
-    update(gr);
+    //update(fc);
+    //update(gr);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
@@ -353,22 +444,13 @@ rule "Finalizar la identificacion del grupo"
  	
  	TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
   	tarea2.ejecutar(group, conversacion.msg("persistenciaGrupoCompletada"));	
- 	ob.setSolving();
+ 	
+ 	Tarea tarea3 = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
+    tarea3.ejecutar(group, gr);
+    ob.setSolving();
  	
  	update(ob);
  	update(fc);
-end
-
-rule "Notificar a agentes de la finalizacion de la identificacion del grupo"
- when 
- 	obj:IdentificarGrupo(group:objectReferenceId, state == Objetivo.SOLVING)
-    gr:Grupo(grupo == group)
- then
- 	Tarea tarea = gestorTareas.crearTarea(NotificarGrupoIdentificado.class);
-    tarea.ejecutar(group, gr);
-    obj.setSolved();
-	update(obj);
- 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
 rule "Notificar a agente gestion quedadas de la creacion de la quedada"
@@ -377,7 +459,7 @@ rule "Notificar a agente gestion quedadas de la creacion de la quedada"
  	notif:NotificacionQuedada(identNotificador == group)
  	gr:Grupo(grupo == group)
  then
- 	ob.setSolved();
+ 	ob.setSolving();
  	Objetivo ob2 = new RedireccionarNotifAgenteGestionQuedadas();
  	ob2.setobjectReferenceId(group);
  	Tarea tarea = gestorTareas.crearTarea(NotificarAgenteGestionQuedadas.class);
@@ -390,11 +472,11 @@ end
 rule "Redireccionar mensaje a agente dialogo quedadas"
  when
     RedireccionarNotifAgenteDialogoQuedadas(group:objectReferenceId, state == Objetivo.PENDING)
-    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && tipoNotificacion != tipoNotif.despedida)
-    gr:Grupo(grupo == group)
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && 
+    											  tipoNotificacion != tipoNotif.despedida && 
+    											  tipoNotificacion != VocabularioGestionQuedadas.ExtraccionSemanticaNull)
  then
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
-	gr.actividad();
   	Tarea tarea = gestorTareas.crearTarea(Distribuir.class);
     tarea.ejecutar(notif, VocabularioGestionQuedadas.IdentAgenteAplicacionDialogoQuedadas);
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -404,7 +486,9 @@ end
 rule "Redireccionar mensaje a agente gestion quedadas"
  when
     RedireccionarNotifAgenteGestionQuedadas(group:objectReferenceId, state == Objetivo.PENDING)
-    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && tipoNotificacion != tipoNotif.despedida)
+    notif:Notificacion(identNotificador == group, tipoNotificacion != tipoNotif.saludo && 
+    											  tipoNotificacion != tipoNotif.despedida && 
+    											  tipoNotificacion != VocabularioGestionQuedadas.ExtraccionSemanticaNull)
     gr:Grupo(grupo == group)
  then
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTARA LA REGLA: " + drools.getRule().getName());
@@ -415,6 +499,29 @@ rule "Redireccionar mensaje a agente gestion quedadas"
    retract(notif);
 end
 
+rule "Descartar notificaciones de objetivos completados pendientes de resolver"
+ salience 10
+ when
+ 	ob:Objetivo(group:objectReferenceId, state == Objetivo.SOLVING)
+ 	notif:Notificacion(identNotificador == group)
+ then
+ 	ob.setSolved();
+ 	update(ob);
+ 	retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Resolver objetivos completados pendientes de resolver"
+ salience 9
+ when
+ 	ob:Objetivo(group:objectReferenceId, state == Objetivo.SOLVING)
+ then
+ 	ob.setSolved();
+ 	update(ob);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+/*
 rule "Contexto incorrecto Luego de identificar"
  when 
    notif:Notificacion(identInterlc:identNotificador, 
@@ -430,7 +537,8 @@ rule "Contexto incorrecto Luego de identificar"
   	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
   	retract(notif);
 end
-
+*/
+/*
 rule "Recibir Objetivo primera vez"
  when 
  	notif:NotificacionObjetivo(identInterlc:identNotificador, tipoNotificacion == tipoNotif.objetivo, agente == "INIT")
@@ -448,6 +556,7 @@ rule "Recibir Objetivo primera vez"
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
  	retract(notif);
 end
+*/
 /*
 rule "Focalizacion de distribucion de mensajes"
  when
@@ -469,7 +578,7 @@ rule "Focalizacion de distribucion de mensajes"
 	update(fc);
 end
 */
-
+/*
 rule "Solicita Distribucion de mensajes paciente"
  when
     notif:Notificacion(identInterlc:identNotificador, 
@@ -624,7 +733,7 @@ rule "Detectar Inactividad prolongada"
    recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    retract( cu );
 end
-
+*/
 rule "Despedirse"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.despedida)
@@ -639,7 +748,7 @@ rule "Despedirse"
    
    retract( notif );
 end
-
+/*
 rule "fechaAnterior"
 	when 
 	 notif:Notificacion(identInterlc:identNotificador, tipoNotificacion == tipoNotif.fechaAnterior)
@@ -660,5 +769,5 @@ rule "Timer Inactividad"
 	 then
    update(m);
 end
-	
+*/
 

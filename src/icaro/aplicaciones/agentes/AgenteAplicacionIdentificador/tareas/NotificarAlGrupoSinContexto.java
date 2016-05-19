@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;			// Cambiarlo por el VocabularioGestionQuedadas, añadiendo lo que necesites!!
+import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;			// Cambiarlo por el VocabularioGestionQuedadas, aï¿½adiendo lo que necesites!!
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -11,7 +11,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  *
- * @author Jorge Casas Hernán
+ * @author Jorge Casas Hernï¿½n
  */
 public class NotificarAlGrupoSinContexto extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
@@ -26,10 +26,11 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
 			
-			if(foGrupo.intentos < 1){
+			if(foGrupo.intentos < 1 || foGrupo.getFoco() != null){
 				mensajeAenviar = conversacion.msg("sincontexto");
 				foGrupo.intentos = foGrupo.intentos+1;
-			}else{
+			}
+			else{
 				if(foGrupo.getFoco().getgoalId().equals("ObtenerIDGrupo")){
 					mensajeAenviar = conversacion.msg("peticionIDGrupoImperativo");
 					foGrupo.intentos = 0;
