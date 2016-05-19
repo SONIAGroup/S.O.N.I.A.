@@ -8,7 +8,6 @@
 *  Version 2, June 1991 (in the distribution as file licence.html,
 *  and also available at http://gate.ac.uk/gate/licence.html).
 *
-*  Alberto Gil 
 * identificacionTelefono = {kind = "identificacionTelefono", rule = "identificacionTelefono"}
 */
 
@@ -32,4 +31,22 @@ System.out.println(str);
 }
 },
 :identificacionTelefono.telefono = {kind = "identificacionTelefono", rule = "identificacionTelefono"}
+
+Rule: identificacionTelefono2
+Priority: 100
+(
+ {Token.string == "+", Token.length==1}
+ {Token.string =~ "[3][4][67][0-9]{8}", Token.length==11}
+):identificacionTelefono
+-->
+:identificacionTelefono{
+System.out.println("______________ rule identificacionTelefono ");
+System.out.println("The individual tokens : " );
+for (Annotation tok : identificacionTelefonoAnnots) {
+FeatureMap fm = tok.getFeatures();
+String str = (String)fm.get("string");
+System.out.println(str);
+}
+},
+:identificacionTelefono.telefono = {kind = "identificacionTelefono", rule = "identificacionTelefono2"}
 

@@ -97,14 +97,7 @@ public class ComunicacionChatImp extends ConexionIrc {
 	@Override
 	public void onPrivateMessage(String sender, String login, String hostname,
 			String message) {
-		// if(message.matches("Hola"))
-		// {
-		// sendRawLine("PRIVMSG "+sender+" :Hola, "+sender+"!");
-		// }else
-		// {
-		// sendRawLine("PRIVMSG "+sender+" :Lo siento pero no entiendo lo que dices");
-		// }
-		// String agteReceptor = getIdentAgenteGestorDialogo();
+
 		if (getIdentAgenteGestorDialogo() != null) {
 			mensajeAenviar = new MensajeSimple(message, sender,
 					getIdentAgenteGestorDialogo());
@@ -138,13 +131,7 @@ public class ComunicacionChatImp extends ConexionIrc {
 				Logger.getLogger(ComunicacionChatImp.class.getName()).log(
 						Level.SEVERE, null, ex);
 			}
-			// if(message.matches("hola"))
-			// {
-			// sendRawLine("PRIVMSG "+sender+" :Hola, "+sender+"!");
-			// }else
-			// {
-			// sendRawLine("PRIVMSG "+sender+" :Lo siento pero no entiendo lo que dices");
-			// }
+
 		}
 	}
 }
