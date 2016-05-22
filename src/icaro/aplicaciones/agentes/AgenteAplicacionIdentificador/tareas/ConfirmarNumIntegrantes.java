@@ -14,7 +14,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  *
- * @author Francisco J Garijo
+ * @author SONIAGroup
  */
 public class ConfirmarNumIntegrantes extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
@@ -38,11 +38,11 @@ public class ConfirmarNumIntegrantes extends TareaSincrona {
 				String mensajeAenviar = null;
 				
 				if (numIntegrantes == 1)
-					mensajeAenviar = "Estas tu solo en el grupo?? Si fuera humana te acompa�aba yo jajaja. No te preocupes, seguro que encuentro un grupo que encaje contigo.";
+					mensajeAenviar = "¿Estás tu solo en el grupo?? Si fuera humana te acompañaba yo jajaja. No te preocupes, seguro que encuentro un grupo que encaje contigo.";
 				else if (numIntegrantes > 6)
-					mensajeAenviar = "Sois " + numIntegrantes + "?? Que pasada!";
+					mensajeAenviar = "¿¿Sois " + numIntegrantes + "?? ¡Qué pasada!";
 				else
-					mensajeAenviar = "Genial! " + numIntegrantes + " personas esta muy bien para un grupo.";
+					mensajeAenviar = "¡Genial! " + numIntegrantes + " personas está muy bien para un grupo.";
 				recComunicacionChat.enviarMensagePrivado(identInterlocutor,
 						mensajeAenviar);
 
