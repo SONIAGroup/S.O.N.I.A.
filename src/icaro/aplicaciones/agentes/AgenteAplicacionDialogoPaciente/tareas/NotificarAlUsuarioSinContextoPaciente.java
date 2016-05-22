@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tools.conversacionPaciente;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.CitaMedica;
 import icaro.aplicaciones.informacion.gestionCitas.FocoUsuario;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
@@ -29,7 +29,7 @@ public class NotificarAlUsuarioSinContextoPaciente extends TareaSincrona {
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
 			
 			if(foUsuario.intentos < 2){
-				mensajeAenviar = conversacion.msg("sincontexto");
+				mensajeAenviar = ConversacionGrupo.msg("sincontexto");
 				foUsuario.intentos = foUsuario.intentos+1;
 			}else{
 					

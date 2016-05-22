@@ -231,7 +231,7 @@ rule "Confirmacion de cita sin identificar al usuario"
  	insert( cu );
  	
  	TareaSincrona tareadist = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tareadist.ejecutar(identInterlc,conversacion.msg("solicitarNuevamenteIDGrupo")); 	
+    tareadist.ejecutar(identInterlc,ConversacionGrupo.msg("solicitarNuevamenteIDGrupo")); 	
  	update(fc);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
 end
@@ -362,7 +362,7 @@ rule "Consultar citas, teniendo el paciente no identificado"
  	insert(id);
  	
  	TareaSincrona tareadist = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tareadist.ejecutar(identInterlc,conversacion.msg("solicitarNuevamenteIDGrupo")); 	
+    tareadist.ejecutar(identInterlc,ConversacionGrupo.msg("solicitarNuevamenteIDGrupo")); 	
  	
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName()); 
 end
@@ -436,7 +436,7 @@ rule "Regla de solicitar nombre"
   	fc.setFoco(no);
   	
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    tarea.ejecutar(fcuser,conversacion.msg("solicitarNombre"));
+    tarea.ejecutar(fcuser,ConversacionGrupo.msg("solicitarNombre"));
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	update(fc);
    	insert(no);
@@ -454,7 +454,7 @@ rule "Regla de obtencion de nombre"
  	cu.actividad();
  	fc.setFoco(null);
     TareaSincrona tarea = gestorTareas.crearTareaSincrona(SolicitarNombre.class);
-    tarea.ejecutar(user,conversacion.msg("obtencionNombre"),msgg);
+    tarea.ejecutar(user,ConversacionGrupo.msg("obtencionNombre"),msgg);
    	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
    	
    	update(obj);
@@ -476,7 +476,7 @@ rule "Regla de solicitud del identificador del grupo"
 	insert(ob);
 	fc.setFoco(ob);
   	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  	tarea.ejecutar(fcuser, conversacion.msg("peticionIDGrupo"));
+  	tarea.ejecutar(fcuser, ConversacionGrupo.msg("peticionIDGrupo"));
   
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
     update(obj);

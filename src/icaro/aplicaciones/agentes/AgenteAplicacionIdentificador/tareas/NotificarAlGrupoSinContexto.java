@@ -1,6 +1,6 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;			// Cambiarlo por el VocabularioGestionQuedadas, a�adiendo lo que necesites!!
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
@@ -27,36 +27,36 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
 			
 			if(foGrupo.intentos < 1 || foGrupo.getFoco() != null){
-				mensajeAenviar = conversacion.msg("sincontexto");
+				mensajeAenviar = ConversacionGrupo.msg("sincontexto");
 				foGrupo.intentos = foGrupo.intentos+1;
 			}
 			else{
 				if(foGrupo.getFoco().getgoalId().equals("ObtenerIDGrupo")){
-					mensajeAenviar = conversacion.msg("peticionIDGrupoImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("peticionIDGrupoImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco().getgoalId().equals("ObtenerEdad")){
-					mensajeAenviar = conversacion.msg("peticionEdadImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("peticionEdadImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco().getgoalId().equals("ObtenerNumIntegrantes")){
-					mensajeAenviar = conversacion.msg("peticionNumIntegrantesImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("peticionNumIntegrantesImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco().getgoalId().equals("ObtenerSexo")){
-					mensajeAenviar = conversacion.msg("peticionSexoImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("peticionSexoImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco().getgoalId().equals("ObtenerTelefono")){
-					mensajeAenviar = conversacion.msg("peticionTelefonoImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("peticionTelefonoImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco().getgoalId().equals("DistribuirMensaje")){
-					mensajeAenviar = conversacion.msg("solicitarAccionImperativo");
+					mensajeAenviar = ConversacionGrupo.msg("solicitarAccionImperativo");
 					foGrupo.intentos = 0;
 				}
 				else if(foGrupo.getFoco() == null){
-					mensajeAenviar = conversacion.msg("");
+					mensajeAenviar = ConversacionGrupo.msg("");
 					foGrupo.intentos = 0;
 				}
 				

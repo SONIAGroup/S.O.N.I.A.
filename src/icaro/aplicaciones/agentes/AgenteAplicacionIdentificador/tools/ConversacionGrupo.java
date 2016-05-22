@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class conversacion {
+public class ConversacionGrupo {
 	
 	private static HashMap<String,List<String>> conversacion;
 	

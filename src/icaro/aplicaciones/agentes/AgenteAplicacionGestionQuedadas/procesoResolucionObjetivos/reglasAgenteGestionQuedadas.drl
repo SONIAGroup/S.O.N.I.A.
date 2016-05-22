@@ -140,12 +140,13 @@ rule "Obtener respuesta afirmativa a solicitar quedada"
  	fc.setFoco(null);
  	ItfPersistenciaQuedadas persQuedada = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
  	ItfPersistenciaMensajesGrupo persMensajeGrupo = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
+ 	String texto = ConversacionGrupo.msg("respuestaConfirmar");
  	
  	persMensajeGrupo.insertarMensajeGrupo(new MensajeGrupo(que.getGrupoEmisor().getId(), que.getGrupoQueAcepta().getId(), MensajeGrupo.CONFIRMAR));
  	que.setConfirmada(true);
  	persQuedada.insertarQuedada(que);
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-  	tarea.ejecutar(chat, ConversacionGrupo.msg("respuestaConfirmar"));
+  	tarea.ejecutar(chat, texto.replaceFirst("-param-", que.getGrupoQueAcepta().getTelefono()));
  	update(que);
  	retract(ob);
     retract(notif);
@@ -161,10 +162,9 @@ rule "Informar al grupo acerca del MensajeGrupo recibido para el"
  	que:Quedada(idChat == chat)
  then
  	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
- 	String texto;
+ 	ItfPersistenciaQuedadas persQuedada = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
   	
  	if (msg == MensajeGrupo.SOLICITAR) {
- 		ItfPersistenciaQuedadas persQuedada = (ItfPersistenciaQuedadas) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaQuedadas);
  		Quedada que_act = persQuedada.obtenerQuedadaDeGrupoQueAcepta(msggr.getIdGrupoEmisor());
  		que.setGrupoQueAcepta(que_act.getGrupoQueAcepta());
  		Objetivo ob2 = new ObtenerRespuestaSolicitarQuedada();
@@ -173,27 +173,46 @@ rule "Informar al grupo acerca del MensajeGrupo recibido para el"
  		insert(ob2);
  		update(fc);
  		update(que);
- 		texto = ConversacionGrupo.msg("infoSolicitar");
- 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, ConversacionGrupo.msg("infoSolicitar"));
  	}
  	else if (msg == MensajeGrupo.CONFIRMAR) {
- 		texto = ConversacionGrupo.msg("infoConfirmar");
- 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
+ 		Quedada quep = persQuedada.obtenerQuedadaDeGrupoEmisor(msggr.getIdGrupoEmisor());
+ 		String texto = ConversacionGrupo.msg("infoConfirmar");
+ 		tarea.ejecutar(chat, texto.replaceFirst("-param-", quep.getGrupoEmisor().getTelefono()));
  	}
  	else if (msg == MensajeGrupo.DENEGAR) {
- 		texto = ConversacionGrupo.msg("infoDenegar");
- 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, ConversacionGrupo.msg("infoDenegar"));
  		retract(que);
  	}
  	else if (msg == MensajeGrupo.CANCELAR) {
- 		texto = ConversacionGrupo.msg("infoCancelar");
- 		tarea.ejecutar(chat, texto.replaceFirst("-param-", msggr.getIdGrupoEmisor()));
+ 		tarea.ejecutar(chat, ConversacionGrupo.msg("infoCancelar"));
  		retract(que);
  	}
  	retract(msggr);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 
+rule "Solicitud nuevos mensajes grupo"
+ when
+ 	notif:NotificacionQuedada(chat:identNotificador, tipoNotificacion == tipoNotif.novedad )
+	gr:Grupo(grupo == chat)
+	que:Quedada(idChat == chat)
+ then
+ 	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
+	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
+	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+	if (mgr != null) {
+		insert(mgr);
+		persistencia.eliminarMensajeGrupo(gr.getId());
+		tarea.ejecutar(chat, ConversacionGrupo.msg("hayMensajesGrupo"));		
+	}
+	else {
+		tarea.ejecutar(chat, ConversacionGrupo.msg("noHayMensajesGrupo"));
+	}
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+/*
 rule "Obtener nuevos mensajes desde persistencia"
  salience -1
  timer ( int: 0 5s )
@@ -211,3 +230,4 @@ rule "Obtener nuevos mensajes desde persistencia"
 	}
 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
+*/

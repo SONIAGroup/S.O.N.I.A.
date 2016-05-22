@@ -1,6 +1,5 @@
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.ItfUsoRecursoTrazas;
 import icaro.infraestructura.recursosOrganizacion.recursoTrazas.imp.componentes.InfoTraza;
-//import static icaro.aplicaciones.recursos.recursoCalendario.imp.RecursoCalendarioImp.*;
 import icaro.aplicaciones.recursos.persistenciaMensajesGrupo.*;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.*;
@@ -9,9 +8,6 @@ import icaro.infraestructura.entidadesBasicas.PerformativaUsuario;
 import icaro.infraestructura.entidadesBasicas.comunicacion.*
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.objetivos.*;
 import icaro.aplicaciones.informacion.gestionCitas.*;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.*;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas.*;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.*;
 import icaro.aplicaciones.informacion.gestionQuedadas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas.*;
@@ -34,7 +30,7 @@ when
 then
 	ob.setSolved();
 	
-	// Guardar la quedada en persistencia. Esto s�lo se debe hacer cuando el matching no ha tenido �xito.
+	// Guardar la quedada en persistencia. Esto solo se debe hacer cuando el matching no ha tenido �xito.
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
     tarea.ejecutar(que);
 	
@@ -79,7 +75,7 @@ then
 	ob.setSolved();
 	ItfPersistenciaMensajesGrupo persMensajeGrupo = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	
-	// Guardar la quedada en persistencia. Esto s�lo se debe hacer cuando el matching no ha tenido �xito.
+	// Guardar la quedada en persistencia. Esto solo se debe hacer cuando el matching no ha tenido �xito.
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
     tarea.ejecutar(que);
     
@@ -142,14 +138,7 @@ then
 	
 	TareaSincrona tarea0 = gestorTareas.crearTareaSincrona(MatchingQuedadas.class);
 	tarea0.ejecutar(chat, que, fc);
-	
-	// Guardar la quedada en persistencia. Esto s�lo se debe hacer cuando el matching no ha tenido �xito.
-	//TareaSincrona tarea1 = gestorTareas.crearTareaSincrona(AlmacenarQuedada.class);
-    //tarea1.ejecutar(que);
-	//TareaSincrona tarea2 = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
-    //tarea2.ejecutar(chat, ConversacionGrupo.msg("confirmarQuedada"));
-    //Tarea tarea3 = gestorTareas.crearTarea(NotificarQuedadaCompletada.class);
-    //tarea3.ejecutar(chat);
+
     recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId," EJECUTO LA REGLA: " + drools.getRule().getName());
 	update(ob);
 	retract(notif);
@@ -592,6 +581,26 @@ rule "Obtener info de otro grupo"
  	
  	update(ob);
  	update(que);
+    retract(notif);
+ 	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
+end
+
+rule "Obtener info no valida de otro grupo"
+ salience 40
+ when
+ 	ob:IdentificarOtroGrupo(chat:objectReferenceId, state == Objetivo.PENDING || state == Objetivo.SOLVING)
+ 	ob1:ObtenerNumIntegrantesOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	ob2:ObtenerEdadOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	ob3:ObtenerSexoOtroGrupo(objectReferenceId == chat, state != Objetivo.SOLVING)
+ 	notif:NotificacionQuedada(identNotificador == chat,
+ 			tipoNotificacion != tipoNotif.numintegrantes && 
+ 			tipoNotificacion != tipoNotif.edad && 
+ 			tipoNotificacion != tipoNotif.sexo, 
+ 			msgg:mensajeNotificacion)
+ 	que:Quedada(idChat == chat)
+ then
+ 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
+    tarea.ejecutar(chat, ConversacionGrupo.msg("noInfoValidaOtroGrupo"));
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end

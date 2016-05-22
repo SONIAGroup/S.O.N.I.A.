@@ -1,9 +1,10 @@
-package icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tareas;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tools.conversacionPaciente;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
-import icaro.aplicaciones.informacion.gestionCitas.CitaMedica;
-import icaro.aplicaciones.informacion.gestionCitas.FocoUsuario;
+package icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas;
+
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -13,28 +14,27 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  *
- * @author Francisco J Garijo
+ * @author SONIAGroup
  */
-public class NotificarAlContextoIncorrecto extends TareaSincrona {
+public class MensajeGenerico extends TareaSincrona {
 	private Objetivo contextoEjecucionTarea = null;
+
 	@Override
 	public void ejecutar(Object... params) {
 
 		String identDeEstaTarea = this.getIdentTarea();
 		String identAgenteOrdenante = this.getIdentAgente();
-		FocoUsuario foUsuario = (FocoUsuario) params[0];
-		String mensajeAenviar = "";
+		String identInterlocutor = (String) params[0];
+		String mensaje = (String) params[1];
 		try {
+			// // Se busca la interfaz del recurso en el repositorio de
+			// interfaces
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
 					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
-			
-				mensajeAenviar = ConversacionGrupo.msg("semanticoErroneo");
-				foUsuario.intentos = foUsuario.intentos+1;
-		
 			if (recComunicacionChat != null) {
-			
 				recComunicacionChat.comenzar(identAgenteOrdenante);
-				recComunicacionChat.enviarMensagePrivado(foUsuario.getUsuario(),
+				String mensajeAenviar = mensaje;
+				recComunicacionChat.enviarMensagePrivado(identInterlocutor,
 						mensajeAenviar);
 			} else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();
@@ -46,11 +46,16 @@ public class NotificarAlContextoIncorrecto extends TareaSincrona {
 								+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
 						CausaTerminacionTarea.ERROR);
 			}
-			
-	
-			
 		} catch (Exception e) {
+			this.generarInformeConCausaTerminacion(
+					identDeEstaTarea,
+					contextoEjecucionTarea,
+					identAgenteOrdenante,
+					"Error-Acceso:Interfaz:"
+							+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+					CausaTerminacionTarea.ERROR);
 			e.printStackTrace();
 		}
 	}
+
 }

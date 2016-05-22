@@ -40,6 +40,9 @@ public class ConversacionGrupo {
 		List<String> imperativoInfoOtroGrupo_numIntegrantes = new ArrayList<String>();
 		imperativoInfoOtroGrupo_numIntegrantes.add("Vamos mas lentos que los caracoles :( ¡¡Decidme el número de integrantes del otro grupo!! ¿¿U os da igual??");
 		
+		List<String> noInfoValidaOtroGrupo = new ArrayList<String>();
+		noInfoValidaOtroGrupo.add("¡Creo que no me estáis entendiendo bien! Yo lo que quiero que me digais es el número de personas, edad y sexo del otro grupo con el que queréis quedar.");
+		
 		List<String> errorInfoOtroGrupo_numIntegrantes = new ArrayList<String>();
 		errorInfoOtroGrupo_numIntegrantes.add("Así que queréis quedar con un grupo de 0 personas... ¡¡pues ya esta la quedada!! Venga, en serio, decidme con cuantas personas queréis quedar.");
 	
@@ -179,6 +182,7 @@ public class ConversacionGrupo {
 		conversacionGrupo.put("sinContexto", sinContexto);
 		conversacionGrupo.put("pedirInfoOtroGrupo", pedirInfoOtroGrupo);
 		conversacionGrupo.put("confirmacionInfoOtroGrupo", confirmacionInfoOtroGrupo);
+		conversacionGrupo.put("noInfoValidaOtroGrupo", noInfoValidaOtroGrupo);
 		
 		conversacionGrupo.put("pedirInfoOtroGrupo_numIntegrantes", pedirInfoOtroGrupo_numIntegrantes);
 		conversacionGrupo.put("errorInfoOtroGrupo_numIntegrantes", errorInfoOtroGrupo_numIntegrantes);

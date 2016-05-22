@@ -8,7 +8,7 @@ package icaro.aplicaciones.recursos.comunicacionChat.imp;
 import static icaro.aplicaciones.recursos.comunicacionChat.imp.util.ConexionIrc.VERSION;
 import gate.Annotation;
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas.MensajeGenerico;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionCitas.InfoConexionUsuario;
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
 import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
@@ -261,7 +261,7 @@ public class InterpreteMsgsIRC {
 			
 			if ( !sourceNick.equals("ConexionIrc") ) {
 				MensajeGenerico msg = new MensajeGenerico();
-				msg.ejecutar(sourceNick, conversacion.msg("saludoInicial"));
+				msg.ejecutar(sourceNick, ConversacionGrupo.msg("saludoInicial"));
 			}
 			return;
 		}
@@ -485,6 +485,7 @@ public class InterpreteMsgsIRC {
 		anotacionesBusquedaPrueba.add("si");
 		anotacionesBusquedaPrueba.add("no");
 		anotacionesBusquedaPrueba.add("meDaIgual");
+		anotacionesBusquedaPrueba.add("novedad");
 		// esto habria que pasarlo como parametro
 		if (infoConecxInterlocutor == null) {
 			infoConecxInterlocutor = new InfoConexionUsuario();
@@ -1643,23 +1644,35 @@ public class InterpreteMsgsIRC {
 								contextoInterpretacion, annot)));
 
 
-			} else if (anotType.equalsIgnoreCase("si") && !anotaciones_leidas.contains("si")) {
-				anotaciones_leidas.add("si");
+			} else if (anotType.equalsIgnoreCase("si")) {
+				if (!anotaciones_leidas.contains("si"))
+					anotaciones_leidas.add("si");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 				
-			} else if (anotType.equalsIgnoreCase("no") && !anotaciones_leidas.contains("no")) {
-				anotaciones_leidas.add("no");
+			} else if (anotType.equalsIgnoreCase("no")) {
+				if (!anotaciones_leidas.contains("no"))
+					anotaciones_leidas.add("no");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(
 								contextoInterpretacion, annot));
 			}
 			
-			else if (anotType.equalsIgnoreCase("meDaIgual") && !anotaciones_leidas.contains("meDaIgual")) {
-				anotaciones_leidas.add("meDaIgual");
+			else if (anotType.equalsIgnoreCase("meDaIgual")) {
+				if(!anotaciones_leidas.contains("meDaIgual"))
+					anotaciones_leidas.add("meDaIgual");
+				tienePeticion = true;
+				anotacionesInterpretadas
+						.add(interpretarAnotacionSaludoEInicioPeticion(
+								contextoInterpretacion, annot));
+			}
+			
+			else if (anotType.equalsIgnoreCase("novedad")) {
+				if(!anotaciones_leidas.contains("novedad"))
+					anotaciones_leidas.add("novedad");
 				tienePeticion = true;
 				anotacionesInterpretadas
 						.add(interpretarAnotacionSaludoEInicioPeticion(

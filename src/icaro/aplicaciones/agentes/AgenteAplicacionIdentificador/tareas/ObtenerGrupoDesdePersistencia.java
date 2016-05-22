@@ -6,7 +6,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.objetivos.IdentificarGrupo;
-import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.conversacion;
+import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
@@ -57,7 +57,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 
 				if (recComunicacionChat != null) {
 					recComunicacionChat.comenzar(identAgenteOrdenante);
-					String mensajeAenviar = conversacion.msg("solicitarPass");
+					String mensajeAenviar = ConversacionGrupo.msg("solicitarPass");
 					recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				}
 				
@@ -67,7 +67,7 @@ public class ObtenerGrupoDesdePersistencia extends TareaSincrona {
 
 				if (recComunicacionChat != null) {
 					recComunicacionChat.comenzar(identAgenteOrdenante);
-					String mensajeAenviar = conversacion.msg("grupoNoRegistrado");
+					String mensajeAenviar = ConversacionGrupo.msg("grupoNoRegistrado");
 					recComunicacionChat.enviarMensagePrivado(identInterlocutor, mensajeAenviar);
 				}
 
