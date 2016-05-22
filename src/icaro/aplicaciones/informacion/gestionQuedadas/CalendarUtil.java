@@ -1,4 +1,4 @@
-package icaro.aplicaciones.recursos.recursoCalendario;
+package icaro.aplicaciones.informacion.gestionQuedadas;
 
 /*
  * net/balusc/util/CalendarUtil.java

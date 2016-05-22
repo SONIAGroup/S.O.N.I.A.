@@ -12,7 +12,6 @@ import icaro.aplicaciones.informacion.gestionQuedadas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tareas.*;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.*;
-import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
 import java.util.Calendar;
 
 global ItfGestorTareas gestorTareas;

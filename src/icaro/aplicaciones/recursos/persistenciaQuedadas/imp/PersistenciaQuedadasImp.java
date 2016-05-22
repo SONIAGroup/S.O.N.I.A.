@@ -1,7 +1,6 @@
 package icaro.aplicaciones.recursos.persistenciaQuedadas.imp;
 
 import icaro.aplicaciones.informacion.IOUtils;
-import icaro.aplicaciones.informacion.gestionCitas.UsuarioContexto;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import java.io.Serializable;
 import java.util.ArrayList;

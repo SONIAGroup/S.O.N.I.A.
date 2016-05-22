@@ -1,7 +1,7 @@
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
 import icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tools.ConversacionGrupo;
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;			// Cambiarlo por el VocabularioGestionQuedadas, a�adiendo lo que necesites!!
+import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
@@ -24,7 +24,7 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 		String mensajeAenviar = "";
 		try {
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
-					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
+					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			
 			if(foGrupo.intentos < 1 || foGrupo.getFoco() != null){
 				mensajeAenviar = ConversacionGrupo.msg("sincontexto");
@@ -74,7 +74,7 @@ public class NotificarAlGrupoSinContexto extends TareaSincrona {
 						contextoEjecucionTarea,
 						identAgenteOrdenante,
 						"Error-AlObtener:Interfaz:"
-								+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+								+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 						CausaTerminacionTarea.ERROR);
 			}
 			

@@ -5,9 +5,7 @@
 
 package icaro.aplicaciones.agentes.AgenteAplicacionGestionQuedadas.tareas;
 
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
-import icaro.aplicaciones.informacion.gestionQuedadas.NotificacionIdentificado;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
@@ -70,7 +68,7 @@ public class DescribirQuedada extends TareaSincrona {
 						contextoEjecucionTarea,
 						identAgenteOrdenante,
 						"Error-AlObtener:Interfaz:"
-								+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+								+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 						CausaTerminacionTarea.ERROR);
 			}
 		} catch (Exception e) {
@@ -79,7 +77,7 @@ public class DescribirQuedada extends TareaSincrona {
 					contextoEjecucionTarea,
 					identAgenteOrdenante,
 					"Error-Acceso:Interfaz:"
-							+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+							+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 					CausaTerminacionTarea.ERROR);
 			e.printStackTrace();
 		}

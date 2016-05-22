@@ -1,6 +1,6 @@
 package icaro.aplicaciones.recursos.comunicacionChat;
 
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.imp.InterpreteMsgsIRC;
 import icaro.aplicaciones.recursos.comunicacionChat.imp.util.ConexionIrc;
 import icaro.aplicaciones.recursos.comunicacionChat.imp.util.IrcException;
@@ -46,7 +46,7 @@ public class ClaseGeneradoraComunicacionChat extends ImplRecursoSimple
 		nickname = ConfigInfoComunicacionChat.nicknameConexionAgte;
 		// identAgenteAReportar =
 		// VocabularioGestionCitas.IdentAgenteAplicacionDialogoCitas;
-		identExtractorSem = VocabularioGestionCitas.IdentRecursoExtractorSemantico;
+		identExtractorSem = VocabularioGestionQuedadas.IdentRecursoExtractorSemantico;
 		try {
 			// comunicChat = new
 			// ComunicacionChatImp(idInstanciaRecurso,url,nickname);
@@ -146,7 +146,7 @@ public class ClaseGeneradoraComunicacionChat extends ImplRecursoSimple
 		InterfazUsoAgente itfAgteControlador;
 		try {
 			itfAgteControlador = (InterfazUsoAgente) this.repoIntfaces
-					.obtenerInterfazUso(VocabularioGestionCitas.IdentAgenteIdentificador);
+					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentAgenteIdentificador);
 			if (itfAgteControlador == null) {
 				this.generarErrorCreacionComponente("itfAgteControlador es null");
 			} else {
@@ -165,9 +165,9 @@ public class ClaseGeneradoraComunicacionChat extends ImplRecursoSimple
 				throw new Exception();
 			} else {
 				interpreteMsgIrc
-						.setIdentAgenteGestorDialogo(VocabularioGestionCitas.IdentAgenteIdentificador);
+						.setIdentAgenteGestorDialogo(VocabularioGestionQuedadas.IdentAgenteIdentificador);
 				interpreteMsgIrc
-						.setIdentConexion(VocabularioGestionCitas.IdentConexionAgte);
+						.setIdentConexion(VocabularioGestionQuedadas.IdentConexionAgte);
 				comunicChat.setVerbose(true);
 				conectar(url, chanel, nickname);
 			}

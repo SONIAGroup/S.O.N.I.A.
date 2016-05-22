@@ -1,17 +1,18 @@
 package icaro.aplicaciones.recursos.comunicacionChat;
 
-import icaro.aplicaciones.agentes.AgenteAplicacionDialogoPaciente.tools.tipoNotifPaciente;
 import icaro.aplicaciones.informacion.gestionQuedadas.tipoNotif;
 import icaro.aplicaciones.informacion.gestionQuedadas.Notificacion;
-import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
-import icaro.aplicaciones.recursos.recursoCalendario.imp.RecursoCalendarioImp;
+import icaro.aplicaciones.informacion.gestionQuedadas.DateUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class ParserFecha {
+	
+	public static final SimpleDateFormat slashFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
 	private static final int DIA = 1;
 	private static final int SEMANA = 7;
@@ -36,26 +37,26 @@ public final class ParserFecha {
 			put("manana", DIA);
 			put("ayer", -DIA);
 			put("semana que viene", SEMANA);
-			put("semana pr�xima", SEMANA);
+			put("semana próxima", SEMANA);
 			put("semana proxima", SEMANA);
 			put("semana siguiente", SEMANA);
 			put("siguiente semana", SEMANA);
 			put("siguiente semana", SEMANA);
 			put("mes que viene", MES);
 			put("mes siguiente", MES);
-			put("a�o siguiente", ANO);
-			put("a�o pr�ximo", ANO);
-			put("a�o proximo", ANO);
-			put("pr�ximo a�o", ANO);
-			put("mes pr�ximo", MES);
+			put("año siguiente", ANO);
+			put("año próximo", ANO);
+			put("año proximo", ANO);
+			put("próximo año", ANO);
+			put("mes próximo", MES);
 			put("mes proximo", MES);
-			put("proximo a�o", ANO);
+			put("proximo año", ANO);
 			put("proximo mes", MES);
-			put("pr�ximo mes", MES);
-			put("pr�xima semana", SEMANA);
+			put("próximo mes", MES);
+			put("próxima semana", SEMANA);
 			put("proxima semana", SEMANA);
-			put("pr�ximo d�a", DIA);
-			put("proximo d�a", DIA);
+			put("próximo día", DIA);
+			put("proximo día", DIA);
 			put("proximo dia", DIA);
 		}
 	};
@@ -74,29 +75,13 @@ public final class ParserFecha {
 		{
 			put("lunes", Calendar.MONDAY);
 			put("martes", Calendar.TUESDAY);
-			put("mi�rcoles", Calendar.WEDNESDAY);
+			put("miércoles", Calendar.WEDNESDAY);
 			put("miercoles", Calendar.WEDNESDAY);
 			put("jueves", Calendar.THURSDAY);
 			put("viernes", Calendar.FRIDAY);
-			put("s�bado", Calendar.SATURDAY);
+			put("sábado", Calendar.SATURDAY);
 			put("sabado", Calendar.SATURDAY);
 			put("domingo", Calendar.SUNDAY);
-		}
-	};
-
-	/**
-	 * Los valores de estas claves ser�n usados para obtener la fecha
-	 * correspondiente al d�a del mes
-	 */
-	private static final Map<String, Integer> MAPEO_DIAS_MES = new HashMap<String, Integer>() {
-
-		/**
-			 * 
-			 */
-		private static final long serialVersionUID = -4299206735179032010L;
-		{
-			put("primero", 1);
-			put("primer", 1);
 		}
 	};
 
@@ -128,7 +113,7 @@ public final class ParserFecha {
 				// notificacion para enviar mensaje al usuario.
 				notif.setTipoNotificacion(tipoNotif.fechaAnterior);
 			} else {
-				msg = RecursoCalendarioImp.slashFormatter.format(nuevaFecha);
+				msg = slashFormatter.format(nuevaFecha);
 				notif.setMensajeNotificacion(msg);
 			}
 		} else {
@@ -149,7 +134,7 @@ public final class ParserFecha {
 					msgDate = calendar.getTime();
 				}
 				
-				msg = RecursoCalendarioImp.slashFormatter.format(msgDate);
+				msg = slashFormatter.format(msgDate);
 				notif.setMensajeNotificacion(msg);
 			}
 		}
@@ -158,7 +143,7 @@ public final class ParserFecha {
 	}
 
 	public static Object parseaFechaNumero(Notificacion notif) {
-		notif.setTipoNotificacion(tipoNotifPaciente.fecha);
+		notif.setTipoNotificacion(tipoNotif.fecha);
 		String stringNumero;
 		int numero=0;
 		String msg = notif.getMensajeNotificacion();
@@ -186,7 +171,7 @@ public final class ParserFecha {
 			calendar.set(calendar.get(Calendar.YEAR),(calendar.get(Calendar.MONTH))+1,numero);
 			msgDate = calendar.getTime();
 		} 
-		msg = RecursoCalendarioImp.slashFormatter.format(msgDate);
+		msg = slashFormatter.format(msgDate);
 		notif.setMensajeNotificacion(msg);
 		return notif;
 	}

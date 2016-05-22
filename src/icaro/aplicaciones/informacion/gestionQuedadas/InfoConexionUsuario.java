@@ -1,4 +1,4 @@
-package icaro.aplicaciones.informacion.gestionCitas;
+package icaro.aplicaciones.informacion.gestionQuedadas;
 
 /**
  *
@@ -49,35 +49,4 @@ public class InfoConexionUsuario {
 		return super.toString() + ", " + sb.toString();
 
 	}
-
-	/**
-	 * Expresa el contenido en lenguaje natural
-	 *
-	 * @return
-	 */
-	// public String expresar(){
-	// String cadena="";
-	// cadena = this.userName+" "+this.pasw;
-	// return cadena;
-	// }
-
-	// public boolean equals(Object o)
-	// {
-	// try {
-	// // esta clase hereda de UDC, comparamos padres primero
-	// //buba
-	// InfoConexionUsuario udc = (InfoConexionUsuario)o;
-	// // if(
-	// // Utilidades.compararStrings(this.getNombre(),udc.getNombre()) &&
-	// // Utilidades.compararStrings(this.getApe1(),udc.getApe1()) &&
-	// // Utilidades.compararStrings(this.getApe2(),udc.getApe2())
-	// // )
-	// // return true;
-	// // else
-	// return false;
-	// }
-	// catch (Exception ex) {
-	// return false;
-	// }
-	// }
 }

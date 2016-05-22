@@ -7,7 +7,7 @@
  */
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
@@ -35,7 +35,7 @@ public class SaludoInicial extends TareaSincrona {
 							+ identRecursoComunicacionChat);
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
-				recComunicacionChat.enviarMensageCanal(VocabularioGestionCitas.SaludoInicial1);
+				recComunicacionChat.enviarMensageCanal(VocabularioGestionQuedadas.SaludoInicial1);
 			} 
 			else {
 				identAgenteOrdenante = this.getAgente().getIdentAgente();

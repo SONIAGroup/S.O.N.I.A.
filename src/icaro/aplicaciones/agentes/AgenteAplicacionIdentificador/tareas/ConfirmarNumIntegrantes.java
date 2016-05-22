@@ -5,7 +5,7 @@
 
 package icaro.aplicaciones.agentes.AgenteAplicacionIdentificador.tareas;
 
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
+import icaro.aplicaciones.informacion.gestionQuedadas.VocabularioGestionQuedadas;
 import icaro.aplicaciones.recursos.comunicacionChat.ItfUsoComunicacionChat;
 import icaro.infraestructura.entidadesBasicas.NombresPredefinidos;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.CausaTerminacionTarea;
@@ -31,7 +31,7 @@ public class ConfirmarNumIntegrantes extends TareaSincrona {
 			// // Se busca la interfaz del recurso en el repositorio de
 			// interfaces
 			ItfUsoComunicacionChat recComunicacionChat = (ItfUsoComunicacionChat) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ
-					.obtenerInterfazUso(VocabularioGestionCitas.IdentRecursoComunicacionChat);
+					.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoComunicacionChat);
 			if (recComunicacionChat != null) {
 				recComunicacionChat.comenzar(identAgenteOrdenante);
 				
@@ -53,7 +53,7 @@ public class ConfirmarNumIntegrantes extends TareaSincrona {
 						contextoEjecucionTarea,
 						identAgenteOrdenante,
 						"Error-AlObtener:Interfaz:"
-								+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+								+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 						CausaTerminacionTarea.ERROR);
 			}
 		} catch (Exception e) {
@@ -62,7 +62,7 @@ public class ConfirmarNumIntegrantes extends TareaSincrona {
 					contextoEjecucionTarea,
 					identAgenteOrdenante,
 					"Error-Acceso:Interfaz:"
-							+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+							+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 					CausaTerminacionTarea.ERROR);
 			e.printStackTrace();
 		}

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import icaro.aplicaciones.recursos.recursoCalendario.DateUtil;
+import icaro.aplicaciones.informacion.gestionQuedadas.DateUtil;
 
 /**
  *  Clase que modela una quedada
  *  
- * @author Mariano Hernández García Y Jorge Casas Hernan
+ * @author Mariano Hernï¿½ndez Garcï¿½a Y Jorge Casas Hernan
  *
  */
 public class Quedada implements Serializable {

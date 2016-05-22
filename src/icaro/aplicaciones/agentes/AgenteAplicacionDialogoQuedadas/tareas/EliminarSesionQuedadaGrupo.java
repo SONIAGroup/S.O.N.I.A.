@@ -16,7 +16,6 @@ import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.Obte
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.ObtenerQueHacer;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.ObtenerSexoOtroGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
-import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.Objetivo;
 import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaComunicacion;

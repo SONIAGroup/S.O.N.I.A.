@@ -11,7 +11,6 @@ import java.util.Calendar;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.GuardarQuedadaIncompleta;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.objetivos.ObtenerConfirmacionMatchingCuandoFunciona;
 import icaro.aplicaciones.agentes.AgenteAplicacionDialogoQuedadas.tools.ConversacionGrupo;
-import icaro.aplicaciones.informacion.gestionCitas.VocabularioGestionCitas;
 import icaro.aplicaciones.informacion.gestionQuedadas.FocoGrupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Grupo;
 import icaro.aplicaciones.informacion.gestionQuedadas.Quedada;
@@ -26,7 +25,7 @@ import icaro.infraestructura.entidadesBasicas.procesadorCognitivo.TareaSincrona;
 
 /**
  * 
- * @author Mariano Hernández García
+ * @author Mariano Hernï¿½ndez Garcï¿½a
  *
  */
 public class MatchingQuedadas extends TareaSincrona {
@@ -114,7 +113,7 @@ public class MatchingQuedadas extends TareaSincrona {
 						contextoEjecucionTarea,
 						identAgenteOrdenante,
 						"Error-AlObtener:Interfaz:"
-								+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+								+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 						CausaTerminacionTarea.ERROR);
 			}
 		} catch (Exception e) {
@@ -123,7 +122,7 @@ public class MatchingQuedadas extends TareaSincrona {
 					contextoEjecucionTarea,
 					identAgenteOrdenante,
 					"Error-Acceso:Interfaz:"
-							+ VocabularioGestionCitas.IdentRecursoComunicacionChat,
+							+ VocabularioGestionQuedadas.IdentRecursoComunicacionChat,
 					CausaTerminacionTarea.ERROR);
 			e.printStackTrace();
 		}
@@ -164,7 +163,7 @@ public class MatchingQuedadas extends TareaSincrona {
 		
 		// Si, en ambos sentidos,
 		// el numero de integrantes difiere en mas de 1 persona, 
-		// la edad difiere en mas de 2 años
+		// la edad difiere en mas de 2 aï¿½os
 		// o el sexo no coincide
 		// las quedadas no son afines
 		
