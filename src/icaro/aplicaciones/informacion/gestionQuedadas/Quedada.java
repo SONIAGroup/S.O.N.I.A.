@@ -255,6 +255,7 @@ public class Quedada implements Serializable {
 		
 		String que = "";
 		String donde = "";
+		String integrantes = "";
 		String edad = "";
 		String sexo = "";
 		
@@ -274,15 +275,18 @@ public class Quedada implements Serializable {
 		if ( this.edad == -1 ) 
 			edad = "sin especificar";
 		else 
-			edad = "de " + this.edad + " anios ";
+			edad = "de " + this.edad + " años ";
 		
 		if ( this.sexo == Sexo.sin_especificar ) 
 			sexo = "sin especificar";
 		else
 			sexo = this.sexo.toString();
 		
+		if ( this.numIntegrantes != -1)
+			integrantes = " " + this.numIntegrantes;
 		
-		return que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de " + this.numIntegrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
+		
+		return que + " en " + donde + " el " + this.getFechaFormateada() + ", con un grupo de" + integrantes + " personas, de una edad media " + edad + " y de sexo " + sexo; 
 	}
 
 	
