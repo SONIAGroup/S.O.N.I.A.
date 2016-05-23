@@ -21,8 +21,8 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
  when
  	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "INFO")
  then
- 	//Objetivo ob = new ObtenerNuevosMensajesGrupo();
- 	//ob.setobjectReferenceId(chat);
+ 	Objetivo ob = new ObtenerNuevosMensajesGrupo();
+ 	ob.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
  	
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
@@ -44,7 +44,7 @@ rule "Recibir desde agente identificador el grupo identificado e informarle"
  	
  	insert(fc);
  	insert(gr);
-    //insert(ob);
+    insert(ob);
     insert(que);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -54,12 +54,12 @@ rule "Recibir desde agente identificador el grupo identificado"
  when
  	notif:NotificacionIdentificado(chat:identNotificador, gr:grupo, que:quedada, tipoNotificacion == "NOINFO")
  then
- 	//Objetivo ob = new ObtenerNuevosMensajesGrupo();
- 	//ob.setobjectReferenceId(chat);
+ 	Objetivo ob = new ObtenerNuevosMensajesGrupo();
+ 	ob.setobjectReferenceId(chat);
  	FocoGrupo fc = new FocoGrupo(chat);
  	insert(fc);
  	insert(gr);
-    //insert(ob);
+    insert(ob);
     insert(que);
     retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
@@ -196,19 +196,19 @@ rule "Solicitud nuevos mensajes grupo"
  when
  	notif:NotificacionQuedada(chat:identNotificador, tipoNotificacion == tipoNotif.novedad )
 	gr:Grupo(grupo == chat)
-	que:Quedada(idChat == chat)
  then
  	ItfPersistenciaMensajesGrupo persistencia = (ItfPersistenciaMensajesGrupo) NombresPredefinidos.REPOSITORIO_INTERFACES_OBJ.obtenerInterfazUso(VocabularioGestionQuedadas.IdentRecursoPersistenciaMensajesGrupo);
 	MensajeGrupo mgr = persistencia.obtenerMensajeGrupo(gr.getId());
 	TareaSincrona tarea = gestorTareas.crearTareaSincrona(MensajeGenerico.class);
 	if (mgr != null) {
-		insert(mgr);
 		persistencia.eliminarMensajeGrupo(gr.getId());
-		tarea.ejecutar(chat, ConversacionGrupo.msg("hayMensajesGrupo"));		
+		tarea.ejecutar(chat, ConversacionGrupo.msg("hayMensajesGrupo"));
+		insert(mgr);		
 	}
 	else {
 		tarea.ejecutar(chat, ConversacionGrupo.msg("noHayMensajesGrupo"));
 	}
+	retract(notif);
  	recursoTrazas.aceptaNuevaTrazaEjecReglas(agentId,"EJECUTO LA REGLA: " + drools.getRule().getName());
 end
 

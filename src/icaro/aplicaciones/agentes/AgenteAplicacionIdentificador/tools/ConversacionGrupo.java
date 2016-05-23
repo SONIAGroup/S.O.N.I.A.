@@ -89,20 +89,6 @@ public class ConversacionGrupo {
 		sincontexto.add("Lo siento, pero os entiendo. Mis creadores sólo me han enseñado a organizar quedadas entre grupos ;(");
 		sincontexto.add("¿¿Sabéis que mi nombre viene de Sistema Organizador de eNcuentros basado en Inteligencia Artificial?? Os digo esto porque no os estoy entendiendo, así que por decir yo algo. Jejeje.");
 		
-		List<String> distribucion = new ArrayList<String>(); 
-		distribucion.add("Listo, decídme ...¿en que puedo ayudaros");
-		distribucion.add("¿En que puedo ayudaros?");
-		distribucion.add("¿Que os gustaría hacer hoy?");
-		distribucion.add("Estoy a vuestras órdenes (para organizar quedadas).");
-		
-		//
-		List<String> objetivoLogrado = new ArrayList<String>(); 
-		objetivoLogrado.add("Para que mas soy bueno?");
-		objetivoLogrado.add("En que mas puedo ayudarte?");
-		objetivoLogrado.add("En que mas puedo complacerte?");
-		objetivoLogrado.add("Estoy a tus ordenes para cualquier otra cosa");
-		//
-		
 		List<String> despedida = new ArrayList<String>(); 
 		despedida.add("Espero que volváis pronto. ¡¡Chaooo!! ");
 		despedida.add("¡¡Hasta pronto!!");
@@ -110,9 +96,9 @@ public class ConversacionGrupo {
 		despedida.add("¡¡Hasta la proxima!! :)");
 		
 		List<String> peticionIDGrupo = new ArrayList<String>(); 
-		peticionIDGrupo.add("Lo primero que necesito es vuestro identificador de grupo. Si no tenéis ninguno no os preocupéis, ¡inventaróslo ahora mismo!. Importante, tiene que empezar por @");
+		peticionIDGrupo.add("Lo primero que necesito es vuestro identificador de grupo. Si no tenéis ninguno no os preocupéis, ¡inventaróslo ahora mismo!. Importante, tiene que empezar por @ seguido de una serie de letras.");
 		peticionIDGrupo.add("¿Cuál es vuestro identificador de grupo?. Si no sabéis de qué hablo, necesito un @nick que os identifique como grupo");
-		peticionIDGrupo.add("Decidme, please, vuestro identificador de grupo. Si no tenéis ninguno es buen momento para pensar uno. Tiene que empezar por @ y luego el nombre que queráis. Por ejemplo, el mio es @soniabot :)");
+		peticionIDGrupo.add("Decidme, please, vuestro identificador de grupo. Si no tenéis ninguno es buen momento para pensar uno. Tiene que empezar por @ y luego el nombre que queráis (sólo letras, no números). Por ejemplo, el mio es @soniabot :)");
 		
 		List<String> peticionEdad = new ArrayList<String>(); 
 		peticionEdad.add("¿Cuál es la edad media aproximada de vuestro grupo?");
@@ -130,9 +116,9 @@ public class ConversacionGrupo {
 		peticionSexo.add("¿Sois todos hombres, mujeres o vuestro grupo es mixto?");
 		
 		List<String> peticionTelefono = new ArrayList<String>(); 
-		peticionTelefono.add("¿Podéis darme un número de móvil? Sólo lo usaré para que el grupo con el que quedéis pueda ponerse en contacto con vosotros; siempre con vuestra confirmación.");
-		peticionTelefono.add("¿Me decis un número de móvil? Tranquilos que no lo dare sin vuestro permiso, es para poneros en contacto con el grupo con el que quedéis.");
-		peticionTelefono.add("¿Me dais un número de móvil? Lo necesito para que un grupo afín pueda ponerse en contacto con vosotros, pero no os preocupéis que no se lo daré a nadie sin vuestro permiso.");
+		peticionTelefono.add("¿Podéis darme un número de móvil? Sólo lo usaré para que el grupo con el que quedéis pueda ponerse en contacto con vosotros.");
+		peticionTelefono.add("¿Me decís un número de móvil? Es para poneros en contacto con el grupo con el que quedéis.");
+		peticionTelefono.add("¿Me dais un número de móvil? Lo necesito para que un grupo afín pueda ponerse en contacto con vosotros.");
 		
 		List<String> noIDGrupo = new ArrayList<String>(); 
 		noIDGrupo.add("Eso no me vale como identificador de grupo, lo siento. Un identificador de grupo debe empezar con @ y a continuación una serie de letras.");
@@ -180,18 +166,6 @@ public class ConversacionGrupo {
 		List<String> fechaAnterior = new ArrayList<String>(); 
 		fechaAnterior.add("Disculpadme, pero la fecha en la que queréis quedar es anterior a la fecha actual. Decídme una fecha posterior al pasado.");
 		
-		List<String> semanticoErroneo = new ArrayList<String>(); 
-		semanticoErroneo.add("y que quieres que haga con eso?");
-		semanticoErroneo.add("me gustaria que me diga realmente lo que le pido");
-		semanticoErroneo.add("mmmmm... no me interesa, hablemos de algo mas interesanto");
-		
-		List<String> solicitarAccion = new ArrayList<String>(); 
-		solicitarAccion.add("Le sugiero que me diga que le gustaria hacer");
-		solicitarAccion.add("Podria sugerirle, que me diga algo relacionado con pedir citas");
-		solicitarAccion.add("Podria sugerirle, que me diga algo relacionado con consultar citas");
-		//
-		
-		conversacion.put("solicitarAccion", solicitarAccion);
 		conversacion.put("saludoInicial", saludoInicial);
 		conversacion.put("saludoInicialNoSaludo", saludoInicialNoSaludo);
 		conversacion.put("solicitarNombre", solicitarNombre);
@@ -205,8 +179,6 @@ public class ConversacionGrupo {
 		conversacion.put("volverASaludar", volverASaludar);
 		conversacion.put("ultimaPreguntaIdentificacion", ultimaPreguntaIdentificacion);
 		conversacion.put("sincontexto", sincontexto);
-		conversacion.put("distribucion", distribucion);
-		conversacion.put("objetivoLogrado", objetivoLogrado);
 		conversacion.put("despedida", despedida);
 		conversacion.put("peticionIDGrupo", peticionIDGrupo);
 		conversacion.put("peticionEdad", peticionEdad);
@@ -226,7 +198,6 @@ public class ConversacionGrupo {
 		conversacion.put("peticionSexoImperativo", peticionSexoImperativo);
 		conversacion.put("peticionTelefonoImperativo", peticionTelefonoImperativo);
 		conversacion.put("solicitarAccionImperativo", solicitarAccionImperativo);
-		conversacion.put("semanticoErroneo", semanticoErroneo);
 		conversacion.put("fechaAnterior", fechaAnterior);
 		conversacion.put("solicitarNuevamenteIDGrupo", solicitarNuevamenteIDGrupo);		
 	}
